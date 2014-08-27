@@ -27,16 +27,125 @@ package org.graphwalker.example;
  */
 
 import org.graphwalker.core.machine.ExecutionContext;
+import org.graphwalker.core.model.Model;
 import org.graphwalker.java.annotation.GraphWalker;
+
+import static org.graphwalker.core.Assert.expect;
 
 /**
  * @author Nils Olsson
  */
-@GraphWalker(start = "validateModel")
+@GraphWalker
 public class CreateModelTest extends ExecutionContext implements CreateModel {
+
+    private Model model = new Model();
+
+    @Override
+    public void createVertex() {
+
+    }
+
+    @Override
+    public void validateEdge() {
+
+    }
+
+    @Override
+    public void addGuard() {
+
+    }
+
+    @Override
+    public void init() {
+
+    }
+
+    @Override
+    public void removeAction() {
+
+    }
+
+    @Override
+    public void addSharedState() {
+
+    }
 
     @Override
     public void validateModel() {
+        expect(model).to.have.property("edges").that.have.size(getEdgesCount());
+        expect(model).to.have.property("vertices").that.have.size(getVertexCount());
+    }
 
+    @Override
+    public void removeRequirement() {
+
+    }
+
+    @Override
+    public void validateVertex() {
+
+    }
+
+    @Override
+    public void validateResult() {
+
+    }
+
+    @Override
+    public void createEdge() {
+
+    }
+
+    @Override
+    public void addRequirement() {
+
+    }
+
+    @Override
+    public void buildModel() {
+
+    }
+
+    @Override
+    public void execute() {
+
+    }
+
+    @Override
+    public void removeGuard() {
+
+    }
+
+    @Override
+    public void addAction() {
+
+    }
+
+    @Override
+    public void addEdge() {
+
+    }
+
+    @Override
+    public void addVertex() {
+
+    }
+
+    @Override
+    public void removeSharedState() {
+
+    }
+
+    @Override
+    public void validateRuntimeModel() {
+
+    }
+
+    private int getEdgesCount() {
+        return Integer.parseInt((String)getAttribute("edges"));
+    }
+
+    private int getVertexCount() {
+        return Integer.parseInt((String)getAttribute("vertices"));
     }
 }
