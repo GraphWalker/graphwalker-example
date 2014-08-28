@@ -35,7 +35,7 @@ import static org.graphwalker.core.Assert.expect;
 /**
  * @author Nils Olsson
  */
-@GraphWalker
+@GraphWalker(start = "init")
 public class CreateModelTest extends ExecutionContext implements CreateModel {
 
     private Model model = new Model();
@@ -142,10 +142,16 @@ public class CreateModelTest extends ExecutionContext implements CreateModel {
     }
 
     private int getEdgesCount() {
-        return Integer.parseInt((String)getAttribute("edges"));
+        if (null != getAttribute("edges")) {
+            return Integer.parseInt((String)getAttribute("edges"));
+        }
+        return 0;
     }
 
     private int getVertexCount() {
-        return Integer.parseInt((String)getAttribute("vertices"));
+        if (null != getAttribute("vertices")) {
+            return Integer.parseInt((String)getAttribute("vertices"));
+        }
+        return 0;
     }
 }
