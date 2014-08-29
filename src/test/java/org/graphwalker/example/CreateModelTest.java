@@ -27,7 +27,9 @@ package org.graphwalker.example;
  */
 
 import org.graphwalker.core.machine.ExecutionContext;
+import org.graphwalker.core.model.Edge;
 import org.graphwalker.core.model.Model;
+import org.graphwalker.core.model.Vertex;
 import org.graphwalker.java.annotation.GraphWalker;
 
 import static org.graphwalker.core.Assert.expect;
@@ -39,10 +41,12 @@ import static org.graphwalker.core.Assert.expect;
 public class CreateModelTest extends ExecutionContext implements CreateModel {
 
     private Model model = new Model();
+    private Edge edge;
+    private Vertex vertex;
 
     @Override
     public void createVertex() {
-
+        vertex = new Vertex();
     }
 
     @Override
@@ -72,8 +76,8 @@ public class CreateModelTest extends ExecutionContext implements CreateModel {
 
     @Override
     public void validateModel() {
-        expect(model).to.have.property("edges").that.have.size(getEdgesCount());
-        expect(model).to.have.property("vertices").that.have.size(getVertexCount());
+        expect(model).to.have.property("edges").and.that.it.have.size(get("edges"));
+        expect(model).to.have.property("vertices").and.that.it.have.size(get("vertices"));
     }
 
     @Override
@@ -93,7 +97,7 @@ public class CreateModelTest extends ExecutionContext implements CreateModel {
 
     @Override
     public void createEdge() {
-
+        edge = new Edge();
     }
 
     @Override
@@ -123,12 +127,12 @@ public class CreateModelTest extends ExecutionContext implements CreateModel {
 
     @Override
     public void addEdge() {
-
+        model.addEdge(edge);
     }
 
     @Override
     public void addVertex() {
-
+        model.addVertex(vertex);
     }
 
     @Override
@@ -141,17 +145,16 @@ public class CreateModelTest extends ExecutionContext implements CreateModel {
 
     }
 
-    private int getEdgesCount() {
-        if (null != getAttribute("edges")) {
-            return Integer.parseInt((String)getAttribute("edges"));
+    private int get(String name) {
+        if (null != getAttribute(name)) {
+            Object object = getAttribute(name);
+            if (object instanceof Double) {
+                return ((Double)object).intValue();
+            } else if (object instanceof String) {
+                return Integer.parseInt((String)object);
+            }
         }
         return 0;
     }
 
-    private int getVertexCount() {
-        if (null != getAttribute("vertices")) {
-            return Integer.parseInt((String)getAttribute("vertices"));
-        }
-        return 0;
-    }
 }
