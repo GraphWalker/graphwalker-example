@@ -1,226 +1,263 @@
 package org.graphwalker.example;
 
 
+import org.graphwalker.io.common.ResourceUtils;
 import org.java_websocket.WebSocketImpl;
 import org.java_websocket.client.WebSocketClient;
-import org.java_websocket.drafts.*;
+import org.java_websocket.drafts.Draft_10;
 import org.java_websocket.handshake.ServerHandshake;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.nio.file.Path;
 
 public class GraphWalkerWebSocketClient {
 
-    private WebSocketClient cc;
+    private WebSocketClient wsc;
+    private static final Logger logger = LoggerFactory.getLogger(GraphWalkerWebSocketClient.class);
 
-    private enum RX_STATE {NONE, HASNEXT, LOADMODEL, START, GETNEXT, GETDATA};
+    private enum RX_STATE {
+        NONE,
+        HASNEXT,
+        LOADMODEL,
+        START,
+        GETNEXT,
+        GETDATA,
+        VISITEDELEMENT
+    }
+
+    private final String START = "{\"type\": \"start\"}";
+    private final String GET_NEXT = "{\"type\": \"getNext\"}";
+    private final String HAS_NEXT = "{\"type\": \"hasNext\"}";
+    private final String GET_DATA = "{\"type\": \"getData\"}";
 
     public boolean connected = false;
     public RX_STATE rxState = RX_STATE.NONE;
     public boolean cmd = false;
     public boolean hasNext = false;
+    private int port = 8887;
+    private String host = "localhost";
+    private GraphWalkerWebSocketClient client;
 
-    public GraphWalkerWebSocketClient(String location) throws URISyntaxException {
-        cc = new WebSocketClient(new URI(location), new Draft_17()) {
-
-            @Override
-            public void onMessage( String message ) {
-                System.out.println("got: " + message);
-                JSONObject response = new JSONObject();
-                JSONObject root = null;
-                try {
-                    root = new JSONObject(message);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                    return;
-                }
-
-                rxState = RX_STATE.NONE;
-                cmd = false;
-                String type = root.getString("type").toUpperCase();
-                if (type.equals("HASNEXT")) {
-                    hasNext = false;
-                    rxState = RX_STATE.HASNEXT;
-                    if ( root.getBoolean("success")) {
-                        cmd = true;
-                        if ( root.getBoolean("hasNext")) {
-                            hasNext = true;
-                        }
-                    }
-                }
-                else if (type.equals("LOADMODEL")) {
-                    rxState = RX_STATE.LOADMODEL;
-                    if ( root.getBoolean("success")) {
-                        cmd = true;
-                    }
-                }
-                else if (type.equals("START")) {
-                    rxState = RX_STATE.START;
-                    if ( root.getBoolean("success")) {
-                        cmd = true;
-                    }
-                }
-                else if (type.equals("GETNEXT")) {
-                    rxState = RX_STATE.GETNEXT;
-                    if ( root.getBoolean("success")) {
-                        cmd = true;
-                    }
-                }
-                else if (type.equals("GETDATA")) {
-                    rxState = RX_STATE.GETDATA;
-                    if ( root.getBoolean("success")) {
-                        cmd = true;
-                    }
-                }
-            }
-
-            @Override
-            public void onOpen( ServerHandshake handshake ) {
-                System.out.println("You are connected to ChatServer: " + getURI());
-                connected = true;
-            }
-
-            @Override
-            public void onClose( int code, String reason, boolean remote ) {
-                System.out.println("You have been disconnected from: " + getURI() + "; Code: " + code + " " + reason);
-                connected = false;
-            }
-
-            @Override
-            public void onError( Exception ex ) {
-                System.out.println("Exception occured ...\n" + ex);
-                ex.printStackTrace();
-            }
-        };
-        cc.connect();
+    /**
+     * Creates an instance of the GraphWalker WebSocket client.
+     * The default hostname is localhost
+     * The default port is 8887
+     */
+    public GraphWalkerWebSocketClient() {
     }
 
-    public void loadModel() {
-        cc.send("{\n" +
-            "    \"type\": \"loadModel\",\n" +
-            "    \"model\": {\n" +
-            "        \"name\": \"Small model\",\n" +
-            "        \"generator\": \"random(edge_coverage(100))\",\n" +
-            "        \"vertices\": [\n" +
-            "            {\n" +
-            "                \"name\": \"v_VerifySomeAction\",\n" +
-            "                \"id\": \"n0\"\n" +
-            "            },\n" +
-            "            {\n" +
-            "                \"name\": \"v_VerifySomeOtherAction\",\n" +
-            "                \"id\": \"n1\"\n" +
-            "            }\n" +
-            "        ],\n" +
-            "        \"edges\": [\n" +
-            "            {\n" +
-            "                \"name\": \"e_FirstAction\",\n" +
-            "                \"id\": \"e0\",\n" +
-            "                \"dstVertexId\": \"n0\",\n" +
-            "                \"startElement\": \"true\"\n" +
-            "            },\n" +
-            "            {\n" +
-            "                \"name\": \"e_AnotherAction\",\n" +
-            "                \"id\": \"e1\",\n" +
-            "                \"srcVertexId\": \"n0\",\n" +
-            "                \"dstVertexId\": \"n1\"\n" +
-            "            },\n" +
-            "            {\n" +
-            "                \"name\": \"e_SomeOtherAction\",\n" +
-            "                \"id\": \"e2\",\n" +
-            "                \"srcVertexId\": \"n1\",\n" +
-            "                \"dstVertexId\": \"n1\"\n" +
-            "            },\n" +
-            "            {\n" +
-            "                \"name\": \"e_SomeOtherAction\",\n" +
-            "                \"id\": \"e3\",\n" +
-            "                \"srcVertexId\": \"n1\",\n" +
-            "                \"dstVertexId\": \"n0\"\n" +
-            "            }\n" +
-            "        ]\n" +
-            "    }\n" +
-            "}\n");
+    /**
+     * Creates an instance of the GraphWalker WebSocket client.
+     *
+     * @param host the host to which connect this client
+     * @param port the port to which connect this client
+     */
+    public GraphWalkerWebSocketClient(String host, int port) {
+        this.host = host;
+        this.port = port;
     }
 
-    public void close() {
-        cc.close();
-    }
-
-    public void start() {
-        cc.send( "{\n" +
-            "    \"type\": \"start\"\n" +
-            "}\n");
-    }
-
-    public void getNext() {
-        cc.send( "{\n" +
-            "    \"type\": \"getNext\"\n" +
-            "}\n" );
-    }
-
-    public void hasNext() {
-        cc.send( "{\n" +
-            "    \"type\": \"hasNext\"\n" +
-            "}\n");
-    }
-
-    public void getData() {
-        cc.send( "{\n" +
-            "    \"type\": \"getData\"\n" +
-            "}\n");
-    }
-
-    static public void wait(GraphWalkerWebSocketClient client, RX_STATE state) throws InterruptedException {
-        while (client.rxState != state) {
-            Thread.sleep(100);
-        }
-        if (!client.cmd) {
-            throw new RuntimeException("Failed to execute command!");
-        }
-    }
-
-
-    static public void main(String[] args) throws InterruptedException {
-        WebSocketImpl.DEBUG = true;
-        String location;
-        if (args.length != 0) {
-            location = args[0];
-            System.out.println("Default server url specified: \'" + location + "\'");
-        } else {
-            location = "ws://localhost:8887";
-            System.out.println("Default server url not specified: defaulting to \'" + location + "\'");
-        }
-        try {
-            GraphWalkerWebSocketClient graphWalkerWebSocketClient = new GraphWalkerWebSocketClient(location);
-            while (!graphWalkerWebSocketClient.connected) {
+    /**
+     * Connects the GraphWalker client to the GraphWalker WebSocket
+     * server on ws://hostname:port
+     */
+    public void run() {
+        client = new GraphWalkerWebSocketClient(host, port);
+        client.connect();
+        while (!client.connected) {
+            try {
                 Thread.sleep(100);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
+        }
+    }
 
-            graphWalkerWebSocketClient.loadModel();
-            wait(graphWalkerWebSocketClient, RX_STATE.LOADMODEL);
+    private void connect() {
+        try {
+            wsc = new WebSocketClient(new URI("ws://" + host + ":" + port), new Draft_10()) {
 
-            graphWalkerWebSocketClient.start();
-            wait(graphWalkerWebSocketClient, RX_STATE.START);
+                @Override
+                public void onMessage(String message) {
+                    logger.debug("Got message: " + message );
+                    JSONObject root;
+                    try {
+                        root = new JSONObject(message);
+                    } catch (JSONException e) {
+                        logger.error("Message is not JSON formatted: " + e.getMessage());
+                        return;
+                    }
 
-            graphWalkerWebSocketClient.hasNext();
-            wait(graphWalkerWebSocketClient, RX_STATE.HASNEXT);
+                    rxState = RX_STATE.NONE;
+                    cmd = false;
+                    String type = root.getString("type").toUpperCase();
+                    if (type.equals("HASNEXT")) {
+                        hasNext = false;
+                        rxState = RX_STATE.HASNEXT;
+                        if (root.getBoolean("success")) {
+                            cmd = true;
+                            if (root.getBoolean("hasNext")) {
+                                hasNext = true;
+                            }
+                        }
+                    } else if (type.equals("LOADMODEL")) {
+                        rxState = RX_STATE.LOADMODEL;
+                        if (root.getBoolean("success")) {
+                            cmd = true;
+                        }
+                    } else if (type.equals("START")) {
+                        rxState = RX_STATE.START;
+                        if (root.getBoolean("success")) {
+                            cmd = true;
+                        }
+                    } else if (type.equals("GETNEXT")) {
+                        rxState = RX_STATE.GETNEXT;
+                        if (root.getBoolean("success")) {
+                            cmd = true;
+                        }
+                    } else if (type.equals("GETDATA")) {
+                        rxState = RX_STATE.GETDATA;
+                        if (root.getBoolean("success")) {
+                            cmd = true;
+                        }
+                    } else if (type.equals("VISITEDELEMENT")) {
+                        rxState = RX_STATE.VISITEDELEMENT;
+                    } else {
+                        logger.info("Message type is not implemented: " + type);
+                    }
+                }
 
-            while (graphWalkerWebSocketClient.hasNext) {
-                graphWalkerWebSocketClient.getNext();
-                wait(graphWalkerWebSocketClient, RX_STATE.GETNEXT);
+                @Override
+                public void onOpen(ServerHandshake handshake) {
+                    logger.info("Connected to: " + getURI() );
+                    connected = true;
+                }
 
-                graphWalkerWebSocketClient.getData();
-                wait(graphWalkerWebSocketClient, RX_STATE.GETDATA);
+                @Override
+                public void onClose(int code, String reason, boolean remote) {
+                    logger.info("You have been disconnected from: " + getURI() + "; Code: " + code + " " + reason);
+                    System.out.println();
+                    connected = false;
+                }
 
-                graphWalkerWebSocketClient.hasNext();
-                wait(graphWalkerWebSocketClient, RX_STATE.HASNEXT);
-            }
-            graphWalkerWebSocketClient.close();
-
+                @Override
+                public void onError(Exception ex) {
+                    logger.error("Exception occured ...\n" + ex);
+                    ex.printStackTrace();
+                }
+            };
         } catch (URISyntaxException e) {
             e.printStackTrace();
         }
+        wsc.connect();
     }
 
+    private void wait(GraphWalkerWebSocketClient client, RX_STATE state) {
+        while (client.rxState != state) {
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        if (!client.cmd) {
+            throw new RuntimeException("Failed to execute command");
+        }
+    }
+
+    /**
+     * Loads a model into the GraphWalker machine. The first model loaded, is where
+     * the execution will start.
+     * Several models can be loaded.
+     *
+     * @param model a JSON formatted GraphWalker model as a string
+     */
+    public void loadModel(String model) {
+        logger.debug("Loading model: " + model);
+        client.wsc.send(model);
+        wait(client, RX_STATE.LOADMODEL);
+    }
+
+    /**
+     * Loads a model into the GraphWalker machine. The first model loaded, is where
+     * the execution will start.
+     * Several models can be loaded.
+     *
+     * @param path  a JSON formatted GraphWalker model as a file
+     */
+    public void loadModel(Path path) {
+        logger.debug("Loading model file: " + path.toString());
+        BufferedReader reader = new BufferedReader(new InputStreamReader(ResourceUtils.getResourceAsStream(path.toString())));
+        StringBuilder out = new StringBuilder();
+        String line;
+        try {
+            while ((line = reader.readLine()) != null) {
+                out.append(line);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
+            reader.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        loadModel(out.toString());
+    }
+
+    /**
+     * Closes the connection with the GraphWalker server.
+     */
+    public void close() {
+        logger.debug("Will close");
+        client.wsc.close();
+    }
+
+    /**
+     * Closes the connection with the GraphWalker server.
+     */
+    public void startMachine() {
+        logger.debug("Start the machine");
+        client.wsc.send(START);
+        wait(client, RX_STATE.START);
+    }
+
+    /**
+     * Gets the next element from the the GraphWalker machine
+     */
+    public void getNext() {
+        logger.debug("Get next step");
+        client.wsc.send(GET_NEXT);
+        wait(client, RX_STATE.GETNEXT);
+    }
+
+    /**
+     * Checks if the machine has more steps to generate.
+     *
+     * @return If all stop conditions are fulfilled for the machine, true is returned. Otherwise false.
+     */
+    public boolean hasNext() {
+        logger.debug("Have next step?");
+        client.wsc.send(HAS_NEXT);
+        wait(client, RX_STATE.HASNEXT);
+        return client.hasNext;
+    }
+
+    /**
+     * Asks the machine to return all data from the current model context.
+     */
+    public void getData() {
+        logger.debug("Get data");
+        client.wsc.send(GET_DATA);
+        wait(client, RX_STATE.GETDATA);
+    }
 }
