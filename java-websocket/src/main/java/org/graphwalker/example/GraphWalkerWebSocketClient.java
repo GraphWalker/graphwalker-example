@@ -48,14 +48,15 @@ public class GraphWalkerWebSocketClient {
 
     /**
      * Creates an instance of the GraphWalker WebSocket client.
-     * The default hostname is localhost
-     * The default port is 8887
+     * No connections will be made until the  {@link #run() run}  method is called.
+     * The default hostname is localhost. The default port is 8887
      */
     public GraphWalkerWebSocketClient() {
     }
 
     /**
      * Creates an instance of the GraphWalker WebSocket client.
+     * No connections will be made until the  {@link #run() run}  method is called.
      *
      * @param host the host to which connect this client
      * @param port the port to which connect this client
@@ -68,6 +69,8 @@ public class GraphWalkerWebSocketClient {
     /**
      * Connects the GraphWalker client to the GraphWalker WebSocket
      * server on ws://hostname:port
+     * When connected, a GraphWalker machine will be created on the server
+     * which will serve this client only.
      */
     public void run() {
         client = new GraphWalkerWebSocketClient(host, port);
@@ -176,7 +179,8 @@ public class GraphWalkerWebSocketClient {
     /**
      * Loads a model into the GraphWalker machine. The first model loaded, is where
      * the execution will start.
-     * Several models can be loaded.
+     * Several models can be loaded. Every model which is loaded, will have it's own
+     * context in the machine.
      *
      * @param model a JSON formatted GraphWalker model as a string
      */
@@ -189,7 +193,8 @@ public class GraphWalkerWebSocketClient {
     /**
      * Loads a model into the GraphWalker machine. The first model loaded, is where
      * the execution will start.
-     * Several models can be loaded.
+     * Several models can be loaded. Every model which is loaded, will have it's own
+     * context in the machine.
      *
      * @param path  a JSON formatted GraphWalker model as a file
      */

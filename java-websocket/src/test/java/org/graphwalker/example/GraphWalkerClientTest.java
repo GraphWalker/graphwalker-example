@@ -1,6 +1,5 @@
 package org.graphwalker.example;
 
-import org.java_websocket.WebSocketImpl;
 import org.junit.Test;
 
 import java.nio.file.Paths;
