@@ -28,12 +28,14 @@ public class GraphWalkerWebSocketClient {
         HASNEXT,
         LOADMODEL,
         START,
+        RESTART,
         GETNEXT,
         GETDATA,
         VISITEDELEMENT
     }
 
     private final String START = "{\"type\": \"start\"}";
+    private final String RESTART = "{\"type\": \"restart\"}";
     private final String GET_NEXT = "{\"type\": \"getNext\"}";
     private final String HAS_NEXT = "{\"type\": \"hasNext\"}";
     private final String GET_DATA = "{\"type\": \"getData\"}";
@@ -118,6 +120,11 @@ public class GraphWalkerWebSocketClient {
                         }
                     } else if (type.equals("START")) {
                         rxState = RX_STATE.START;
+                        if (root.getBoolean("success")) {
+                            cmd = true;
+                        }
+                    } else if (type.equals("RESTART")) {
+                        rxState = RX_STATE.RESTART;
                         if (root.getBoolean("success")) {
                             cmd = true;
                         }
@@ -228,12 +235,21 @@ public class GraphWalkerWebSocketClient {
     }
 
     /**
-     * Closes the connection with the GraphWalker server.
+     * Starts the machine. No more loadModel calls are allowed.
      */
     public void startMachine() {
         logger.debug("Start the machine");
         client.wsc.send(START);
         wait(client, RX_STATE.START);
+    }
+
+    /**
+     * Restarts the machine. All previously loaded models will be discared.
+     */
+    public void restartMachine() {
+        logger.debug("Restart the machine");
+        client.wsc.send(RESTART);
+        wait(client, RX_STATE.RESTART);
     }
 
     /**
