@@ -4,14 +4,13 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.graphwalker</groupId>
-    <version>3.2.0-SNAPSHOT</version>
-    <artifactId>java-websocket-client-example</artifactId>
-    <name>GraphWalker Java Websocket Client Example</name>
+    <parent>
+        <groupId>org.graphwalker.example</groupId>
+        <artifactId>graphwalker-example</artifactId>
+        <version>3.2.0-SNAPSHOT</version>
+    </parent>
 
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    </properties>
+    <artifactId>java-websocket</artifactId>
 
     <build>
         <plugins>
@@ -35,7 +34,7 @@
         </dependency>
         <dependency>
             <groupId>org.graphwalker</groupId>
-            <artifactId>graphwalker-io</artifactId>
+            <artifactId>graphwalker-cli</artifactId>
             <version>3.2.0-SNAPSHOT</version>
         </dependency>
         <dependency>
