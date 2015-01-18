@@ -10,6 +10,7 @@ This example will run simulated test using GraphWalker started as a WebSocket se
    On linux: `mono SmallModel/bin/Debug/SmallModel.exe`
 
 When run, the SmallModel program will connect to the GraphWalker service, and load a [model in JSON notation](http://graphwalker.org/docs/json_graph).
+![Alt text](/c-sharp-websocket/SmallModel/SmallModel.png?raw=true "The model")
 
 It will then start the state machine in the GraphWalker service, and query it for steps to execute. The psuedo code would look something like the:
 ```
