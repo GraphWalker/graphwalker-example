@@ -8,3 +8,15 @@ This example will run simulated test using GraphWalker started as a WebSocket se
    On linux: `xbuild `
  * Run the program:
    On linux: `mono SmallModel/bin/Debug/SmallModel.exe`
+
+When run, the SmallModel program will connect to the GraphWalker service, and load a [model in JSON notation](http://graphwalker.org/docs/json_graph).
+
+It will then start the state machine in the GraphWalker service, and query it for steps to execute. The psuedo code would look something like the:
+```
+    while hasNext()
+        step = getNext()
+        Call method in C# SmallModel class
+        print getData()
+```
+
+
