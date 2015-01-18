@@ -15,7 +15,8 @@ It will then start the state machine in the GraphWalker service, and query it fo
 ```
     while hasNext()
         step = getNext()
-        Call method in C# SmallModel class
+        "Call method step in C# SmallModel class"
+        invoke SmallModel.'step'
         print getData()
 ```
 
