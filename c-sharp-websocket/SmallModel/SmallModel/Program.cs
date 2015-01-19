@@ -2,7 +2,6 @@
 using Alchemy;
 using Alchemy.Classes;
 using Newtonsoft.Json.Linq;
-using System.Collections.Generic;
 using System.Threading;
 using System.Reflection;
 
@@ -10,8 +9,8 @@ namespace SmallModel
 {
 	class GraphWalkerClientWorker
 	{
-		private WebSocketClient.ReadyStates state = WebSocketClient.ReadyStates.CLOSED;
 		private WebSocketClient ws = null;
+		public AutoResetEvent connectedEvent = new AutoResetEvent(false);
 		public AutoResetEvent loadModelEvent = new AutoResetEvent(false);
 		public AutoResetEvent startEvent = new AutoResetEvent(false);
 		public AutoResetEvent hasNextEvent = new AutoResetEvent(false);
@@ -25,19 +24,23 @@ namespace SmallModel
 		{
 			Console.WriteLine ("Will connect to GraphWalker server...");
 			ws = new WebSocketClient ("ws://localhost:8887/") {
-				OnReceive = OnReceive
+				OnReceive = OnReceive,
+				OnConnected = OnConnected
 			};
 			ws.Connect ();
-			Console.WriteLine ("Connected!");
-			state = WebSocketClient.ReadyStates.OPEN;
 		}
 
 		public void disconnect ()
 		{
-			state = WebSocketClient.ReadyStates.CLOSED;
 			Console.WriteLine ("Will disconnect from GraphWalker server...");
 			ws.Disconnect ();
+			WebSocketClient.Shutdown ();
 			Console.WriteLine ("Disconnected!");
+		}
+
+		void OnConnected(UserContext context) {
+			Console.WriteLine ("Connected!");
+			connectedEvent.Set ();
 		}
 
 		void OnReceive (UserContext context)
@@ -113,11 +116,6 @@ namespace SmallModel
 			hasNextEvent.Reset ();
 			getNextEvent.Reset ();
 			return (string)element.Clone();
-		}
-
-		public bool isConnected ()
-		{
-			return state == WebSocketClient.ReadyStates.OPEN;
 		}
 
 		public void hasNext ()
@@ -253,11 +251,7 @@ namespace SmallModel
 			while (!workerThread.IsAlive)
 				;
 
-			// Waint until we're connected
-			while (!worker.isConnected ()) {
-				Console.WriteLine ("Waiting to connect...");
-				Thread.Sleep (100);
-			}
+			worker.connectedEvent.WaitOne ();
 
 			worker.loadModel (model);
 			worker.loadModelEvent.WaitOne ();
@@ -287,6 +281,7 @@ namespace SmallModel
 				Console.WriteLine("Data: " + worker.getDataObject().ToString());
 			}
             worker.disconnect();
+			workerThread.Join ();
 		}
 
 	}
