@@ -286,6 +286,7 @@ namespace SmallModel
 				worker.getDataEvent.WaitOne ();
 				Console.WriteLine("Data: " + worker.getDataObject().ToString());
 			}
+            worker.disconnect();
 		}
 
 	}
