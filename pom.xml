@@ -11,6 +11,7 @@
     <modules>
         <module>java-annotation</module>
         <module>java-websocket</module>
+        <module>java-petclinic</module>
     </modules>
 
     <properties>
