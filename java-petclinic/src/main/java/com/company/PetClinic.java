@@ -17,34 +17,34 @@ public class PetClinic extends ExecutionContext implements PetClinicSharedState 
 
     @Override
     public void v_FindOwners() {
-        String bodyText = MyWebDriver.getInstance().findElement(By.tagName("h2")).getText();
+        String bodyText = MyWebDriver.WaitFor(By.tagName("h2")).getText();
         Assert.assertTrue("Text not found!", bodyText.contains("Find Owners"));
     }
 
     @Override
     public void e_HomePage() {
-        MyWebDriver.getInstance().findElement(By.className("icon-home")).click();
+        MyWebDriver.WaitFor(By.className("icon-home")).click();
     }
 
     @Override
     public void e_Veterinarians() {
-        MyWebDriver.getInstance().findElement(By.className("icon-th-list")).click();
+        MyWebDriver.WaitFor(By.className("icon-th-list")).click();
     }
 
     @Override
     public void v_Veterinarians() {
-        String bodyText = MyWebDriver.getInstance().findElement(By.tagName("h2")).getText();
+        String bodyText = MyWebDriver.WaitFor(By.tagName("h2")).getText();
         Assert.assertTrue("Text not found!", bodyText.contains("Veterinarians"));
     }
 
     @Override
     public void e_FindOwners() {
-        MyWebDriver.getInstance().findElement(By.className("icon-search")).click();
+        MyWebDriver.WaitFor(By.className("icon-search")).click();
     }
 
     @Override
     public void v_HomePage() {
-        String bodyText = MyWebDriver.getInstance().findElement(By.tagName("h2")).getText();
+        String bodyText = MyWebDriver.WaitFor(By.tagName("h2")).getText();
         Assert.assertTrue("Text not found!", bodyText.contains("Welcome"));
     }
 

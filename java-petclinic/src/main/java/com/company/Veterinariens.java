@@ -11,20 +11,20 @@ public class Veterinariens extends ExecutionContext implements VeterinariensShar
 
     @Override
     public void e_Search() {
-        MyWebDriver.getInstance().findElement(By.cssSelector("input[type=\"text\"]")).clear();
-        MyWebDriver.getInstance().findElement(By.cssSelector("input[type=\"text\"]")).sendKeys("helen");
+        MyWebDriver.WaitFor(By.cssSelector("input[type=\"text\"]")).clear();
+        MyWebDriver.WaitFor(By.cssSelector("input[type=\"text\"]")).sendKeys("helen");
 
     }
 
     @Override
     public void v_SearchResult() {
-        String bodyText = MyWebDriver.getInstance().findElement(By.xpath("//table[@id='vets']/tbody/tr/td")).getText();
+        String bodyText = MyWebDriver.WaitFor(By.xpath("//table[@id='vets']/tbody/tr/td")).getText();
         Assert.assertTrue("Text not found!", bodyText.contains("Helen Leary"));
     }
 
     @Override
     public void v_Veterinarians() {
-        String bodyText = MyWebDriver.getInstance().findElement(By.tagName("h2")).getText();
+        String bodyText = MyWebDriver.WaitFor(By.tagName("h2")).getText();
         Assert.assertTrue("Text not found!", bodyText.contains("Veterinarians"));
     }
 }
