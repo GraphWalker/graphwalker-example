@@ -16,6 +16,17 @@ import org.openqa.selenium.support.ui.Select;
 @GraphWalker(value = "random(edge_coverage(100))")
 public class OwnerInformation extends ExecutionContext implements OwnerInformationSharedState {
 
+    /**
+     * This method does not only implement the verification of the vertex, it also
+     * fetches the value representing number of pets for the owner, and passes it
+     * on to GraphWalker. In the model OwnerInformationSharedState.graphml the attribute
+     * numOfPets decides whether the guards for the edges:
+     *  e_AddVisit
+     *  e_EditPet
+     * are opened or closed.
+     *
+     * setAttribute is inherited from org.graphwalker.core.machine.ExecutionContext
+     */
     @Override
     public void v_OwnerInformation() {
         Assert.assertTrue(Helper.WaitForElement(By.tagName("h2")).getText().matches("Owner Information"));
