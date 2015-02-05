@@ -6,30 +6,41 @@ import org.graphwalker.java.annotation.GraphWalker;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 
-import static org.graphwalker.core.Assert.expect;
-
+/**
+ * Implements the model (and interface) FindOwnersSharedState
+ * The default path generator is Random Path.
+ * Stop condition is 100% coverage of all edges.
+ */
 @GraphWalker(value = "random(edge_coverage(100))")
 public class FindOwners extends ExecutionContext implements FindOwnersSharedState {
 
     @Override
+    public void v_Owners() {
+        Assert.assertTrue(Helper.WaitForElement(By.tagName("h2")).getText().matches("Owners"));
+    }
+
+    @Override
     public void e_AddOwner() {
-        MyWebDriver.WaitFor(By.linkText("Add Owner")).click();
+        Helper.WaitForElement(By.linkText("Add Owner")).click();
     }
 
     @Override
     public void v_FindOwners() {
-        String bodyText = MyWebDriver.WaitFor(By.tagName("h2")).getText();
-        Assert.assertTrue("Text not found!", bodyText.contains("Find Owners"));
+        Assert.assertTrue(Helper.WaitForElement(By.tagName("h2")).getText().matches("Find Owners"));
+    }
+
+    @Override
+    public void e_Search() {
+        Helper.WaitForElement(By.cssSelector("button[type=\"submit\"]")).click();
     }
 
     @Override
     public void e_FindOwners() {
-        MyWebDriver.WaitFor(By.className("icon-search")).click();
+        Helper.WaitForElement(By.className("icon-search")).click();
     }
 
     @Override
     public void v_NewOwner() {
-        String bodyText = MyWebDriver.WaitFor(By.tagName("h2")).getText();
-        Assert.assertTrue("Text not found!", bodyText.contains("New Owner"));
+        Assert.assertTrue(Helper.WaitForElement(By.tagName("h2")).getText().matches("New Owner"));
     }
 }
