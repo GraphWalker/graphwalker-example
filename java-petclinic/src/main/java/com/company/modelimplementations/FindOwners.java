@@ -1,6 +1,8 @@
-package com.company;
+package com.company.modelimplementations;
 
 
+import com.company.FindOwnersSharedState;
+import com.company.helper.Helper;
 import org.graphwalker.core.machine.ExecutionContext;
 import org.graphwalker.java.annotation.GraphWalker;
 import org.junit.Assert;

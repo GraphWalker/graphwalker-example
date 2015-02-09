@@ -1,13 +1,13 @@
-package com.company;
+package com.company.modelimplementations;
 
 
+import com.company.NewOwnerSharedState;
+import com.company.helper.Helper;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.graphwalker.core.machine.ExecutionContext;
 import org.graphwalker.java.annotation.GraphWalker;
 import org.junit.Assert;
 import org.openqa.selenium.By;
-
-import java.util.HashMap;
 
 /**
  * Implements the model (and interface) NewOwnerSharedState

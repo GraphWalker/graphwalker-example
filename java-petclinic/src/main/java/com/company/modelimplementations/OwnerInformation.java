@@ -1,6 +1,8 @@
-package com.company;
+package com.company.modelimplementations;
 
 
+import com.company.OwnerInformationSharedState;
+import com.company.helper.Helper;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.graphwalker.core.machine.ExecutionContext;
 import org.graphwalker.java.annotation.GraphWalker;
@@ -21,10 +23,10 @@ public class OwnerInformation extends ExecutionContext implements OwnerInformati
      * fetches the value representing number of pets for the owner, and passes it
      * on to GraphWalker. In the model OwnerInformationSharedState.graphml the attribute
      * numOfPets decides whether the guards for the edges:
-     *  e_AddVisit
-     *  e_EditPet
+     * e_AddVisit
+     * e_EditPet
      * are opened or closed.
-     *
+     * <p/>
      * setAttribute is inherited from org.graphwalker.core.machine.ExecutionContext
      */
     @Override

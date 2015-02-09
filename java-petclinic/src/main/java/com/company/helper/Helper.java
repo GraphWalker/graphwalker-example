@@ -1,4 +1,4 @@
-package com.company;
+package com.company.helper;
 
 import org.junit.Assert;
 import org.openqa.selenium.By;
@@ -44,6 +44,7 @@ public class Helper {
 
     /**
      * If not already created, creates the singleton webdriver object.
+     *
      * @return the singleton webdriver object
      */
     public static WebDriver getInstance() {
@@ -53,6 +54,7 @@ public class Helper {
     /**
      * Will wait for a specified web element to appear. If not found
      * an assertion will fail.
+     *
      * @param by The description of the element
      * @return The matching element if found.
      */
@@ -77,6 +79,7 @@ public class Helper {
     /**
      * Will wait for a specified web element(s) to appear. If not found
      * an assertion will fail.
+     *
      * @param by The description of the element
      * @return A list of matching element(s) if found.
      */
