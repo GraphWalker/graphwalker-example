@@ -1,0 +1,50 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.graphwalker.example</groupId>
+        <artifactId>graphwalker-example</artifactId>
+        <version>3.3.0</version>
+    </parent>
+
+    <artifactId>algorithm</artifactId>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>2.3.2</version>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.graphwalker</groupId>
+                <artifactId>graphwalker-maven-plugin</artifactId>
+                <version>${project.version}</version>
+                <!-- Bind goals to the default lifecycle -->
+                <executions>
+                    <execution>
+                        <id>generate-test-sources</id>
+                        <phase>generate-test-sources</phase>
+                        <goals>
+                            <goal>generate-test-sources</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>test</id>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>test</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>
