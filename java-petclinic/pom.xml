@@ -49,17 +49,10 @@
                 <!-- Bind goals to the default lifecycle -->
                 <executions>
                     <execution>
-                        <id>generate-test-sources</id>
-                        <phase>generate-test-sources</phase>
+                        <id>generate-sources</id>
+                        <phase>generate-sources</phase>
                         <goals>
-                            <goal>generate-test-sources</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>test</id>
-                        <phase>test</phase>
-                        <goals>
-                            <goal>test</goal>
+                            <goal>generate-sources</goal>
                         </goals>
                     </execution>
                 </executions>
