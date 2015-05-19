@@ -4,8 +4,10 @@ import org.graphwalker.core.algorithm.Algorithm;
 import org.graphwalker.core.machine.Context;
 import org.graphwalker.core.model.Edge;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * @author Nils Olsson
@@ -13,7 +15,7 @@ import java.util.stream.Collectors;
 public class MyReverseAlgorithm implements Algorithm {
 
 	private final Context context;
-	private List<Edge.RuntimeEdge> edges;
+	private List<Edge.RuntimeEdge> edges = new ArrayList<>();
 
 	public MyReverseAlgorithm(Context context) {
 		this.context = context;
@@ -21,9 +23,13 @@ public class MyReverseAlgorithm implements Algorithm {
 	}
 
 	public void doSomeWork() {
-		edges = context.getModel().getEdges().stream()
-				.sorted((edge1, edge2) -> edge2.getId().compareTo(edge1.getId()))
-				.collect(Collectors.toList());
+		edges.addAll(context.getModel().getEdges());
+		Collections.sort(edges, new Comparator<Edge.RuntimeEdge>() {
+			@Override
+			public int compare(Edge.RuntimeEdge edge1, Edge.RuntimeEdge edge2) {
+				return edge2.getId().compareTo(edge1.getId());
+			}
+		});
 	}
 
 	public List<Edge.RuntimeEdge> getEdges() {
