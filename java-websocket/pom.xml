@@ -7,7 +7,7 @@
     <parent>
         <groupId>org.graphwalker.example</groupId>
         <artifactId>graphwalker-example</artifactId>
-        <version>3.2.1</version>
+        <version>3.3.0</version>
     </parent>
 
     <artifactId>java-websocket</artifactId>
