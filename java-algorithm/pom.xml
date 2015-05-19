@@ -10,7 +10,7 @@
         <version>3.3.0</version>
     </parent>
 
-    <artifactId>algorithm</artifactId>
+    <artifactId>java-algorithm</artifactId>
 
     <build>
         <plugins>
@@ -29,13 +29,6 @@
                 <version>${project.version}</version>
                 <!-- Bind goals to the default lifecycle -->
                 <executions>
-                    <execution>
-                        <id>generate-test-sources</id>
-                        <phase>generate-test-sources</phase>
-                        <goals>
-                            <goal>generate-test-sources</goal>
-                        </goals>
-                    </execution>
                     <execution>
                         <id>test</id>
                         <phase>test</phase>

@@ -9,6 +9,7 @@
     <packaging>pom</packaging>
 
     <modules>
+        <module>java-algorithm</module>
         <module>java-annotation</module>
         <module>java-websocket</module>
         <module>java-petclinic</module>
