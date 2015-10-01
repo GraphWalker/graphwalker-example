@@ -18,8 +18,8 @@ public class Veterinariens extends ExecutionContext implements VeterinariensShar
 
     @Override
     public void e_Search() {
-        Helper.WaitForElement(By.cssSelector("input[type=\"text\"]")).clear();
-        Helper.WaitForElement(By.cssSelector("input[type=\"text\"]")).sendKeys("helen");
+        Helper.WaitForElement(By.cssSelector("input[type=\"search\"]")).clear();
+        Helper.WaitForElement(By.cssSelector("input[type=\"search\"]")).sendKeys("helen");
 
     }
 
