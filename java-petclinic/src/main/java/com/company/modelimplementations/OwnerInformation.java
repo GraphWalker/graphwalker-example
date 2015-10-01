@@ -9,6 +9,8 @@ import org.graphwalker.java.annotation.GraphWalker;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.Select;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Implements the model (and interface) OwnerInformationSharedState
@@ -17,6 +19,8 @@ import org.openqa.selenium.support.ui.Select;
  */
 @GraphWalker(value = "random(edge_coverage(100))")
 public class OwnerInformation extends ExecutionContext implements OwnerInformationSharedState {
+
+    private static final Logger log = LoggerFactory.getLogger(OwnerInformation.class);
 
     /**
      * This method does not only implement the verification of the vertex, it also
@@ -33,6 +37,7 @@ public class OwnerInformation extends ExecutionContext implements OwnerInformati
     public void v_OwnerInformation() {
         Assert.assertTrue(Helper.WaitForElement(By.tagName("h2")).getText().matches("Owner Information"));
         setAttribute("numOfPets", Helper.WaitForElements(By.xpath("//th[2]")).size());
+        log.info("Number of pets: " + getAttribute("numOfPets"));
     }
 
     @Override
