@@ -8,6 +8,7 @@ import org.graphwalker.core.machine.ExecutionContext;
 import org.graphwalker.java.annotation.GraphWalker;
 import org.junit.Assert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.support.ui.Select;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -71,11 +72,11 @@ public class OwnerInformation extends ExecutionContext implements OwnerInformati
     }
 
     @Override
-    public void e_AddPetSuccessfully() {
+    public void e_AddPetSuccessfully() throws InterruptedException {
+        Helper.WaitForElement(By.id("birthDate")).clear();
+        Helper.WaitForElement(By.id("birthDate")).sendKeys("2015/02/05" + Keys.ENTER);
         Helper.WaitForElement(By.id("name")).clear();
         Helper.WaitForElement(By.id("name")).sendKeys(RandomStringUtils.randomAlphabetic(Helper.getRandomInt(10)));
-        Helper.WaitForElement(By.id("birthDate")).clear();
-        Helper.WaitForElement(By.id("birthDate")).sendKeys("2015/02/05");
         new Select(Helper.WaitForElement(By.id("type"))).selectByVisibleText("dog");
         Helper.WaitForElement(By.cssSelector("button[type=\"submit\"]")).click();
     }
