@@ -3,11 +3,13 @@
 # How to test this script:
 # ========================
 #
-# 1)  The script will download the graphwalker jar and and example model
-#     to the current folder.
+#   Run this script:
+#   bash run-RESTFUL-Test.bash
 #
-# 2)  Run this script into the graphwalker-project folder and run:
-#     bash run-RESTFUL-Test.bash 
+#   The script will download the graphwalker jar and and example model
+#   to the current folder and execute that using the RESTFUL service.
+#
+#
 
 
 
