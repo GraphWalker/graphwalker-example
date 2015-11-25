@@ -5,6 +5,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.List;
 import java.util.Random;
@@ -13,6 +15,7 @@ import java.util.Random;
  * Created by krikar on 2015-02-01.
  */
 public class Helper {
+    private static final Logger log = LoggerFactory.getLogger(Helper.class);
 
     /**
      * Random number generator.
@@ -61,17 +64,17 @@ public class Helper {
     public static WebElement WaitForElement(By by) {
         for (int second = 0; ; second++) {
             if (second >= timeOut) {
-                Assert.fail("timeout");
-            }
-            WebElement element = null;
-            try {
-                element = getInstance().findElement(by);
-                return element;
-            } catch (Exception e) {
+                Assert.fail("Timeout occurred while waiting for: " + by.toString());
             }
             try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
+                return getInstance().findElement(by);
+            } catch (Exception e1) {
+                log.debug(e1.getMessage());
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e2) {
+                    log.debug(e2.getMessage());
+                }
             }
         }
     }
