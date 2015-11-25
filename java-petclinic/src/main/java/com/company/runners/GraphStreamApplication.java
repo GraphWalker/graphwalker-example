@@ -9,6 +9,9 @@ import org.graphwalker.java.test.Executor;
 import org.graphwalker.java.test.Result;
 import org.graphwalker.java.test.TestExecutor;
 
+import java.util.Iterator;
+import java.util.Map;
+
 /**
  * @author Nils Olsson
  */
@@ -26,7 +29,13 @@ public class GraphStreamApplication {
                 Veterinariens.class);
         Observer observer = new GraphStreamObserver(graph);
         executor.getMachine().addObserver(observer);
-        Result result = executor.execute();
+
+        Result result = executor.execute(true);
+        if (result.hasErrors()) {
+            for (String error : result.getErrors()) {
+                System.out.println(error);
+            }
+        }
         System.out.println("Done: [" + result.getCompletedCount() + "," + result.getFailedCount() + "]");
     }
 }

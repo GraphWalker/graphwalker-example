@@ -29,7 +29,13 @@ public class WebSocketApplication {
 
         observer.start();
         executor.getMachine().addObserver(observer);
-        Result result = executor.execute();
+
+        Result result = executor.execute(true);
+        if (result.hasErrors()) {
+            for (String error : result.getErrors()) {
+                System.out.println(error);
+            }
+        }
         System.out.println("Done: [" + result.getCompletedCount() + "," + result.getFailedCount() + "]");
     }
 }
