@@ -2,15 +2,23 @@
 #
 # How to test this script:
 # ========================
-# 1)  Checkout the GraphWalker project from github
+#
+# 1)  Either do step 2) or step 3)
+#
+# 2)  Download the graphwalker jar file:
+#     wget http://graphwalker.org/archive/graphwalker-cli-3.4.0-SNAPSHOT.jar
+#
+#     Continue to step 4)
+#
+# 3)  Checkout the GraphWalker project from github
 #     git clone https://github.com/GraphWalker/graphwalker-project.git
 #
-# 2)  Build the standalone graphwalker jar file
+#     Build the standalone graphwalker jar file
 #     cd graphwalker-project
 #     mvn package -pl graphwalker-cli -am
 #     cp graphwalker-cli/target/graphwalker-cli-*.jar .
 #
-# 3)  Run this script into the graphwalker-project folder and run:
+# 4)  Run this script into the graphwalker-project folder and run:
 #     bash run-RESTFUL-Test.bash 
 
 
@@ -56,7 +64,7 @@ fi
 while [[ $(curl -s http://localhost:8887/graphwalker/hasNext | jq -r .hasNext) == "true" ]]
 do
   # Get the next element to execute
-  GETNEXT=$(curl -s http://localhost:8887/graphwalker/getNext | jq -r .CurrentElementName)
+  GETNEXT=$(curl -s http://localhost:8887/graphwalker/getNext | jq -r .currentElementName)
   echo "Will exectute: $GETNEXT"
 
   # Get the data in the model,if any
