@@ -3,22 +3,10 @@
 # How to test this script:
 # ========================
 #
-# 1)  Either do step 2) or step 3)
+# 1)  The script will download the graphwalker jar and and example model
+#     to the current folder.
 #
-# 2)  Download the graphwalker jar file:
-#     wget http://graphwalker.org/archive/graphwalker-cli-3.4.0-SNAPSHOT.jar
-#
-#     Continue to step 4)
-#
-# 3)  Checkout the GraphWalker project from github
-#     git clone https://github.com/GraphWalker/graphwalker-project.git
-#
-#     Build the standalone graphwalker jar file
-#     cd graphwalker-project
-#     mvn package -pl graphwalker-cli -am
-#     cp graphwalker-cli/target/graphwalker-cli-*.jar .
-#
-# 4)  Run this script into the graphwalker-project folder and run:
+# 2)  Run this script into the graphwalker-project folder and run:
 #     bash run-RESTFUL-Test.bash 
 
 
@@ -40,6 +28,14 @@ control_c()
 trap control_c SIGINT
 
 
+# Get the latest graphwalker jar
+GW3_JAR=graphwalker-cli-3.4.0-SNAPSHOT.jar
+if [ ! -f $GW3_JAR ]
+then
+  wget http://graphwalker.org/archive/graphwalker-cli-3.4.0-SNAPSHOT.jar
+fi
+
+
 
 # Launch graphwalker, and redirect stderr and stdout to gw3.log
 java -jar graphwalker-cli-3.4.0-SNAPSHOT.jar -d all online --service RESTFUL > gw3.log 2>&1 &
@@ -49,8 +45,14 @@ PID=$!
 sh -c 'tail -n +0 --pid=$$ -f gw3.log | { sed "/Press Control/ q" && kill $$ ;}'
 echo "GraphWalker REST started"
 
-# Upload models to service
-GW3_FILE=graphwalker-io/src/test/resources/gw3/petClinic.gw3
+# Get the model file
+GW3_FILE=petClinic.gw3
+if [ ! -f $GW3_FILE ]
+then
+  wget https://raw.githubusercontent.com/GraphWalker/graphwalker-project/master/graphwalker-io/src/test/resources/gw3/petClinic.gw3
+fi
+
+# Upload model file to service
 RESULT=$(curl -s -H "Content-Type: text/plain;charset=UTF-8" -X POST -d @$GW3_FILE http://localhost:8887/graphwalker/load | jq -r .result)
 
 # Check result
