@@ -77,6 +77,7 @@ public class WebSocketObserver extends org.java_websocket.server.WebSocketServer
                 jsonObject.put("type", "node");
                 jsonObject.put("id", getId(machine.getCurrentContext(), vertex));
                 jsonObject.put("name", vertex.getName());
+                jsonObject.put("visitedCount", machine.getProfiler().getVisitCount(element));
                 sendElement(jsonObject);
 
                 if (vertex.hasSharedState() &&
@@ -98,6 +99,7 @@ public class WebSocketObserver extends org.java_websocket.server.WebSocketServer
                     jsonObject.put("type", "edge");
                     jsonObject.put("id", getId(machine.getCurrentContext(), edge));
                     jsonObject.put("name", edge.getName());
+                    jsonObject.put("visitedCount", machine.getProfiler().getVisitCount(element));
                     jsonObject.put("source", getId(machine.getCurrentContext(), edge.getSourceVertex()));
                     jsonObject.put("target", getId(machine.getCurrentContext(), edge.getTargetVertex()));
                     sendElement(jsonObject);
