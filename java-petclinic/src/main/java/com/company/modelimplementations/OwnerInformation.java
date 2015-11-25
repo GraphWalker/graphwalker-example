@@ -72,7 +72,7 @@ public class OwnerInformation extends ExecutionContext implements OwnerInformati
     }
 
     @Override
-    public void e_AddPetSuccessfully() throws InterruptedException {
+    public void e_AddPetSuccessfully()  {
         Helper.WaitForElement(By.id("birthDate")).clear();
         Helper.WaitForElement(By.id("birthDate")).sendKeys("2015/02/05" + Keys.ENTER);
         Helper.WaitForElement(By.id("name")).clear();
