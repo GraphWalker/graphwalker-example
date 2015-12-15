@@ -5,7 +5,7 @@ import org.graphwalker.core.generator.AStarPath;
 import org.graphwalker.core.machine.ExecutionContext;
 import org.graphwalker.java.annotation.GraphWalker;
 
-@GraphWalker(pathGenerator = AStarPath.class, stopCondition = ReachedVertex.class, stopConditionValue = "verifyResult")
+@GraphWalker
 public class CalculatorTest extends ExecutionContext implements CalculatorModel {
 
     @Override
