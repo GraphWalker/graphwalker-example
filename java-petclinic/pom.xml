@@ -72,6 +72,11 @@
             <version>3.4.0-SNAPSHOT</version>
         </dependency>
         <dependency>
+            <groupId>org.graphwalker</groupId>
+            <artifactId>graphwalker-studio</artifactId>
+            <version>3.4.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-java</artifactId>
             <version>RELEASE</version>
@@ -100,11 +105,6 @@
         <dependency>
             <groupId>org.graphstream</groupId>
             <artifactId>gs-core</artifactId>
-            <version>RELEASE</version>
-        </dependency>
-        <dependency>
-            <groupId>org.java-websocket</groupId>
-            <artifactId>Java-WebSocket</artifactId>
             <version>RELEASE</version>
         </dependency>
     </dependencies>
