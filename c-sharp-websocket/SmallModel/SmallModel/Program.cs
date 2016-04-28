@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Alchemy;
 using Alchemy.Classes;
 using Newtonsoft.Json.Linq;
@@ -48,26 +48,19 @@ namespace SmallModel
 			Console.WriteLine ("Receiving message: " + context.DataFrame.ToString ());
 			JObject response = JObject.Parse (context.DataFrame.ToString ());
 
-			if (response.GetValue("type") == null) {
+			if (response.GetValue("command") == null) {
 				Console.WriteLine ("Unknown response type: " + response.ToString ());
 				return;
 			}
 
-			if (response.GetValue ("type").ToString ().Equals ("loadModel")) {
-				if (!response.GetValue ("success").ToString().Equals( "true", StringComparison.CurrentCultureIgnoreCase)) {
-					Console.WriteLine ("Failed loading the model: " + response.ToString ());
-					return;
-				}
-				Console.WriteLine ("Model loaded ok");
-				loadModelEvent.Set ();
-			} else if (response.GetValue ("type").ToString ().Equals ("start")) {
+			if (response.GetValue ("command").ToString ().Equals ("start")) {
 				if (!response.GetValue ("success").ToString().Equals("true", StringComparison.CurrentCultureIgnoreCase)) {
 					Console.WriteLine ("Failed start the GraphWalker machine: " + response.ToString ());
 					return;
 				}
 				Console.WriteLine ("GraphWalker machine started ok");
 				startEvent.Set ();
-			} else if (response.GetValue ("type").ToString ().Equals ("hasNext")) {
+			} else if (response.GetValue ("command").ToString ().Equals ("hasNext")) {
 				if (!response.GetValue ("success").ToString().Equals("true", StringComparison.CurrentCultureIgnoreCase)) {
 					Console.WriteLine ("hasNext failed");
 					isHasNext = false;
@@ -84,7 +77,7 @@ namespace SmallModel
 				Console.WriteLine ("hasNext returned true");
 				isHasNext = true;
 				hasNextEvent.Set ();
-			} else if (response.GetValue ("type").ToString ().Equals ("getNext")) {
+			} else if (response.GetValue ("command").ToString ().Equals ("getNext")) {
 				if (!response.GetValue ("success").ToString().Equals("true", StringComparison.CurrentCultureIgnoreCase)) {
 					Console.WriteLine ("getNext returned false");
 					return;
@@ -92,7 +85,7 @@ namespace SmallModel
 				Console.WriteLine ("getNext: " + response.GetValue("name").ToString());
 				element = response.GetValue ("name").ToString ();
 				getNextEvent.Set ();
-			} else if (response.GetValue ("type").ToString ().Equals ("getData")) {
+			} else if (response.GetValue ("command").ToString ().Equals ("getData")) {
 				if (!response.GetValue ("success").ToString().Equals("true", StringComparison.CurrentCultureIgnoreCase)) {
 					Console.WriteLine ("getData failed");
 					return;
@@ -100,7 +93,7 @@ namespace SmallModel
 				data = (JObject)response.DeepClone();
 				getDataEvent.Set ();
 			} else {
-				Console.WriteLine ("Unknown response type: " + response.ToString ());
+				Console.WriteLine ("Unknown response command: " + response.ToString ());
 			}
 
 		}
@@ -121,41 +114,27 @@ namespace SmallModel
 		public void hasNext ()
 		{
 			ws.Send (@"{
-				""type"":""hasNext""
+				""command"":""hasNext""
 				}");
 		}
 
 		public void getNext ()
 		{
 			ws.Send (@"{
-				""type"":""getNext""
+				""command"":""getNext""
 				}");
 		}
 
-		public void start ()
+		public void start (string model)
 		{
-			ws.Send (@"{
-				""type"":""start""
-				}");
-		}
-
-		public void restart ()
-		{
-			ws.Send (@"{
-				""type"":""restart""
-				}");
+			ws.Send (model);
 		}
 
 		public void getData ()
 		{
 			ws.Send (@"{
-				""type"":""getData""
+				""command"":""getData""
 				}");
-		}
-
-		public void loadModel (string model)
-		{
-			ws.Send (model);
 		}
 	}
 
@@ -163,71 +142,53 @@ namespace SmallModel
 	{
 		private const string model =
 			@"{
-				""type"": ""loadModel"",
-				""model"": {
-					""name"": ""Small model"",
-					""generator"": ""random(edge_coverage(100))"",
-					""vertices"": [
-						{
-							""name"": ""v_VerifySomeAction"",
-							""id"": ""n0""
-						},
-						{
-							""name"": ""v_VerifySomeOtherAction"",
-							""id"": ""n1""
-						}
-					],
-					""edges"": [
-						{
-							""name"": ""e_FirstAction"",
-							""id"": ""e0"",
-							""dstVertexId"": ""n0"",
-							""startElement"": ""true"",
-							""actions"": [
-								{
-									""action"": ""x=0;""
-								},
-								{
-									""action"": ""y=0;""
-								}
-							]
-						},
-						{
-							""name"": ""e_AnotherAction"",
-							""id"": ""e1"",
-							""srcVertexId"": ""n0"",
-							""dstVertexId"": ""n1"",
-							""actions"": [
-								{
-									""action"": ""y+=1;""
-								}
-							]
-						},
-						{
-							""name"": ""e_SomeOtherAction"",
-							""id"": ""e2"",
-							""srcVertexId"": ""n1"",
-							""dstVertexId"": ""n1"",
-							""actions"": [
-								{
-									""action"": ""x+=1;""
-								}
-							]
-						},
-						{
-							""name"": ""e_SomeOtherAction"",
-							""id"": ""e3"",
-							""srcVertexId"": ""n1"",
-							""dstVertexId"": ""n0"",
-							""actions"": [
-								{
-									""action"": ""y+=1;""
-								}
-							]
-						}
-					]
-				}
-			}";
+			  ""command"": ""start"",
+			  ""gw3"": {
+			  ""name"": ""A small test model"",
+			  ""models"": [
+			    {
+			      ""name"": ""Small model"",
+			      ""generator"": ""random(edge_coverage(100))"",
+			      ""startElementId"": ""e0"",
+			      ""vertices"": [
+			        {
+			          ""name"": ""v_VerifySomeAction"",
+			          ""id"": ""n0""
+			        },
+			        {
+			          ""name"": ""v_VerifySomeOtherAction"",
+			          ""id"": ""n1""
+			        }
+			      ],
+			      ""edges"": [
+			        {
+			          ""name"": ""e_FirstAction"",
+			          ""id"": ""e0"",
+			          ""targetVertexId"": ""n0""
+			        },
+			        {
+			          ""name"": ""e_AnotherAction"",
+			          ""id"": ""e1"",
+			          ""sourceVertexId"": ""n0"",
+			          ""targetVertexId"": ""n1""
+			        },
+			        {
+			          ""name"": ""e_SomeOtherAction"",
+			          ""id"": ""e2"",
+			          ""sourceVertexId"": ""n1"",
+			          ""targetVertexId"": ""n1""
+			        },
+			        {
+			          ""name"": ""e_SomeOtherAction"",
+			          ""id"": ""e3"",
+			          ""sourceVertexId"": ""n1"",
+			          ""targetVertexId"": ""n0""
+			        }
+			      ]
+			    }
+			  ]
+			}
+		}";
 
 		public static void Main (string[] args)
 		{
@@ -253,10 +214,7 @@ namespace SmallModel
 
 			worker.connectedEvent.WaitOne ();
 
-			worker.loadModel (model);
-			worker.loadModelEvent.WaitOne ();
-
-			worker.start ();
+			worker.start (model);
 			worker.startEvent.WaitOne ();
 
 			Type smallModelType = typeof(SmallModel);
