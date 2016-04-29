@@ -146,47 +146,68 @@ namespace SmallModel
 			  ""gw3"": {
 			  ""name"": ""A small test model"",
 			  ""models"": [
-			    {
-			      ""name"": ""Small model"",
-			      ""generator"": ""random(edge_coverage(100))"",
-			      ""startElementId"": ""e0"",
-			      ""vertices"": [
-			        {
-			          ""name"": ""v_VerifySomeAction"",
-			          ""id"": ""n0""
-			        },
-			        {
-			          ""name"": ""v_VerifySomeOtherAction"",
-			          ""id"": ""n1""
-			        }
-			      ],
-			      ""edges"": [
-			        {
-			          ""name"": ""e_FirstAction"",
-			          ""id"": ""e0"",
-			          ""targetVertexId"": ""n0""
-			        },
-			        {
-			          ""name"": ""e_AnotherAction"",
-			          ""id"": ""e1"",
-			          ""sourceVertexId"": ""n0"",
-			          ""targetVertexId"": ""n1""
-			        },
-			        {
-			          ""name"": ""e_SomeOtherAction"",
-			          ""id"": ""e2"",
-			          ""sourceVertexId"": ""n1"",
-			          ""targetVertexId"": ""n1""
-			        },
-			        {
-			          ""name"": ""e_SomeOtherAction"",
-			          ""id"": ""e3"",
-			          ""sourceVertexId"": ""n1"",
-			          ""targetVertexId"": ""n0""
-			        }
-			      ]
-			    }
-			  ]
+				{
+					""name"":""Small model"",
+					""generator"":""random(edge_coverage(100))"",
+					""startElementId"":""e0"",
+				    ""vertices"": [
+				        {
+				            ""id"": ""n0"",
+				            ""name"": ""v_VerifySomeAction"",
+				            ""properties"": {
+				                ""x"": 255.9443359375,
+				                ""y"": 211.0
+				            }
+				        },
+				        {
+				            ""id"": ""n2"",
+				            ""name"": ""v_VerifySomeOtherAction"",
+				            ""properties"": {
+				                ""x"": 289.908203125,
+				                ""y"": 372.0
+				            }
+				        }
+				    ],
+				    ""edges"": [
+				        {
+				            ""actions"": [
+				                "" x=0;"",
+				                "" y=0;""
+				            ],
+				            ""id"": ""e0"",
+				            ""name"": ""e_FirstAction"",
+				            ""targetVertexId"": ""n0""
+				        },
+				        {
+				            ""actions"": [
+				                "" y+=1;""
+				            ],
+				            ""id"": ""e1"",
+				            ""name"": ""e_SomeOtherAction"",
+				            ""sourceVertexId"": ""n0"",
+				            ""targetVertexId"": ""n2""
+				        },
+				        {
+				            ""actions"": [
+				                "" y+=1;""
+				            ],
+				            ""id"": ""e2"",
+				            ""name"": ""e_AnotherAction"",
+				            ""sourceVertexId"": ""n2"",
+				            ""targetVertexId"": ""n0""
+				        },
+				        {
+				            ""actions"": [
+				                "" x+=1;""
+				            ],
+				            ""id"": ""e3"",
+				            ""name"": ""e_SomeOtherAction"",
+				            ""sourceVertexId"": ""n2"",
+				            ""targetVertexId"": ""n2""
+				        }
+				    ]
+				}
+              ]
 			}
 		}";
 
