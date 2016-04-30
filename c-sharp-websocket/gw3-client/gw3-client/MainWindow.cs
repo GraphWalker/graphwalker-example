@@ -45,8 +45,6 @@ public partial class MainWindow: Gtk.Window
 		modelFilePicker.Sensitive = enable;
 		getNext.Sensitive = enable;
 		hasNext.Sensitive = enable;
-		start.Sensitive = enable;
-		restart.Sensitive = enable;
 		getData.Sensitive = enable;
 	}
 
@@ -90,31 +88,23 @@ public partial class MainWindow: Gtk.Window
 
 	protected void onGetNext (object sender, EventArgs e)
 	{
-		ws.Send ("{\"type\":\"getNext\"}");
+		ws.Send ("{\"command\":\"getNext\"}");
 	}
 
 	protected void OnHasNext (object sender, EventArgs e)
 	{
-		ws.Send ("{\"type\":\"hasNext\"}");
-	}
-
-	protected void OnStart (object sender, EventArgs e)
-	{
-		ws.Send ("{\"type\":\"start\"}");
-	}
-
-	protected void OnRestart (object sender, EventArgs e)
-	{
-		ws.Send ("{\"type\":\"restart\"}");
+		ws.Send ("{\"command\":\"hasNext\"}");
 	}
 
 	protected void OnGetData (object sender, EventArgs e)
 	{
-		ws.Send ("{\"type\":\"getData\"}");
+		ws.Send ("{\"command\":\"getData\"}");
 	}
 
 	protected void OnModelSelectionChanged (object sender, EventArgs e)
 	{
-		ws.Send (System.IO.File.ReadAllText (modelFilePicker.Filename));
+		ws.Send ( "{\"command\":\"start\", \"gw3\": { \"models\":[" +
+			System.IO.File.ReadAllText (modelFilePicker.Filename) +
+			"]}}" );
 	}
 }

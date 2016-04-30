@@ -19,15 +19,11 @@ public partial class MainWindow
 	
 	private global::Gtk.FileChooserButton modelFilePicker;
 	
-	private global::Gtk.Button start;
-	
 	private global::Gtk.Button getNext;
 	
 	private global::Gtk.Button hasNext;
 	
 	private global::Gtk.Button getData;
-	
-	private global::Gtk.Button restart;
 	
 	private global::Gtk.ScrolledWindow GtkScrolledWindow;
 	
@@ -104,18 +100,6 @@ public partial class MainWindow
 		w5.Expand = false;
 		w5.Fill = false;
 		// Container child vbox4.Gtk.Box+BoxChild
-		this.start = new global::Gtk.Button ();
-		this.start.Sensitive = false;
-		this.start.CanFocus = true;
-		this.start.Name = "start";
-		this.start.UseUnderline = true;
-		this.start.Label = global::Mono.Unix.Catalog.GetString ("start");
-		this.vbox4.Add (this.start);
-		global::Gtk.Box.BoxChild w6 = ((global::Gtk.Box.BoxChild)(this.vbox4 [this.start]));
-		w6.Position = 5;
-		w6.Expand = false;
-		w6.Fill = false;
-		// Container child vbox4.Gtk.Box+BoxChild
 		this.getNext = new global::Gtk.Button ();
 		this.getNext.Sensitive = false;
 		this.getNext.CanFocus = true;
@@ -123,10 +107,10 @@ public partial class MainWindow
 		this.getNext.UseUnderline = true;
 		this.getNext.Label = global::Mono.Unix.Catalog.GetString ("getNext");
 		this.vbox4.Add (this.getNext);
-		global::Gtk.Box.BoxChild w7 = ((global::Gtk.Box.BoxChild)(this.vbox4 [this.getNext]));
-		w7.Position = 6;
-		w7.Expand = false;
-		w7.Fill = false;
+		global::Gtk.Box.BoxChild w6 = ((global::Gtk.Box.BoxChild)(this.vbox4 [this.getNext]));
+		w6.Position = 5;
+		w6.Expand = false;
+		w6.Fill = false;
 		// Container child vbox4.Gtk.Box+BoxChild
 		this.hasNext = new global::Gtk.Button ();
 		this.hasNext.Sensitive = false;
@@ -135,10 +119,10 @@ public partial class MainWindow
 		this.hasNext.UseUnderline = true;
 		this.hasNext.Label = global::Mono.Unix.Catalog.GetString ("hasNext");
 		this.vbox4.Add (this.hasNext);
-		global::Gtk.Box.BoxChild w8 = ((global::Gtk.Box.BoxChild)(this.vbox4 [this.hasNext]));
-		w8.Position = 7;
-		w8.Expand = false;
-		w8.Fill = false;
+		global::Gtk.Box.BoxChild w7 = ((global::Gtk.Box.BoxChild)(this.vbox4 [this.hasNext]));
+		w7.Position = 6;
+		w7.Expand = false;
+		w7.Fill = false;
 		// Container child vbox4.Gtk.Box+BoxChild
 		this.getData = new global::Gtk.Button ();
 		this.getData.Sensitive = false;
@@ -147,28 +131,15 @@ public partial class MainWindow
 		this.getData.UseUnderline = true;
 		this.getData.Label = global::Mono.Unix.Catalog.GetString ("getData");
 		this.vbox4.Add (this.getData);
-		global::Gtk.Box.BoxChild w9 = ((global::Gtk.Box.BoxChild)(this.vbox4 [this.getData]));
-		w9.Position = 8;
+		global::Gtk.Box.BoxChild w8 = ((global::Gtk.Box.BoxChild)(this.vbox4 [this.getData]));
+		w8.Position = 7;
+		w8.Expand = false;
+		w8.Fill = false;
+		this.hbox2.Add (this.vbox4);
+		global::Gtk.Box.BoxChild w9 = ((global::Gtk.Box.BoxChild)(this.hbox2 [this.vbox4]));
+		w9.Position = 0;
 		w9.Expand = false;
 		w9.Fill = false;
-		// Container child vbox4.Gtk.Box+BoxChild
-		this.restart = new global::Gtk.Button ();
-		this.restart.Sensitive = false;
-		this.restart.CanFocus = true;
-		this.restart.Name = "restart";
-		this.restart.UseUnderline = true;
-		this.restart.Label = global::Mono.Unix.Catalog.GetString ("restart");
-		this.vbox4.Add (this.restart);
-		global::Gtk.Box.BoxChild w10 = ((global::Gtk.Box.BoxChild)(this.vbox4 [this.restart]));
-		w10.PackType = ((global::Gtk.PackType)(1));
-		w10.Position = 9;
-		w10.Expand = false;
-		w10.Fill = false;
-		this.hbox2.Add (this.vbox4);
-		global::Gtk.Box.BoxChild w11 = ((global::Gtk.Box.BoxChild)(this.hbox2 [this.vbox4]));
-		w11.Position = 0;
-		w11.Expand = false;
-		w11.Fill = false;
 		// Container child hbox2.Gtk.Box+BoxChild
 		this.GtkScrolledWindow = new global::Gtk.ScrolledWindow ();
 		this.GtkScrolledWindow.Name = "GtkScrolledWindow";
@@ -182,13 +153,13 @@ public partial class MainWindow
 		this.log.AcceptsTab = false;
 		this.GtkScrolledWindow.Add (this.log);
 		this.hbox2.Add (this.GtkScrolledWindow);
-		global::Gtk.Box.BoxChild w13 = ((global::Gtk.Box.BoxChild)(this.hbox2 [this.GtkScrolledWindow]));
-		w13.Position = 1;
+		global::Gtk.Box.BoxChild w11 = ((global::Gtk.Box.BoxChild)(this.hbox2 [this.GtkScrolledWindow]));
+		w11.Position = 1;
 		this.vbox1.Add (this.hbox2);
-		global::Gtk.Box.BoxChild w14 = ((global::Gtk.Box.BoxChild)(this.vbox1 [this.hbox2]));
-		w14.Position = 0;
-		w14.Expand = false;
-		w14.Fill = false;
+		global::Gtk.Box.BoxChild w12 = ((global::Gtk.Box.BoxChild)(this.vbox1 [this.hbox2]));
+		w12.Position = 0;
+		w12.Expand = false;
+		w12.Fill = false;
 		this.Add (this.vbox1);
 		if ((this.Child != null)) {
 			this.Child.ShowAll ();
@@ -199,10 +170,8 @@ public partial class MainWindow
 		this.DeleteEvent += new global::Gtk.DeleteEventHandler (this.OnDeleteEvent);
 		this.connect.Toggled += new global::System.EventHandler (this.onConnectToggled);
 		this.modelFilePicker.SelectionChanged += new global::System.EventHandler (this.OnModelSelectionChanged);
-		this.start.Clicked += new global::System.EventHandler (this.OnStart);
 		this.getNext.Clicked += new global::System.EventHandler (this.onGetNext);
 		this.hasNext.Clicked += new global::System.EventHandler (this.OnHasNext);
 		this.getData.Clicked += new global::System.EventHandler (this.OnGetData);
-		this.restart.Clicked += new global::System.EventHandler (this.OnRestart);
 	}
 }

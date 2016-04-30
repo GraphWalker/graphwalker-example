@@ -95,23 +95,6 @@
                   </packing>
                 </child>
                 <child>
-                  <widget class="Gtk.Button" id="start">
-                    <property name="MemberName" />
-                    <property name="Sensitive">False</property>
-                    <property name="CanFocus">True</property>
-                    <property name="Type">TextOnly</property>
-                    <property name="Label" translatable="yes">start</property>
-                    <property name="UseUnderline">True</property>
-                    <signal name="Clicked" handler="OnStart" />
-                  </widget>
-                  <packing>
-                    <property name="Position">5</property>
-                    <property name="AutoSize">True</property>
-                    <property name="Expand">False</property>
-                    <property name="Fill">False</property>
-                  </packing>
-                </child>
-                <child>
                   <widget class="Gtk.Button" id="getNext">
                     <property name="MemberName" />
                     <property name="Sensitive">False</property>
@@ -122,7 +105,7 @@
                     <signal name="Clicked" handler="onGetNext" />
                   </widget>
                   <packing>
-                    <property name="Position">6</property>
+                    <property name="Position">5</property>
                     <property name="AutoSize">True</property>
                     <property name="Expand">False</property>
                     <property name="Fill">False</property>
@@ -139,7 +122,7 @@
                     <signal name="Clicked" handler="OnHasNext" />
                   </widget>
                   <packing>
-                    <property name="Position">7</property>
+                    <property name="Position">6</property>
                     <property name="AutoSize">True</property>
                     <property name="Expand">False</property>
                     <property name="Fill">False</property>
@@ -156,25 +139,7 @@
                     <signal name="Clicked" handler="OnGetData" />
                   </widget>
                   <packing>
-                    <property name="Position">8</property>
-                    <property name="AutoSize">True</property>
-                    <property name="Expand">False</property>
-                    <property name="Fill">False</property>
-                  </packing>
-                </child>
-                <child>
-                  <widget class="Gtk.Button" id="restart">
-                    <property name="MemberName" />
-                    <property name="Sensitive">False</property>
-                    <property name="CanFocus">True</property>
-                    <property name="Type">TextOnly</property>
-                    <property name="Label" translatable="yes">restart</property>
-                    <property name="UseUnderline">True</property>
-                    <signal name="Clicked" handler="OnRestart" />
-                  </widget>
-                  <packing>
-                    <property name="PackType">End</property>
-                    <property name="Position">9</property>
+                    <property name="Position">7</property>
                     <property name="AutoSize">True</property>
                     <property name="Expand">False</property>
                     <property name="Fill">False</property>
@@ -206,7 +171,7 @@
               </widget>
               <packing>
                 <property name="Position">1</property>
-                <property name="AutoSize">True</property>
+                <property name="AutoSize">False</property>
               </packing>
             </child>
           </widget>
