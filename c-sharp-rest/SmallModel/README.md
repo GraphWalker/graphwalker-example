@@ -1,4 +1,4 @@
-This example will run simulated test using GraphWalker started as a WebSocket REST service.
+This example will run simulated test using GraphWalker started as a REST service.
 
  * Download [latest GraphWalker standalone jar](http://graphwalker.org/archive/graphwalker-cli-3.4.0.jar).
  * `git clone https://github.com/GraphWalker/graphwalker-example.git`
