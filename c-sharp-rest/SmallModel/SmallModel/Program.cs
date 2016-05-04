@@ -11,6 +11,7 @@ namespace SmallModel
 		private RestRequest requestHasNext = new RestRequest("hasNext", Method.GET);
 		private RestRequest requestGetNext = new RestRequest("getNext", Method.GET);
 		private RestRequest requestGetData = new RestRequest("getData", Method.GET);
+		private RestRequest requestGetStatistics = new RestRequest("getStatistics", Method.GET);
 
 		public GraphWalkerRestClient()
 		{
@@ -18,6 +19,7 @@ namespace SmallModel
 			requestHasNext.AddHeader("Accept", "text/plain");
 			requestGetNext.AddHeader("Accept", "text/plain");
 			requestGetData.AddHeader("Accept", "text/plain");
+			requestGetStatistics.AddHeader("Accept", "text/plain");
 		}
 
 		public bool hasNext()
@@ -50,9 +52,24 @@ namespace SmallModel
 			return jsonResponse.GetValue("data").DeepClone().ToString();
 		}
 
+		public string getStatistics()
+		{
+			IRestResponse restResponse = client.Execute(requestGetStatistics);
+			checkError (restResponse);
+			JObject jsonResponse = JObject.Parse (restResponse.Content.ToString ());
+			return jsonResponse.ToString();
+		}
+
 		private void checkError(IRestResponse response)
 		{
 			if (response.ErrorException != null)
+			{
+				const string message = "Error retrieving response. Check inner details for more info.";
+				throw new Exception(message, response.ErrorException);
+			}
+
+			int numericStatusCode = (int)response.StatusCode;
+			if (numericStatusCode != 200)
 			{
 				const string message = "Error retrieving response. Check inner details for more info.";
 				throw new Exception(message, response.ErrorException);
@@ -78,13 +95,14 @@ namespace SmallModel
 		private void run ()
 		{
 			GraphWalkerRestClient gwRestClient = new GraphWalkerRestClient ();
+
 			Type smallModelType = typeof(SmallModel);
 			ConstructorInfo ctor = smallModelType.GetConstructor(System.Type.EmptyTypes);
 
-			while (true) {
-				// Check if there are any more elements to get.
-				if (!gwRestClient.hasNext())
-					break;
+			// As long as we have elemnts from GraphWalkers path generation
+			// to fetch, we'll continue 
+			while (gwRestClient.hasNext()) 
+			{
 
 				// Get the next element name from GraphWalker.
 				// The element might either be an edge or a vertex.
@@ -98,6 +116,9 @@ namespace SmallModel
 				// If any data, write it to the terminal.
 				Console.WriteLine (gwRestClient.getData ());
 			}
+
+			// Get the statistics from the test
+			Console.WriteLine (gwRestClient.getStatistics() );
 		}
 	}
 }
