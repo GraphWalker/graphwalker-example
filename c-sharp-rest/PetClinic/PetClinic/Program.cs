@@ -6,26 +6,28 @@ using System.Reflection;
 
 namespace PetClinic
 {
-	class GraphWalkerRestClient
+	static class GraphWalkerRestClient
 	{
-		private RestClient client = new RestClient();
-		private RestRequest requestHasNext = new RestRequest("hasNext", Method.GET);
-		private RestRequest requestGetNext = new RestRequest("getNext", Method.GET);
-		private RestRequest requestGetData = new RestRequest("getData", Method.GET);
-		private RestRequest requestLoad = new RestRequest("load", Method.POST);
-		private RestRequest requestGetStatistics = new RestRequest("getStatistics", Method.GET);
+		private static RestClient client = new RestClient();
+		private static RestRequest requestHasNext = new RestRequest("hasNext", Method.GET);
+		private static RestRequest requestGetNext = new RestRequest("getNext", Method.GET);
+        private static RestRequest requestGetData = new RestRequest("getData", Method.GET);
+        private static RestRequest requestSetData = new RestRequest("setData/{script}", Method.PUT);
+        private static RestRequest requestLoad = new RestRequest("load", Method.POST);
+		private static RestRequest requestGetStatistics = new RestRequest("getStatistics", Method.GET);
 
-		public GraphWalkerRestClient()
+        static GraphWalkerRestClient()
 		{
 			client.BaseUrl = new Uri("http://localhost:8887/graphwalker/");
 			requestHasNext.AddHeader("Accept", "text/plain");
 			requestGetNext.AddHeader("Accept", "text/plain");
-			requestGetData.AddHeader("Accept", "text/plain");
-			requestLoad.AddHeader("Accept", "text/plain");
+            requestGetData.AddHeader("Accept", "text/plain");
+            requestSetData.AddHeader("Accept", "text/plain");
+            requestLoad.AddHeader("Accept", "text/plain");
 			requestGetStatistics.AddHeader("Accept", "text/plain");
 		}
 
-		public bool hasNext()
+		public static bool hasNext()
 		{
 			IRestResponse restResponse = client.Execute(requestHasNext);
 			checkError (restResponse);
@@ -39,22 +41,30 @@ namespace PetClinic
 			return true;
 		}
 
-		public JObject getNext()
+		public static JObject getNext()
 		{
 			IRestResponse restResponse = client.Execute(requestGetNext);
 			checkError (restResponse);
 			return JObject.Parse (restResponse.Content.ToString ());
 		}
 
-		public string getData()
-		{
-			IRestResponse restResponse = client.Execute(requestGetData);
-			checkError (restResponse);
-			JObject jsonResponse = JObject.Parse (restResponse.Content.ToString ());
-			return jsonResponse.GetValue("data").DeepClone().ToString();
-		}
+        public static JObject getData()
+        {
+            IRestResponse restResponse = client.Execute(requestGetData);
+            checkError(restResponse);
+            JObject jsonResponse = JObject.Parse(restResponse.Content.ToString());
+            return JObject.Parse(jsonResponse.GetValue("data").DeepClone().ToString());
+        }
 
-		public void load(string model)
+        public static void setData( string script )
+        {
+            requestSetData.AddHeader("Content-Type", "text/plain");
+            requestSetData.AddParameter("script", script, ParameterType.UrlSegment);
+            IRestResponse restResponse = client.Execute(requestSetData);
+            checkError(restResponse);
+        }
+
+        public static void load(string model)
 		{
 			string data = File.ReadAllText(model);
 			requestLoad.AddHeader ("Content-Type", "text/plain");
@@ -63,7 +73,7 @@ namespace PetClinic
 			checkError (restResponse);
 		}
 
-		public string getStatistics()
+		public static string getStatistics()
 		{
 			IRestResponse restResponse = client.Execute(requestGetStatistics);
 			checkError (restResponse);
@@ -71,7 +81,7 @@ namespace PetClinic
 			return jsonResponse.ToString();
 		}
 
-		private void checkError(IRestResponse response)
+		private static void checkError(IRestResponse response)
 		{
 			if (response.ErrorException != null)
 			{
@@ -105,35 +115,40 @@ namespace PetClinic
 
 		private void run ()
 		{
-			GraphWalkerRestClient gwRestClient = new GraphWalkerRestClient ();
-			gwRestClient.load ("../../../PetClinic.gw3");
+            GraphWalkerRestClient.load ("../../../PetClinic.gw3");
 
 			// As long as we have elemnts from GraphWalkers path generation
 			// to fetch, we'll continue 
-			while (gwRestClient.hasNext()) 
+			while (GraphWalkerRestClient.hasNext()) 
 			{
 				// Get the next element name from GraphWalker.
 				// The element might either be an edge or a vertex.
-				JObject nextStep = gwRestClient.getNext();
+				JObject nextStep = GraphWalkerRestClient.getNext();
 
-				Type type = Type.GetType("PetClinic." + nextStep.GetValue("modelName").ToString());
-				//Type type = Type.GetType("PetClinic.PetClinicSharedState");
+                // Create a mapping from the model name to an actual class.
+                Type type = Type.GetType("PetClinic." + nextStep.GetValue("modelName").ToString());
 				ConstructorInfo ctor = type.GetConstructor(System.Type.EmptyTypes);
 
-				// Invoke a method call on
+                // Invoke a method to call. If the currentElementName is null,
+                // it means that it's an edge with no name. In practicality, this is a noop, a no operation.
+                // No method to call, so we should move on to next step.
 				if (nextStep.GetValue ("currentElementName") != null) 
 				{
-					object instance = ctor.Invoke(null);
-					MethodInfo methodInfo = type.GetMethod(nextStep.GetValue("currentElementName").ToString());
+                    Console.WriteLine("Model and element to be called: " +
+                        nextStep.GetValue("modelName").ToString()
+                        + "." +
+                        nextStep.GetValue("currentElementName").ToString());
+
+                    object instance = ctor.Invoke(null);
+
+                    // Create a mapping from the element name to an actual method.
+                    MethodInfo methodInfo = type.GetMethod(nextStep.GetValue("currentElementName").ToString());
 					methodInfo.Invoke(instance, new object[]{});
 				}
-
-				// If any data, write it to the terminal.
-				Console.WriteLine (gwRestClient.getData ());
 			}
 
 			// Get the statistics from the test
-			Console.WriteLine (gwRestClient.getStatistics() );
+			Console.WriteLine (GraphWalkerRestClient.getStatistics() );
 		}
 	}
 }
