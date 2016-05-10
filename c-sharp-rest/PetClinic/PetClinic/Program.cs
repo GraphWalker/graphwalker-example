@@ -12,7 +12,6 @@ namespace PetClinic
 		private static RestRequest requestHasNext = new RestRequest("hasNext", Method.GET);
 		private static RestRequest requestGetNext = new RestRequest("getNext", Method.GET);
         private static RestRequest requestGetData = new RestRequest("getData", Method.GET);
-        private static RestRequest requestSetData = new RestRequest("setData/{script}", Method.PUT);
         private static RestRequest requestLoad = new RestRequest("load", Method.POST);
 		private static RestRequest requestGetStatistics = new RestRequest("getStatistics", Method.GET);
 
@@ -22,7 +21,6 @@ namespace PetClinic
 			requestHasNext.AddHeader("Accept", "text/plain");
 			requestGetNext.AddHeader("Accept", "text/plain");
             requestGetData.AddHeader("Accept", "text/plain");
-            requestSetData.AddHeader("Accept", "text/plain");
             requestLoad.AddHeader("Accept", "text/plain");
 			requestGetStatistics.AddHeader("Accept", "text/plain");
 		}
@@ -58,7 +56,10 @@ namespace PetClinic
 
         public static void setData( string str )
         {
-			Console.WriteLine("setdata: " + str);
+            // The request has to be built uniquely for every call, otherwise
+            // the AddParameter will be the same for every call.
+            RestRequest requestSetData = new RestRequest("setData/{script}", Method.PUT);
+            requestSetData.AddHeader("Accept", "text/plain");
             requestSetData.AddHeader("Content-Type", "text/plain");
 			requestSetData.AddParameter("script", str, ParameterType.UrlSegment);
             IRestResponse restResponse = client.Execute(requestSetData);
