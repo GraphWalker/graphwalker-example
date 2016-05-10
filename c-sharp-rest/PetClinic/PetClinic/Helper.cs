@@ -73,7 +73,7 @@ namespace PetClinic
                 {
                     return new List<IWebElement>(GetWebDriver().FindElements(by));
                 }
-                catch (Exception e)
+				catch (Exception)
                 {
                     Thread.Sleep(1000);
                 }
