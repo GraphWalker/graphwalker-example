@@ -70,7 +70,10 @@ namespace PetClinic
 
         public void v_OwnerInformation() {
             Helper.WaitForElement(By.TagName("h2")).Text.Should().Match("Owner Information");
-            GraphWalkerRestClient.setData("numOfPets = " + Helper.WaitForElements(By.XPath("//th[2]")).Count + ";");
+			Console.WriteLine("  Number of pets: " + Helper.WaitForElements(By.XPath("//th[text()=\"Visit Date\"]")));
+			Console.WriteLine("  Number of pets: " + Helper.WaitForElements(By.XPath("//th[text()=\"Visit Date\"]")).Count);
+
+			GraphWalkerRestClient.setData("numOfPets = " + Helper.WaitForElements(By.XPath("//th[text()=\"Visit Date\"]")).Count + ";");
 
             JObject jsonData = GraphWalkerRestClient.getData();
             Console.WriteLine("  Number of pets (the data is fetched from PetClinic and set in the model): " + jsonData.GetValue("numOfPets"));

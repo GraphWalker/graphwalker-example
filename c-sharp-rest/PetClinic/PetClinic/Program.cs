@@ -56,10 +56,11 @@ namespace PetClinic
             return JObject.Parse(jsonResponse.GetValue("data").DeepClone().ToString());
         }
 
-        public static void setData( string script )
+        public static void setData( string str )
         {
+			Console.WriteLine("setdata: " + str);
             requestSetData.AddHeader("Content-Type", "text/plain");
-            requestSetData.AddParameter("script", script, ParameterType.UrlSegment);
+			requestSetData.AddParameter("script", str, ParameterType.UrlSegment);
             IRestResponse restResponse = client.Execute(requestSetData);
             checkError(restResponse);
         }
