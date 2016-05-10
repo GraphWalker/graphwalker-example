@@ -111,13 +111,19 @@ namespace PetClinic
 	{
 		public static void Main (string[] args)
 		{
+			if (args.Length == 0)
+			{
+				System.Console.WriteLine("Please enter the path and file name for the model");
+				return;
+			}
+
 			MainClass program = new MainClass ();
-			program.run ();
+			program.run (args[0]);
 		}
 
-		private void run ()
+		private void run (string fileModelName)
 		{
-            GraphWalkerRestClient.load ("../../../PetClinic.gw3");
+			GraphWalkerRestClient.load (fileModelName);
 
 			// As long as we have elemnts from GraphWalkers path generation
 			// to fetch, we'll continue 
