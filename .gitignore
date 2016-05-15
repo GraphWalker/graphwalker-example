@@ -22,6 +22,9 @@ release.properties
 work/
 amps-standalone/
 */dependency-reduced-pom.xml
+*.userprefs
+bin/
+obj/
 
 # Mac stuff #
 #############
