@@ -15,6 +15,11 @@ env:
     - secure: "IVcJyf13GCwLkpYKqygwTH9f3EG1YiqdmXWPCt5d9DXKKLjbSq/MFQ/nwdgfgfJAsgrSXN0I+6fIf8/INtI4YcKTpzAblXdeAkWdVrD4xpRSC7TpEHdEGMWEBtSWzJy8b92F2cxCXuk/QPDK4d8/QuelkFD9C9IztmgSqq7fQQg="
 
 before_install:
+  - pip install --user codecov
+  - cat /etc/hosts # optionally check the content *before*
+  - sudo hostname "$(hostname | cut -c1-63)"
+  - sed -e "s/^\\(127\\.0\\.0\\.1.*\\)/\\1 $(hostname | cut -c1-63)/" /etc/hosts | sudo tee /etc/hosts
+  - cat /etc/hosts # optionally check the content *after*
   - sudo apt-get update -qq
 
 install:
