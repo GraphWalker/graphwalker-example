@@ -36,6 +36,6 @@ public class GraphStreamApplication {
                 System.out.println(error);
             }
         }
-        System.out.println("Done: [" + result.getCompletedCount() + "," + result.getFailedCount() + "]");
+        System.out.println("Done: [" + result.getResults().toString(2) + "]");
     }
 }
