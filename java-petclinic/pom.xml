@@ -7,13 +7,13 @@
     <parent>
         <groupId>org.graphwalker.example</groupId>
         <artifactId>graphwalker-example</artifactId>
-        <version>3.4.2</version>
+        <version>4.0.0-SNAPSHOT</version>
     </parent>
 
     <artifactId>java-petclinic</artifactId>
 
     <properties>
-        <graphwalker.version>3.4.2</graphwalker.version>
+        <graphwalker.version>4.0.0-SNAPSHOT</graphwalker.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>

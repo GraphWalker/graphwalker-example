@@ -4,23 +4,24 @@ import com.company.modelimplementations.*;
 import org.graphwalker.java.test.Executor;
 import org.graphwalker.java.test.Result;
 import org.graphwalker.java.test.TestExecutor;
-import org.graphwalker.websocket.WebSocketListner;
+import org.graphwalker.websocket.WebSocketServer;
 
-import java.net.InetSocketAddress;
+import java.io.IOException;
+
 
 /**
  * @author Nils Olsson
  */
 public class WebSocketApplication {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         Executor executor = new TestExecutor(PetClinic.class,
                 FindOwners.class,
                 NewOwner.class,
                 OwnerInformation.class,
                 Veterinariens.class);
 
-        WebSocketListner server = new WebSocketListner(new InetSocketAddress("localhost", 8887), executor.getMachine());
+        WebSocketServer server = new WebSocketServer(8887, executor.getMachine());
         server.start();
 
         Result result = executor.execute(true);
