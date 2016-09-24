@@ -9,6 +9,7 @@ import org.graphwalker.java.test.Executor;
 import org.graphwalker.java.test.Result;
 import org.graphwalker.java.test.TestExecutor;
 
+import java.io.IOException;
 import java.util.Iterator;
 import java.util.Map;
 
@@ -17,7 +18,7 @@ import java.util.Map;
  */
 public class GraphStreamApplication {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         System.setProperty("org.graphstream.ui.renderer",
                 "org.graphstream.ui.j2dviewer.J2DGraphRenderer");
         Graph graph = new SingleGraph("GraphWalker MeetUp");
