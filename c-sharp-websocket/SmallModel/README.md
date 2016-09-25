@@ -1,7 +1,7 @@
 This example will run simulated test using GraphWalker started as a WebSocket service.
 
- * Download [latest GraphWalker standalone jar](http://graphwalker.org/archive/graphwalker-cli-3.4.0.jar).
- * Start GraphWalker as a WebSocker service: `java -jar graphwalker-cli-3.4.0.jar -d all online`.
+ * Download [latest GraphWalker standalone jar](http://graphwalker.github.io/content/archive/graphwalker-cli-3.4.2.jar).
+ * Start GraphWalker as a WebSocker service: `java -jar graphwalker-cli-3.4.2.jar -d all online`.
  * `git clone https://github.com/GraphWalker/graphwalker-example.git`
  * `cd c-sharp-websocket/SmallModel`
  * Build the SmallModel project.<br>

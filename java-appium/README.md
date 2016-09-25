@@ -45,7 +45,7 @@ Tells GraphWalker where to start the execution. `v_NotesListView` will be the fi
 The above is the equivalent as running the test offline:
 
 ```
-java -jar graphwalker-cli-3.4.0.jar offline -m NotesList.graphml "random(edge_coverage(100))"
+java -jar graphwalker-cli-3.4.2.jar offline -m NotesList.graphml "random(edge_coverage(100))"
 ```
 
 ## Steps to execute the project
