@@ -32,7 +32,7 @@
             <plugin>
                 <groupId>org.graphwalker</groupId>
                 <artifactId>graphwalker-maven-plugin</artifactId>
-                <version>${project.version}</version>
+                <version>${graphwalker.version}</version>
                 <!-- Bind goals to the default lifecycle -->
                 <executions>
                     <execution>
