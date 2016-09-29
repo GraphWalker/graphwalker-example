@@ -1,7 +1,5 @@
 package org.graphwalker.example;
 
-import org.graphwalker.core.condition.ReachedVertex;
-import org.graphwalker.core.generator.AStarPath;
 import org.graphwalker.core.machine.ExecutionContext;
 import org.graphwalker.java.annotation.GraphWalker;
 

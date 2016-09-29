@@ -11,8 +11,19 @@
     </parent>
 
     <artifactId>java-integration-test</artifactId>
+    <name>GraphWalker Integration Example</name>
 
     <dependencies>
+        <dependency>
+            <groupId>org.graphwalker</groupId>
+            <artifactId>graphwalker-core</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.graphwalker</groupId>
+            <artifactId>graphwalker-java</artifactId>
+            <version>${project.version}</version>
+        </dependency>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
@@ -23,27 +34,11 @@
     <build>
         <plugins>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>2.3.2</version>
-                <configuration>
-                    <source>1.6</source>
-                    <target>1.6</target>
-                </configuration>
-            </plugin>
-            <plugin>
                 <groupId>org.graphwalker</groupId>
                 <artifactId>graphwalker-maven-plugin</artifactId>
                 <version>${project.version}</version>
+                <!-- Bind goals to the default lifecycle -->
                 <executions>
-                    <execution>
-                        <phase>generate-test-sources</phase>
-                        <goals>
-                            <goal>generate-test-sources</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <!--executions>
                     <execution>
                         <id>generate-test-sources</id>
                         <phase>generate-test-sources</phase>
@@ -52,13 +47,13 @@
                         </goals>
                     </execution>
                     <execution>
-                        <id>integration-test</id>
-                        <phase>integration-test</phase>
+                        <id>test</id>
+                        <phase>test</phase>
                         <goals>
                             <goal>test</goal>
                         </goals>
                     </execution>
-                </executions-->
+                </executions>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

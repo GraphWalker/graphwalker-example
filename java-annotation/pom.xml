@@ -11,28 +11,22 @@
     </parent>
 
     <artifactId>java-annotation</artifactId>
+    <name>GraphWalker Annotation Example</name>
 
-    <properties>
-      <graphwalker.version>3.4.2</graphwalker.version>
-      <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-      <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-    </properties>
+    <dependencies>
+        <dependency>
+            <groupId>org.graphwalker</groupId>
+            <artifactId>graphwalker-java</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+    </dependencies>
 
     <build>
         <plugins>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>2.3.2</version>
-                <configuration>
-                    <source>1.6</source>
-                    <target>1.6</target>
-                </configuration>
-            </plugin>
-            <plugin>
                 <groupId>org.graphwalker</groupId>
                 <artifactId>graphwalker-maven-plugin</artifactId>
-                <version>${graphwalker.version}</version>
+                <version>${project.version}</version>
                 <!-- Bind goals to the default lifecycle -->
                 <executions>
                     <execution>

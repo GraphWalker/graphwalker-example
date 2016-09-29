@@ -78,8 +78,8 @@ public class GraphStreamObserver implements Observer {
                         machine.getCurrentContext() != lastContext) {
                     if (null == graph.getEdge(getId(lastContext, lastElement) + getId(machine.getCurrentContext(), vertex))) {
                         graph.addEdge(getId(lastContext, lastElement) + getId(machine.getCurrentContext(), vertex),
-                                graph.getNode(getId(lastContext, lastElement)),
-                                graph.getNode(getId(machine.getCurrentContext(), vertex)), true);
+                                (Node)graph.getNode(getId(lastContext, lastElement)),
+                                (Node)graph.getNode(getId(machine.getCurrentContext(), vertex)), true);
                     }
                 }
             } else {
