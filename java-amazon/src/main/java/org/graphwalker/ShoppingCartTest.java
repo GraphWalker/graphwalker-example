@@ -31,7 +31,7 @@ import java.util.regex.Pattern;
  * also: mvn graphwalker:test
  *
  */
-@GraphWalker(value = "random(edge_coverage(100))", start = "e_StartBrowser")
+@GraphWalker(value = "random(edge_coverage(100) or time_duration(60))", start = "e_StartBrowser")
 public class ShoppingCartTest extends ExecutionContext implements ShoppingCart {
 
     WebDriver driver = null;
