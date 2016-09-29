@@ -7,6 +7,7 @@ import org.graphwalker.java.test.TestExecutor;
 import org.junit.Test;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.Date;
 
 public class CalulatorIT {
@@ -21,7 +22,7 @@ public class CalulatorIT {
         execute(CalculatorAStarTest.class);
     }
 
-    private void execute(Class<? extends ExecutionContext> test) {
+    private void execute(Class<? extends ExecutionContext> test) throws IOException {
         TestExecutor executor = new TestExecutor(test);
         Date startTime = new Date();
         Result result = executor.execute(false);

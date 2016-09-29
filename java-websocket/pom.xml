@@ -11,31 +11,18 @@
     </parent>
 
     <artifactId>java-websocket</artifactId>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.1</version>
-                <configuration>
-                    <source>1.7</source>
-                    <target>1.7</target>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
+    <name>GraphWalker Websocket Example</name>
 
     <dependencies>
+        <dependency>
+            <groupId>org.graphwalker</groupId>
+            <artifactId>graphwalker-cli</artifactId>
+            <version>3.4.2</version>
+        </dependency>
         <dependency>
             <groupId>org.java-websocket</groupId>
             <artifactId>Java-WebSocket</artifactId>
             <version>1.3.0</version>
-        </dependency>
-        <dependency>
-            <groupId>org.graphwalker</groupId>
-            <artifactId>graphwalker-cli</artifactId>
-            <version>3.2.1</version>
         </dependency>
         <dependency>
             <groupId>org.json</groupId>
@@ -45,7 +32,7 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.11</version>
+            <version>4.12</version>
         </dependency>
     </dependencies>
 </project>
