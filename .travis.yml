@@ -21,4 +21,7 @@ before_install:
   - sudo apt-get update -qq
 
 install:
+  -
+
+script:
   - mvn -N compile -B
