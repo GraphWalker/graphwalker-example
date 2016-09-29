@@ -17,7 +17,7 @@
         <dependency>
             <groupId>org.graphwalker</groupId>
             <artifactId>graphwalker-cli</artifactId>
-            <version>3.4.2</version>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>org.java-websocket</groupId>
