@@ -1,6 +1,6 @@
 language: java
 jdk:
-  - openjdk8
+  - oraclejdk8
 
 # whitelist
 branches:
@@ -21,4 +21,7 @@ before_install:
   - sudo apt-get update -qq
 
 install:
+  -
+
+script:
   - mvn -N compile -B
