@@ -4,9 +4,7 @@ package com.company.modelimplementations;
 import com.company.PetClinicSharedState;
 import com.company.helper.Helper;
 import org.graphwalker.core.machine.ExecutionContext;
-import org.graphwalker.java.annotation.AfterExecution;
-import org.graphwalker.java.annotation.BeforeExecution;
-import org.graphwalker.java.annotation.GraphWalker;
+import org.graphwalker.java.annotation.*;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 
@@ -66,5 +64,15 @@ public class PetClinic extends ExecutionContext implements PetClinicSharedState 
         System.out.println("PetClinic: Any cleanup  steps happens here. " +
                 "The annotation @AfterExecution makes sure that after the test is done, " +
                 "this method is called last.");
+    }
+
+    @BeforeElement
+    public void printBeforeElement(){
+        System.out.println("Before element " + getCurrentElement().getName());
+    }
+
+    @AfterElement
+    public void printAfterElement(){
+        System.out.println("After element " + getCurrentElement().getName());
     }
 }
