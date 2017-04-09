@@ -1,14 +1,12 @@
 package com.company.helper;
 
-import org.junit.Assert;
-import org.openqa.selenium.By;
+import io.github.bonigarcia.wdm.FirefoxDriverManager;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.List;
 import java.util.Random;
 
 /**
@@ -38,11 +36,23 @@ public class Helper {
         return random.nextInt(max) + 1;
     }
 
+    public static void setup() {
+        FirefoxDriverManager.getInstance().setup();
+    }
+
+    public static void tearDown() {
+        getInstance().quit();
+    }
+
     /**
      * Creates an instance of the Firefox WebDriver.
      */
     private static class WebDriverHolder {
         private static final WebDriver INSTANCE = new FirefoxDriver();
+    }
+
+    public static WebDriverWait getWaiter() {
+        return new WebDriverWait(getInstance(), 10);
     }
 
     /**
@@ -52,55 +62,5 @@ public class Helper {
      */
     public static WebDriver getInstance() {
         return WebDriverHolder.INSTANCE;
-    }
-
-    /**
-     * Will wait for a specified web element to appear. If not found
-     * an assertion will fail.
-     *
-     * @param by The description of the element
-     * @return The matching element if found.
-     */
-    public static WebElement WaitForElement(By by) {
-        for (int second = 0; ; second++) {
-            if (second >= timeOut) {
-                Assert.fail("Timeout occurred while waiting for: " + by.toString());
-            }
-            try {
-                return getInstance().findElement(by);
-            } catch (Exception e1) {
-                log.debug(e1.getMessage());
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException e2) {
-                    log.debug(e2.getMessage());
-                }
-            }
-        }
-    }
-
-    /**
-     * Will wait for a specified web element(s) to appear. If not found
-     * an assertion will fail.
-     *
-     * @param by The description of the element
-     * @return A list of matching element(s) if found.
-     */
-    public static List<WebElement> WaitForElements(By by) {
-        for (int second = 0; ; second++) {
-            if (second >= timeOut) {
-                Assert.fail("timeout");
-            }
-            List<WebElement> elements = null;
-            try {
-                elements = getInstance().findElements(by);
-                return elements;
-            } catch (Exception e) {
-            }
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-            }
-        }
     }
 }

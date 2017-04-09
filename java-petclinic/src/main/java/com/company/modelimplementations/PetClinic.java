@@ -5,8 +5,9 @@ import com.company.PetClinicSharedState;
 import com.company.helper.Helper;
 import org.graphwalker.core.machine.ExecutionContext;
 import org.graphwalker.java.annotation.*;
-import org.junit.Assert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 /**
  * Implements the model (and interface) PetClinicSharedState
@@ -19,32 +20,33 @@ public class PetClinic extends ExecutionContext implements PetClinicSharedState 
 
     @Override
     public void v_FindOwners() {
-        Assert.assertTrue(Helper.WaitForElement(By.tagName("h2")).getText().matches("Find Owners"));
+        Helper.getWaiter().until(ExpectedConditions.textToBe(By.tagName("h2"), "Find Owners"));
     }
 
     @Override
     public void e_HomePage() {
-        Helper.WaitForElement(By.className("icon-home")).click();
+        Helper.getWaiter().until(ExpectedConditions.elementToBeClickable(By.className("icon-home"))).click();
     }
 
     @Override
     public void e_Veterinarians() {
-        Helper.WaitForElement(By.className("icon-th-list")).click();
+        Helper.getWaiter().until(ExpectedConditions.elementToBeClickable(By.className("icon-th-list"))).click();
     }
 
     @Override
     public void v_Veterinarians() {
-        Assert.assertTrue(Helper.WaitForElement(By.tagName("h2")).getText().matches("Veterinarians"));
+        WebDriverWait wait = new WebDriverWait(Helper.getInstance(), 60);
+        wait.until(ExpectedConditions.textToBe(By.tagName("h2"), "Veterinarians"));
     }
 
     @Override
     public void e_FindOwners() {
-        Helper.WaitForElement(By.className("icon-search")).click();
+        Helper.getWaiter().until(ExpectedConditions.elementToBeClickable(By.className("icon-search"))).click();
     }
 
     @Override
     public void v_HomePage() {
-        Assert.assertTrue(Helper.WaitForElement(By.tagName("h2")).getText().matches("Welcome"));
+        Helper.getWaiter().until(ExpectedConditions.textToBe(By.tagName("h2"), "Welcome"));
     }
 
     @Override
@@ -57,6 +59,7 @@ public class PetClinic extends ExecutionContext implements PetClinicSharedState 
         System.out.println("PetClinic: Any setup steps happens here. " +
                 "The annotation @BeforeExecution makes sure that before any elements in the " +
                 "model is called, this method is called first");
+        Helper.setup();
     }
 
     @AfterExecution
@@ -64,15 +67,16 @@ public class PetClinic extends ExecutionContext implements PetClinicSharedState 
         System.out.println("PetClinic: Any cleanup  steps happens here. " +
                 "The annotation @AfterExecution makes sure that after the test is done, " +
                 "this method is called last.");
+        Helper.tearDown();
     }
 
     @BeforeElement
-    public void printBeforeElement(){
+    public void printBeforeElement() {
         System.out.println("Before element " + getCurrentElement().getName());
     }
 
     @AfterElement
-    public void printAfterElement(){
+    public void printAfterElement() {
         System.out.println("After element " + getCurrentElement().getName());
     }
 }

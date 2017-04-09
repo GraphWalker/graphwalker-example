@@ -6,9 +6,9 @@ import com.company.helper.Helper;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.graphwalker.core.machine.ExecutionContext;
 import org.graphwalker.java.annotation.GraphWalker;
-import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,85 +36,85 @@ public class OwnerInformation extends ExecutionContext implements OwnerInformati
      */
     @Override
     public void v_OwnerInformation() {
-        Assert.assertTrue(Helper.WaitForElement(By.tagName("h2")).getText().matches("Owner Information"));
-        setAttribute("numOfPets", Helper.WaitForElements(By.xpath("//th[2]")).size());
+        Helper.getWaiter().until(ExpectedConditions.textToBe(By.tagName("h2"), "Owner Information"));
+        setAttribute("numOfPets", Helper.getInstance().findElements(By.xpath("//table/tbody/tr/td//dl")).size());
         log.info("Number of pets: " + getAttribute("numOfPets"));
     }
 
     @Override
     public void e_UpdatePet() {
-        Helper.WaitForElement(By.cssSelector("button[type=\"submit\"]")).click();
+        Helper.getWaiter().until(ExpectedConditions.elementToBeClickable(By.cssSelector("button[type=\"submit\"]"))).click();
     }
 
     @Override
     public void v_FindOwners() {
-        Assert.assertTrue(Helper.WaitForElement(By.tagName("h2")).getText().matches("Find Owners"));
+        Helper.getWaiter().until(ExpectedConditions.textToBe(By.tagName("h2"), "Find Owners"));
     }
 
     @Override
     public void e_EditPet() {
-        Helper.WaitForElement(By.linkText("Edit Pet")).click();
+        Helper.getWaiter().until(ExpectedConditions.elementToBeClickable(By.linkText("Edit Pet"))).click();
     }
 
     @Override
     public void e_AddNewPet() {
-        Helper.WaitForElement(By.linkText("Add New Pet")).click();
+        Helper.getWaiter().until(ExpectedConditions.elementToBeClickable(By.linkText("Add New Pet"))).click();
     }
 
     @Override
     public void e_AddVisit() {
-        Helper.WaitForElement(By.linkText("Add Visit")).click();
+        Helper.getWaiter().until(ExpectedConditions.elementToBeClickable(By.linkText("Add Visit"))).click();
     }
 
     @Override
     public void e_FindOwners() {
-        Helper.WaitForElement(By.className("icon-search")).click();
+        Helper.getWaiter().until(ExpectedConditions.elementToBeClickable(By.className("icon-search"))).click();
     }
 
     @Override
-    public void e_AddPetSuccessfully()  {
-        Helper.WaitForElement(By.id("birthDate")).clear();
-        Helper.WaitForElement(By.id("birthDate")).sendKeys("2015/02/05" + Keys.ENTER);
-        Helper.WaitForElement(By.id("name")).clear();
-        Helper.WaitForElement(By.id("name")).sendKeys(RandomStringUtils.randomAlphabetic(Helper.getRandomInt(10)));
-        new Select(Helper.WaitForElement(By.id("type"))).selectByVisibleText("dog");
-        Helper.WaitForElement(By.cssSelector("button[type=\"submit\"]")).click();
+    public void e_AddPetSuccessfully() {
+        Helper.getWaiter().until(ExpectedConditions.presenceOfElementLocated(By.id("birthDate"))).clear();
+        Helper.getWaiter().until(ExpectedConditions.presenceOfElementLocated(By.id("birthDate"))).sendKeys("2015/02/05" + Keys.ENTER);
+        Helper.getWaiter().until(ExpectedConditions.presenceOfElementLocated(By.id("name"))).clear();
+        Helper.getWaiter().until(ExpectedConditions.presenceOfElementLocated(By.id("name"))).sendKeys(RandomStringUtils.randomAlphabetic(Helper.getRandomInt(10)));
+        new Select(Helper.getWaiter().until(ExpectedConditions.presenceOfElementLocated(By.id("type")))).selectByVisibleText("dog");
+        Helper.getWaiter().until(ExpectedConditions.elementToBeClickable(By.cssSelector("button[type=\"submit\"]"))).click();
     }
 
     @Override
     public void v_NewPet() {
-        Assert.assertTrue(Helper.WaitForElement(By.tagName("h2")).getText().matches("New Pet"));
+        Helper.getWaiter().until(ExpectedConditions.textToBe(By.tagName("h2"), "New Pet"));
     }
 
     @Override
     public void e_VisitAddedSuccessfully() {
-        Helper.WaitForElement(By.id("description")).clear();
-        Helper.WaitForElement(By.id("description")).sendKeys(RandomStringUtils.randomAlphabetic(Helper.getRandomInt(10)));
-        Helper.WaitForElement(By.cssSelector("button[type=\"submit\"]")).click();
+        Helper.getWaiter().until(ExpectedConditions.presenceOfElementLocated(By.id("description"))).clear();
+        Helper.getWaiter().until(ExpectedConditions.presenceOfElementLocated(By.id("description"))).sendKeys(RandomStringUtils.randomAlphabetic(Helper.getRandomInt(10)));
+        Helper.getWaiter().until(ExpectedConditions.elementToBeClickable(By.cssSelector("button[type=\"submit\"]"))).click();
     }
 
     @Override
     public void v_NewVisit() {
-        Assert.assertTrue(Helper.WaitForElement(By.tagName("h2")).getText().matches("New Visit"));
+        Helper.getWaiter().until(ExpectedConditions.textToBe(By.tagName("h2"), "New Visit"));
     }
 
     @Override
     public void v_Pet() {
-        Assert.assertTrue(Helper.WaitForElement(By.tagName("h2")).getText().matches("Pet"));
+        Helper.getWaiter().until(ExpectedConditions.textToBe(By.tagName("h2"), "Pet"));
     }
 
     @Override
     public void e_AddPetFailed() {
-        Helper.WaitForElement(By.id("name")).clear();
-        Helper.WaitForElement(By.id("birthDate")).clear();
-        Helper.WaitForElement(By.id("birthDate")).sendKeys("2015/02/05");
-        new Select(Helper.WaitForElement(By.id("type"))).selectByVisibleText("dog");
-        Helper.WaitForElement(By.cssSelector("button[type=\"submit\"]")).click();
+        Helper.getWaiter().until(ExpectedConditions.presenceOfElementLocated(By.id("name"))).clear();
+        Helper.getWaiter().until(ExpectedConditions.presenceOfElementLocated(By.id("birthDate"))).clear();
+        Helper.getWaiter().until(ExpectedConditions.presenceOfElementLocated(By.id("birthDate"))).sendKeys("2015/02/05");
+        new Select(Helper.getWaiter().until(ExpectedConditions.presenceOfElementLocated(By.id("type")))).selectByVisibleText("dog");
+        Helper.getWaiter().until(ExpectedConditions.elementToBeClickable(By.cssSelector("button[type=\"submit\"]"))).click();
     }
 
     @Override
     public void e_VisitAddedFailed() {
-        Helper.WaitForElement(By.id("description")).clear();
-        Helper.WaitForElement(By.cssSelector("button[type=\"submit\"]")).click();
+        Helper.getWaiter().until(ExpectedConditions.presenceOfElementLocated(By.id("description"))).clear();
+        Helper.getWaiter().until(ExpectedConditions.elementToBeClickable(By.cssSelector("button[type=\"submit\"]"))).click();
     }
 }
