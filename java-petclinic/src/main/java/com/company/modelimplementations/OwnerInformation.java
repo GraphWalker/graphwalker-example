@@ -39,6 +39,7 @@ public class OwnerInformation extends ExecutionContext implements OwnerInformati
         Helper.getWaiter().until(ExpectedConditions.textToBe(By.tagName("h2"), "Owner Information"));
         setAttribute("numOfPets", Helper.getInstance().findElements(By.xpath("//table/tbody/tr/td//dl")).size());
         log.info("Number of pets: " + getAttribute("numOfPets"));
+        Helper.getWaiter().until(ExpectedConditions.visibilityOfElementLocated(By.xpath("/html/body/div/table[last()]/tbody/tr/td[2]/img")));
     }
 
     @Override
@@ -49,6 +50,7 @@ public class OwnerInformation extends ExecutionContext implements OwnerInformati
     @Override
     public void v_FindOwners() {
         Helper.getWaiter().until(ExpectedConditions.textToBe(By.tagName("h2"), "Find Owners"));
+        Helper.getWaiter().until(ExpectedConditions.visibilityOfElementLocated(By.xpath("/html/body/div/table/tbody/tr/td[2]/img")));
     }
 
     @Override
@@ -76,7 +78,8 @@ public class OwnerInformation extends ExecutionContext implements OwnerInformati
         Helper.getWaiter().until(ExpectedConditions.presenceOfElementLocated(By.id("birthDate"))).clear();
         Helper.getWaiter().until(ExpectedConditions.presenceOfElementLocated(By.id("birthDate"))).sendKeys("2015/02/05" + Keys.ENTER);
         Helper.getWaiter().until(ExpectedConditions.presenceOfElementLocated(By.id("name"))).clear();
-        Helper.getWaiter().until(ExpectedConditions.presenceOfElementLocated(By.id("name"))).sendKeys(RandomStringUtils.randomAlphabetic(Helper.getRandomInt(10)));
+        Helper.getWaiter().until(ExpectedConditions.presenceOfElementLocated(By.id("name")))
+            .sendKeys(RandomStringUtils.randomAlphabetic(Helper.getRandomInt(10)));
         new Select(Helper.getWaiter().until(ExpectedConditions.presenceOfElementLocated(By.id("type")))).selectByVisibleText("dog");
         Helper.getWaiter().until(ExpectedConditions.elementToBeClickable(By.cssSelector("button[type=\"submit\"]"))).click();
     }
@@ -84,23 +87,27 @@ public class OwnerInformation extends ExecutionContext implements OwnerInformati
     @Override
     public void v_NewPet() {
         Helper.getWaiter().until(ExpectedConditions.textToBe(By.tagName("h2"), "New Pet"));
+        Helper.getWaiter().until(ExpectedConditions.visibilityOfElementLocated(By.xpath("/html/body/div[1]/table/tbody/tr/td[2]/img")));
     }
 
     @Override
     public void e_VisitAddedSuccessfully() {
         Helper.getWaiter().until(ExpectedConditions.presenceOfElementLocated(By.id("description"))).clear();
-        Helper.getWaiter().until(ExpectedConditions.presenceOfElementLocated(By.id("description"))).sendKeys(RandomStringUtils.randomAlphabetic(Helper.getRandomInt(10)));
+        Helper.getWaiter().until(ExpectedConditions.presenceOfElementLocated(By.id("description")))
+            .sendKeys(RandomStringUtils.randomAlphabetic(Helper.getRandomInt(10)));
         Helper.getWaiter().until(ExpectedConditions.elementToBeClickable(By.cssSelector("button[type=\"submit\"]"))).click();
     }
 
     @Override
     public void v_NewVisit() {
         Helper.getWaiter().until(ExpectedConditions.textToBe(By.tagName("h2"), "New Visit"));
+        Helper.getWaiter().until(ExpectedConditions.visibilityOfElementLocated(By.id("visit")));
     }
 
     @Override
     public void v_Pet() {
         Helper.getWaiter().until(ExpectedConditions.textToBe(By.tagName("h2"), "Pet"));
+        Helper.getWaiter().until(ExpectedConditions.visibilityOfElementLocated(By.xpath("/html/body/div[1]/table/tbody/tr/td[2]/img")));
     }
 
     @Override

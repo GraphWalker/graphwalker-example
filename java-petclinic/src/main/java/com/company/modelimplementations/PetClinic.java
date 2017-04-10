@@ -4,10 +4,13 @@ package com.company.modelimplementations;
 import com.company.PetClinicSharedState;
 import com.company.helper.Helper;
 import org.graphwalker.core.machine.ExecutionContext;
-import org.graphwalker.java.annotation.*;
+import org.graphwalker.java.annotation.AfterElement;
+import org.graphwalker.java.annotation.AfterExecution;
+import org.graphwalker.java.annotation.BeforeElement;
+import org.graphwalker.java.annotation.BeforeExecution;
+import org.graphwalker.java.annotation.GraphWalker;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 /**
  * Implements the model (and interface) PetClinicSharedState
@@ -21,6 +24,7 @@ public class PetClinic extends ExecutionContext implements PetClinicSharedState 
     @Override
     public void v_FindOwners() {
         Helper.getWaiter().until(ExpectedConditions.textToBe(By.tagName("h2"), "Find Owners"));
+        Helper.getWaiter().until(ExpectedConditions.visibilityOfElementLocated(By.xpath("/html/body/div/table/tbody/tr/td[2]/img")));
     }
 
     @Override
@@ -35,8 +39,8 @@ public class PetClinic extends ExecutionContext implements PetClinicSharedState 
 
     @Override
     public void v_Veterinarians() {
-        WebDriverWait wait = new WebDriverWait(Helper.getInstance(), 60);
-        wait.until(ExpectedConditions.textToBe(By.tagName("h2"), "Veterinarians"));
+        Helper.getWaiter().until(ExpectedConditions.textToBe(By.tagName("h2"), "Veterinarians"));
+        Helper.getWaiter().until(ExpectedConditions.visibilityOfElementLocated(By.xpath("/html/body/div/table[last()]/tbody/tr/td[2]/img")));
     }
 
     @Override
@@ -47,6 +51,7 @@ public class PetClinic extends ExecutionContext implements PetClinicSharedState 
     @Override
     public void v_HomePage() {
         Helper.getWaiter().until(ExpectedConditions.textToBe(By.tagName("h2"), "Welcome"));
+        Helper.getWaiter().until(ExpectedConditions.visibilityOfElementLocated(By.xpath("/html/body/div/table/tbody/tr/td[2]/img")));
     }
 
     @Override
@@ -57,16 +62,16 @@ public class PetClinic extends ExecutionContext implements PetClinicSharedState 
     @BeforeExecution
     public void setup() {
         System.out.println("PetClinic: Any setup steps happens here. " +
-                "The annotation @BeforeExecution makes sure that before any elements in the " +
-                "model is called, this method is called first");
+                           "The annotation @BeforeExecution makes sure that before any elements in the " +
+                           "model is called, this method is called first");
         Helper.setup();
     }
 
     @AfterExecution
     public void cleanup() {
         System.out.println("PetClinic: Any cleanup  steps happens here. " +
-                "The annotation @AfterExecution makes sure that after the test is done, " +
-                "this method is called last.");
+                           "The annotation @AfterExecution makes sure that after the test is done, " +
+                           "this method is called last.");
         Helper.tearDown();
     }
 

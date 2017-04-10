@@ -20,24 +20,30 @@ public class NewOwner extends ExecutionContext implements NewOwnerSharedState {
     @Override
     public void v_OwnerInformation() {
         Helper.getWaiter().until(ExpectedConditions.textToBe(By.tagName("h2"), "Owner Information"));
+        Helper.getWaiter().until(ExpectedConditions.visibilityOfElementLocated(By.xpath("/html/body/div/table[last()]/tbody/tr/td[2]/img")));
     }
 
     @Override
     public void e_CorrectData() {
         Helper.getWaiter().until(ExpectedConditions.presenceOfElementLocated(By.id("firstName"))).clear();
-        Helper.getWaiter().until(ExpectedConditions.presenceOfElementLocated(By.id("firstName"))).sendKeys(RandomStringUtils.randomAlphabetic(Helper.getRandomInt(10)));
+        Helper.getWaiter().until(ExpectedConditions.presenceOfElementLocated(By.id("firstName")))
+            .sendKeys(RandomStringUtils.randomAlphabetic(Helper.getRandomInt(10)));
 
         Helper.getWaiter().until(ExpectedConditions.presenceOfElementLocated(By.id("lastName"))).clear();
-        Helper.getWaiter().until(ExpectedConditions.presenceOfElementLocated(By.id("lastName"))).sendKeys(RandomStringUtils.randomAlphabetic(Helper.getRandomInt(10)));
+        Helper.getWaiter().until(ExpectedConditions.presenceOfElementLocated(By.id("lastName")))
+            .sendKeys(RandomStringUtils.randomAlphabetic(Helper.getRandomInt(10)));
 
         Helper.getWaiter().until(ExpectedConditions.presenceOfElementLocated(By.id("address"))).clear();
-        Helper.getWaiter().until(ExpectedConditions.presenceOfElementLocated(By.id("address"))).sendKeys(RandomStringUtils.randomAlphabetic(Helper.getRandomInt(10)));
+        Helper.getWaiter().until(ExpectedConditions.presenceOfElementLocated(By.id("address")))
+            .sendKeys(RandomStringUtils.randomAlphabetic(Helper.getRandomInt(10)));
 
         Helper.getWaiter().until(ExpectedConditions.presenceOfElementLocated(By.id("city"))).clear();
-        Helper.getWaiter().until(ExpectedConditions.presenceOfElementLocated(By.id("city"))).sendKeys(RandomStringUtils.randomAlphabetic(Helper.getRandomInt(10)));
+        Helper.getWaiter().until(ExpectedConditions.presenceOfElementLocated(By.id("city")))
+            .sendKeys(RandomStringUtils.randomAlphabetic(Helper.getRandomInt(10)));
 
         Helper.getWaiter().until(ExpectedConditions.presenceOfElementLocated(By.id("telephone"))).clear();
-        Helper.getWaiter().until(ExpectedConditions.presenceOfElementLocated(By.id("telephone"))).sendKeys(RandomStringUtils.randomNumeric(Helper.getRandomInt(10)));
+        Helper.getWaiter().until(ExpectedConditions.presenceOfElementLocated(By.id("telephone")))
+            .sendKeys(RandomStringUtils.randomNumeric(Helper.getRandomInt(10)));
 
         Helper.getWaiter().until(ExpectedConditions.elementToBeClickable(By.cssSelector("button[type=\"submit\"]"))).click();
     }
@@ -45,16 +51,20 @@ public class NewOwner extends ExecutionContext implements NewOwnerSharedState {
     @Override
     public void e_IncorrectData() {
         Helper.getWaiter().until(ExpectedConditions.presenceOfElementLocated(By.id("firstName"))).clear();
-        Helper.getWaiter().until(ExpectedConditions.presenceOfElementLocated(By.id("firstName"))).sendKeys(RandomStringUtils.randomAlphabetic(Helper.getRandomInt(10)));
+        Helper.getWaiter().until(ExpectedConditions.presenceOfElementLocated(By.id("firstName")))
+            .sendKeys(RandomStringUtils.randomAlphabetic(Helper.getRandomInt(10)));
 
         Helper.getWaiter().until(ExpectedConditions.presenceOfElementLocated(By.id("lastName"))).clear();
-        Helper.getWaiter().until(ExpectedConditions.presenceOfElementLocated(By.id("lastName"))).sendKeys(RandomStringUtils.randomAlphabetic(Helper.getRandomInt(10)));
+        Helper.getWaiter().until(ExpectedConditions.presenceOfElementLocated(By.id("lastName")))
+            .sendKeys(RandomStringUtils.randomAlphabetic(Helper.getRandomInt(10)));
 
         Helper.getWaiter().until(ExpectedConditions.presenceOfElementLocated(By.id("address"))).clear();
-        Helper.getWaiter().until(ExpectedConditions.presenceOfElementLocated(By.id("address"))).sendKeys(RandomStringUtils.randomAlphabetic(Helper.getRandomInt(10)));
+        Helper.getWaiter().until(ExpectedConditions.presenceOfElementLocated(By.id("address")))
+            .sendKeys(RandomStringUtils.randomAlphabetic(Helper.getRandomInt(10)));
 
         Helper.getWaiter().until(ExpectedConditions.presenceOfElementLocated(By.id("city"))).clear();
-        Helper.getWaiter().until(ExpectedConditions.presenceOfElementLocated(By.id("city"))).sendKeys(RandomStringUtils.randomAlphabetic(Helper.getRandomInt(10)));
+        Helper.getWaiter().until(ExpectedConditions.presenceOfElementLocated(By.id("city")))
+            .sendKeys(RandomStringUtils.randomAlphabetic(Helper.getRandomInt(10)));
 
         Helper.getWaiter().until(ExpectedConditions.presenceOfElementLocated(By.id("telephone"))).clear();
         Helper.getWaiter().until(ExpectedConditions.presenceOfElementLocated(By.id("telephone"))).sendKeys(RandomStringUtils.randomNumeric(20));
@@ -65,11 +75,14 @@ public class NewOwner extends ExecutionContext implements NewOwnerSharedState {
     @Override
     public void v_IncorrectData() {
         Helper.getWaiter().until(ExpectedConditions.textToBe(By.tagName("h2"), "New Owner"));
-        Helper.getWaiter().until(ExpectedConditions.textToBe(By.cssSelector("div.control-group.error > div.controls > span.help-inline"), "numeric value out of bounds (<10 digits>.<0 digits> expected)"));
+        Helper.getWaiter().until(ExpectedConditions.textToBe(By.cssSelector("div.control-group.error > div.controls > span.help-inline"),
+                                                             "numeric value out of bounds (<10 digits>.<0 digits> expected)"));
+        Helper.getWaiter().until(ExpectedConditions.visibilityOfElementLocated(By.xpath("/html/body/table/tbody/tr/td[2]/img")));
     }
 
     @Override
     public void v_NewOwner() {
         Helper.getWaiter().until(ExpectedConditions.textToBe(By.tagName("h2"), "New Owner"));
+        Helper.getWaiter().until(ExpectedConditions.visibilityOfElementLocated(By.xpath("/html/body/table/tbody/tr/td[2]/img")));
     }
 }

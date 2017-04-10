@@ -6,6 +6,7 @@ import com.company.helper.Helper;
 import org.graphwalker.core.machine.ExecutionContext;
 import org.graphwalker.java.annotation.GraphWalker;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 /**
@@ -25,10 +26,13 @@ public class Veterinariens extends ExecutionContext implements VeterinariensShar
     @Override
     public void v_SearchResult() {
         Helper.getWaiter().until(ExpectedConditions.textToBe(By.xpath("//table[@id='vets']/tbody/tr/td"), "Helen Leary"));
+        Helper.getWaiter().until(ExpectedConditions.visibilityOfElementLocated(By.xpath("/html/body/div/table[last()]/tbody/tr/td[2]/img")));
     }
 
     @Override
     public void v_Veterinarians() {
         Helper.getWaiter().until(ExpectedConditions.textToBe(By.tagName("h2"), "Veterinarians"));
+        WebElement table = Helper.getWaiter().until(ExpectedConditions.visibilityOfElementLocated(By.id("vets")));
+        org.junit.Assert.assertTrue(table.findElements(By.xpath("id('vets')/tbody/tr")).size() >= 1);
     }
 }

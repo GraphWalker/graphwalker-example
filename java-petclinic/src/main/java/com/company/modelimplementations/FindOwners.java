@@ -6,6 +6,7 @@ import com.company.helper.Helper;
 import org.graphwalker.core.machine.ExecutionContext;
 import org.graphwalker.java.annotation.GraphWalker;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 /**
@@ -19,6 +20,8 @@ public class FindOwners extends ExecutionContext implements FindOwnersSharedStat
     @Override
     public void v_Owners() {
         Helper.getWaiter().until(ExpectedConditions.textToBe(By.tagName("h2"), "Owners"));
+        WebElement table = Helper.getWaiter().until(ExpectedConditions.visibilityOfElementLocated(By.id("owners")));
+        org.junit.Assert.assertTrue(table.findElements(By.xpath("id('owners')/tbody/tr")).size() >= 10);
     }
 
     @Override
@@ -29,6 +32,7 @@ public class FindOwners extends ExecutionContext implements FindOwnersSharedStat
     @Override
     public void v_FindOwners() {
         Helper.getWaiter().until(ExpectedConditions.textToBe(By.tagName("h2"), "Find Owners"));
+        Helper.getWaiter().until(ExpectedConditions.visibilityOfElementLocated(By.xpath("/html/body/div/table/tbody/tr/td[2]/img")));
     }
 
     @Override
@@ -44,5 +48,6 @@ public class FindOwners extends ExecutionContext implements FindOwnersSharedStat
     @Override
     public void v_NewOwner() {
         Helper.getWaiter().until(ExpectedConditions.textToBe(By.tagName("h2"), "New Owner"));
+        Helper.getWaiter().until(ExpectedConditions.visibilityOfElementLocated(By.xpath("/html/body/table/tbody/tr/td[2]/img")));
     }
 }
