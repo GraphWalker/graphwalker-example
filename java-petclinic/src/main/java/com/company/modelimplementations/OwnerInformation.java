@@ -107,7 +107,7 @@ public class OwnerInformation extends ExecutionContext implements OwnerInformati
     @Override
     public void v_Pet() {
         Helper.getWaiter().until(ExpectedConditions.textToBe(By.tagName("h2"), "Pet"));
-        Helper.getWaiter().until(ExpectedConditions.visibilityOfElementLocated(By.xpath("/html/body/div[1]/table/tbody/tr/td[2]/img")));
+        Helper.getWaiter().until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"pet\"]/div[5]/button")));
     }
 
     @Override
