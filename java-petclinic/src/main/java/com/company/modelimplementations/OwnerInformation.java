@@ -8,6 +8,7 @@ import org.graphwalker.core.machine.ExecutionContext;
 import org.graphwalker.java.annotation.GraphWalker;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.slf4j.Logger;
@@ -77,6 +78,7 @@ public class OwnerInformation extends ExecutionContext implements OwnerInformati
     public void e_AddPetSuccessfully() {
         Helper.getWaiter().until(ExpectedConditions.presenceOfElementLocated(By.id("birthDate"))).clear();
         Helper.getWaiter().until(ExpectedConditions.presenceOfElementLocated(By.id("birthDate"))).sendKeys("2015/02/05" + Keys.ENTER);
+        Helper.getWaiter().until(ExpectedConditions.presenceOfElementLocated(By.id("name")));
         Helper.getWaiter().until(ExpectedConditions.presenceOfElementLocated(By.id("name"))).clear();
         Helper.getWaiter().until(ExpectedConditions.presenceOfElementLocated(By.id("name")))
             .sendKeys(RandomStringUtils.randomAlphabetic(Helper.getRandomInt(10)));

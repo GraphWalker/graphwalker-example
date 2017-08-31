@@ -1,6 +1,7 @@
 package com.company.helper;
 
 import io.github.bonigarcia.wdm.FirefoxDriverManager;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
