@@ -2,7 +2,13 @@ package org.graphwalker.example;
 
 public class Calculator {
 
-    public static void main(String[] args) {
-        // do some calculations
+    private int result = 0;
+
+    public void add(int x, int y) {
+        result = x + y;
+    }
+
+    public int getResult() {
+        return result;
     }
 }

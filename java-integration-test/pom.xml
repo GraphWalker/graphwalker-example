@@ -13,6 +13,10 @@
     <artifactId>java-integration-test</artifactId>
     <name>GraphWalker Integration Example</name>
 
+    <properties>
+        <failIfNoTests>false</failIfNoTests>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>org.graphwalker</groupId>
