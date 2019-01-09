@@ -8,7 +8,7 @@ import org.graphwalker.core.machine.ExecutionContext;
 import org.graphwalker.java.annotation.GraphWalker;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
-import org.openqa.selenium.StaleElementReferenceException;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.slf4j.Logger;
@@ -82,7 +82,8 @@ public class OwnerInformation extends ExecutionContext implements OwnerInformati
         Helper.getWaiter().until(ExpectedConditions.presenceOfElementLocated(By.id("name"))).clear();
         Helper.getWaiter().until(ExpectedConditions.presenceOfElementLocated(By.id("name")))
             .sendKeys(RandomStringUtils.randomAlphabetic(Helper.getRandomInt(10)));
-        new Select(Helper.getWaiter().until(ExpectedConditions.presenceOfElementLocated(By.id("type")))).selectByVisibleText("dog");
+        Helper.getWaiter().until(ExpectedConditions.invisibilityOfElementLocated(By.id("ui-datepicker-div")));
+        new Select(Helper.getWaiter().until(ExpectedConditions.elementToBeClickable(By.id("type")))).selectByVisibleText("dog");
         Helper.getWaiter().until(ExpectedConditions.elementToBeClickable(By.cssSelector("button[type=\"submit\"]"))).click();
     }
 
@@ -116,8 +117,9 @@ public class OwnerInformation extends ExecutionContext implements OwnerInformati
     public void e_AddPetFailed() {
         Helper.getWaiter().until(ExpectedConditions.presenceOfElementLocated(By.id("name"))).clear();
         Helper.getWaiter().until(ExpectedConditions.presenceOfElementLocated(By.id("birthDate"))).clear();
-        Helper.getWaiter().until(ExpectedConditions.presenceOfElementLocated(By.id("birthDate"))).sendKeys("2015/02/05");
-        new Select(Helper.getWaiter().until(ExpectedConditions.presenceOfElementLocated(By.id("type")))).selectByVisibleText("dog");
+        Helper.getWaiter().until(ExpectedConditions.presenceOfElementLocated(By.id("birthDate"))).sendKeys("2015/02/05" + Keys.ENTER);
+        Helper.getWaiter().until(ExpectedConditions.invisibilityOfElementLocated(By.id("ui-datepicker-div")));
+        new Select(Helper.getWaiter().until(ExpectedConditions.elementToBeClickable(By.id("type")))).selectByVisibleText("dog");
         Helper.getWaiter().until(ExpectedConditions.elementToBeClickable(By.cssSelector("button[type=\"submit\"]"))).click();
     }
 
