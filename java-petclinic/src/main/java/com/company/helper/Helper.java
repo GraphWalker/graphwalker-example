@@ -1,5 +1,6 @@
 package com.company.helper;
 
+import io.github.bonigarcia.wdm.DriverManagerType;
 import io.github.bonigarcia.wdm.FirefoxDriverManager;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
@@ -38,7 +39,7 @@ public class Helper {
     }
 
     public static void setup() {
-        FirefoxDriverManager.getInstance().setup();
+        FirefoxDriverManager.getInstance(DriverManagerType.FIREFOX).setup();
     }
 
     public static void tearDown() {
