@@ -4,6 +4,8 @@ import io.github.bonigarcia.wdm.DriverManagerType;
 import io.github.bonigarcia.wdm.FirefoxDriverManager;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.firefox.FirefoxProfile;
+import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
@@ -29,6 +31,12 @@ public class Helper {
     final static int timeOut = 10;
 
     /**
+     * Firefox profile and options
+     */
+    static FirefoxProfile profile = new FirefoxProfile();
+    static FirefoxOptions firefoxOptions = new FirefoxOptions();
+
+    /**
      * Generates a random number with 1 to max digits.
      *
      * @param max Maximum length of digits.
@@ -40,6 +48,8 @@ public class Helper {
 
     public static void setup() {
         FirefoxDriverManager.getInstance(DriverManagerType.FIREFOX).setup();
+        profile.setPreference("intl.accept_languages","en-US, en");
+        firefoxOptions.setProfile(profile);
     }
 
     public static void tearDown() {
@@ -50,7 +60,7 @@ public class Helper {
      * Creates an instance of the Firefox WebDriver.
      */
     private static class WebDriverHolder {
-        private static final WebDriver INSTANCE = new FirefoxDriver();
+        private static final WebDriver INSTANCE = new FirefoxDriver(firefoxOptions);
     }
 
     public static WebDriverWait getWaiter() {
