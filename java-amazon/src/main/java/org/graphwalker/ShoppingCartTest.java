@@ -36,7 +36,7 @@ import java.util.regex.Pattern;
  * running: mvn graphwalker:generate-sources
  * also: mvn graphwalker:test
  */
-@GraphWalker(value = "a_star(reached_vertex(v_ShoppingCart))", start = "e_StartBrowser")
+@GraphWalker(value = "random(edge_coverage(100))", start = "e_StartBrowser")
 public class ShoppingCartTest extends ExecutionContext implements ShoppingCart {
 
     private static final Logger logger = LoggerFactory.getLogger(ShoppingCartTest.class);
@@ -61,6 +61,8 @@ public class ShoppingCartTest extends ExecutionContext implements ShoppingCart {
     }
 
     public void e_AddBookToCart() {
+        waiter.until(ExpectedConditions.presenceOfElementLocated(By.id("mediaTab_heading_1")));
+        waiter.until(ExpectedConditions.elementToBeClickable(By.id("mediaTab_heading_1"))).click();
         waiter.until(ExpectedConditions.presenceOfElementLocated(By.id("add-to-cart-button")));
         waiter.until(ExpectedConditions.elementToBeClickable(By.id("add-to-cart-button"))).click();
         logger.debug("Number of added books by test: " + ++numberOfAddedBooksByProgam);
@@ -73,7 +75,8 @@ public class ShoppingCartTest extends ExecutionContext implements ShoppingCart {
     }
 
     public void v_OtherBoughtBooks() {
-        waiter.until(ExpectedConditions.textMatches(By.tagName("h2"), Pattern.compile("Customers who bought .*")));
+        waiter.until(ExpectedConditions.or(ExpectedConditions.textMatches(By.tagName("h2"), Pattern.compile("Sponsored products related to .*")));
+        waiter.until(ExpectedConditions.textMatches(By.tagName("h2"), Pattern.compile("Sponsored products related to .*")));
         waiter.until(ExpectedConditions.visibilityOfElementLocated(By.className("navFooterVerticalColumn")));
     }
 
@@ -85,7 +88,7 @@ public class ShoppingCartTest extends ExecutionContext implements ShoppingCart {
 
     public void v_SearchResult() {
         waiter.until(ExpectedConditions.presenceOfElementLocated(By.linkText("Practical Model-Based Testing: A Tools Approach")));
-        waiter.until(ExpectedConditions.visibilityOfElementLocated(By.id("resultsCol")));
+        waiter.until(ExpectedConditions.visibilityOfElementLocated(By.id("search")));
         waiter.until(ExpectedConditions.visibilityOfElementLocated(By.className("navFooterVerticalColumn")));
     }
 
