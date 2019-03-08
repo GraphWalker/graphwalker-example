@@ -63,6 +63,8 @@ public class ShoppingCartTest extends ExecutionContext implements ShoppingCart {
     public void e_AddBookToCart() {
         waiter.until(ExpectedConditions.presenceOfElementLocated(By.id("mediaTab_heading_1")));
         waiter.until(ExpectedConditions.elementToBeClickable(By.id("mediaTab_heading_1"))).click();
+        waiter.until(ExpectedConditions.presenceOfElementLocated(By.id("newOfferAccordionRow")));
+        waiter.until(ExpectedConditions.elementToBeClickable(By.id("newOfferAccordionRow"))).click();
         waiter.until(ExpectedConditions.presenceOfElementLocated(By.id("add-to-cart-button")));
         waiter.until(ExpectedConditions.elementToBeClickable(By.id("add-to-cart-button"))).click();
         logger.debug("Number of added books by test: " + ++numberOfAddedBooksByProgam);
@@ -75,8 +77,15 @@ public class ShoppingCartTest extends ExecutionContext implements ShoppingCart {
     }
 
     public void v_OtherBoughtBooks() {
-        waiter.until(ExpectedConditions.or(ExpectedConditions.textMatches(By.tagName("h2"), Pattern.compile("Sponsored products related to .*")));
-        waiter.until(ExpectedConditions.textMatches(By.tagName("h2"), Pattern.compile("Sponsored products related to .*")));
+        if (driver.findElements(By.tagName("h2")).size() > 0){
+            waiter.until(ExpectedConditions.or(
+                ExpectedConditions.textMatches(By.tagName("h2"), Pattern.compile("Sponsored products related to.*")),
+                ExpectedConditions.textMatches(By.tagName("h2"), Pattern.compile("Bestsellers in.*")),
+                ExpectedConditions.textMatches(By.tagName("h2"), Pattern.compile("New Releases in.*"))
+                )
+            );
+        }
+        waiter.until(ExpectedConditions.textMatches(By.className("rhf-header"), Pattern.compile("Your recently viewed items and featured recommendations.*")));
         waiter.until(ExpectedConditions.visibilityOfElementLocated(By.className("navFooterVerticalColumn")));
     }
 
