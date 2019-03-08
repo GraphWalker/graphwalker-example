@@ -85,7 +85,6 @@ public class ShoppingCartTest extends ExecutionContext implements ShoppingCart {
                 )
             );
         }
-        waiter.until(ExpectedConditions.textMatches(By.className("rhf-header"), Pattern.compile("Your recently viewed items and featured recommendations.*")));
         waiter.until(ExpectedConditions.visibilityOfElementLocated(By.className("navFooterVerticalColumn")));
     }
 
