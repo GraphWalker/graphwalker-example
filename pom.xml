@@ -15,6 +15,7 @@
         <module>java-petclinic</module>
         <module>java-amazon</module>
         <module>java-integration-test</module>
+        <module>java-dataDriven</module>
     </modules>
 
     <properties>
