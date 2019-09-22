@@ -16,6 +16,7 @@
         <module>java-amazon</module>
         <module>java-integration-test</module>
         <module>java-dataDriven</module>
+        <module>java-prestashop</module>
     </modules>
 
     <properties>
