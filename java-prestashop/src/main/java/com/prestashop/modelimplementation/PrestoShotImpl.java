@@ -1,13 +1,11 @@
-package com.prestoshop.modelimplementation;
+package com.prestashop.modelimplementation;
 
 
 import com.prestashop.PrestoShop;
 import org.graphwalker.core.machine.ExecutionContext;
 import org.graphwalker.java.annotation.GraphWalker;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 
+@GraphWalker
 public class PrestoShotImpl extends ExecutionContext implements PrestoShop {
     @Override
     public void v_ConfirmOrder() {

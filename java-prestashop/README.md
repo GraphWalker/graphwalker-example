@@ -68,5 +68,8 @@ When done, goto http://localhost:8001
 
 ## Run the GraphWalker test
 
-
-
+```shell script
+git clone https://github.com/GraphWalker/graphwalker-example.git
+cd graphwalker-example/java-prestashop
+mvn compile exec:java -Dexec.mainClass="com.prestashop.runners.Runner"
+```
