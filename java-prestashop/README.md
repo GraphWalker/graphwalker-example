@@ -56,7 +56,7 @@ Them, add Store Information.
 To connect to the PrestaShop mysql database, you need to find out the IP-addres of it first:
 
 ```shell script
-docker inspect 50af85c52263 | grep -oP  '"IPAddress": "[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+"'
+$ docker inspect 50af85c52263 | grep -oP  '"IPAddress": "[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+"'
 "IPAddress": "172.18.0.2"
 ```
 
