@@ -26,6 +26,10 @@ amps-standalone/
 bin/
 obj/
 
+# eye jar #
+# #########
+*/eye2.jar
+
 # Mac stuff #
 #############
 .DS_Store
