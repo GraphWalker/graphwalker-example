@@ -31,5 +31,5 @@ When `docker-compse up` is done (it will take some time the first time it's run)
 ```shell script
 git clone https://github.com/GraphWalker/graphwalker-example.git
 cd graphwalker-example/java-prestashop
-mvn compile exec:java -Dexec.mainClass="com.prestashop.runners.Runner"
+mvn compile exec:java -Dexec.mainClass="com.prestashop.runners.SeleniumRunner"
 ```

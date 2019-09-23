@@ -7,8 +7,6 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.firefox.FirefoxProfile;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.Random;
 
@@ -16,8 +14,6 @@ import java.util.Random;
  * Created by krikar on 2015-02-01.
  */
 public class Helper {
-    private static final Logger log = LoggerFactory.getLogger(Helper.class);
-
     /**
      * Random number generator.
      * Will be used to create random data used for input in test.

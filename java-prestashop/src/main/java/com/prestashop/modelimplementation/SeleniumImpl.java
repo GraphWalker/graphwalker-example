@@ -63,6 +63,13 @@ public class SeleniumImpl extends ExecutionContext implements PrestaShop {
         Helper.getWaiter().until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h1[@class='h1'][contains(.,'Shopping Cart')]")));
     }
 
+    @java.lang.Override
+    public void e_AddProductToCart() {
+        Helper.getWaiter().until(ExpectedConditions.elementToBeClickable(By.xpath("//button[contains(.,'Add to cart')]"))).click();
+        Helper.getWaiter().until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h4[contains(.,'Product successfully added to your shopping cart')]")));
+        Helper.getWaiter().until(ExpectedConditions.elementToBeClickable(By.xpath("//button[contains(.,'Continue shopping')]"))).click();
+    }
+
     @Override
     public void e_Start() {
         Helper.getInstance().get("http://localhost:8001");
