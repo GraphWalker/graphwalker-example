@@ -34,13 +34,13 @@ When `docker-compse up` is done (it will take some time the first time it's run)
 Fix that by logging into the PrestaShop webserver :
 
 ```shell script
-$ sudo docker ps
+$ docker ps
 CONTAINER ID        IMAGE                         COMMAND                  CREATED             STATUS              PORTS                                NAMES
 fa9415b6462d        prestashop/prestashop-git:7   "docker-php-entrypoi…"   18 minutes ago      Up 18 minutes       0.0.0.0:8001->80/tcp                 prestashop-git
 50af85c52263        mysql:5                       "docker-entrypoint.s…"   18 minutes ago      Up 18 minutes       33060/tcp, 0.0.0.0:32768->3306/tcp   prestashop_mysql_1
 
 # Enter the webserver using its id 
-$ sudo docker exec -it fa9415b6462d bash
+$ docker exec -it fa9415b6462d bash
 root@fa9415b6462d:/var/www/html# 
 
 # Fix permissions for the web server
