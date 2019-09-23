@@ -1,15 +1,15 @@
 package com.prestashop.runners;
 
-import com.prestashop.modelimplementation.PrestoShotImpl;
+import com.prestashop.modelimplementation.SeleniumImpl;
 import org.graphwalker.java.test.Result;
 import org.graphwalker.java.test.TestExecutor;
 
 import java.io.IOException;
 
-public class Runner {
+public class SeleniumRunner {
     public static void main(String[] args) throws IOException {
         TestExecutor executor = new TestExecutor(
-                PrestoShotImpl.class
+                SeleniumImpl.class
         );
 
         Result result = executor.execute(true);

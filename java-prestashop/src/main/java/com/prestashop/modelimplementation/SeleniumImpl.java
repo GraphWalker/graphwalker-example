@@ -1,19 +1,17 @@
 package com.prestashop.modelimplementation;
 
 
-import com.prestashop.PrestoShop;
+import com.prestashop.PrestaShop;
 import com.prestashop.helper.Helper;
 import org.graphwalker.core.machine.ExecutionContext;
 import org.graphwalker.java.annotation.AfterExecution;
 import org.graphwalker.java.annotation.BeforeExecution;
-import org.graphwalker.java.annotation.GraphWalker;
-import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
-public class PrestoShotImpl extends ExecutionContext implements PrestoShop {
+public class SeleniumImpl extends ExecutionContext implements PrestaShop {
 
     @BeforeExecution
     public void setup() {
@@ -51,7 +49,7 @@ public class PrestoShotImpl extends ExecutionContext implements PrestoShop {
 
     @Override
     public void v_HomePage() {
-        Helper.getWaiter().until(ExpectedConditions.titleIs("SAST Shop"));
+        Helper.getWaiter().until(ExpectedConditions.titleIs("PrestaShop"));
         Helper.getWaiter().until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//img[@alt='Hummingbird printed t-shirt']")));
     }
 
