@@ -32,8 +32,10 @@ import org.graphwalker.core.model.Edge;
 import org.graphwalker.core.model.Model;
 import org.graphwalker.core.model.Vertex;
 import org.graphwalker.java.annotation.GraphWalker;
+import org.junit.Assert;
 
-import static org.graphwalker.core.Assert.expect;
+import java.util.ArrayList;
+
 
 /**
  * @author Nils Olsson
@@ -77,8 +79,8 @@ public class CreateModelTest extends ExecutionContext implements CreateModel {
 
     @Override
     public void validateModel() {
-        expect(model).to.have.property("edges").and.that.it.have.size(get("edges"));
-        expect(model).to.have.property("vertices").and.that.it.have.size(get("vertices"));
+        Assert.assertEquals(get("edges"), model.getEdges().size());
+        Assert.assertEquals(get("vertices"), model.getVertices().size());
     }
 
     @Override
