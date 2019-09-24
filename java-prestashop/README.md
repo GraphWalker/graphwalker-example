@@ -19,7 +19,8 @@ sudo chown -R www-data:www-data *
 docker-compose up
 ```
 
-If you encounter any problems with the `docker` command, please google your problems. This example will ot provide any help.
+If you encounter any problems with the `docker` command, please google your problems. This example can not provide any
+help in that regards.
 
 When `docker-compse up` is done (it will take some time the first time it's run), PrestaShop needs to be configured.
  * Goto http://localhost:8001
@@ -31,5 +32,5 @@ When `docker-compse up` is done (it will take some time the first time it's run)
 ```shell script
 git clone https://github.com/GraphWalker/graphwalker-example.git
 cd graphwalker-example/java-prestashop
-mvn compile exec:java -Dexec.mainClass="com.prestashop.runners.SeleniumRunner"
+mvn compile exec:java -Dexec.cleanupDaemonThreads=false -Dexec.mainClass="com.prestashop.runners.SeleniumRunner"
 ```

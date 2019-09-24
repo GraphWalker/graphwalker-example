@@ -58,6 +58,7 @@ public class Helper {
         private static final WebDriver INSTANCE = new FirefoxDriver(firefoxOptions);
     }
 
+    @SuppressWarnings( "deprecation" )
     public static WebDriverWait getWaiter() {
         return new WebDriverWait(getInstance(), 10);
     }
