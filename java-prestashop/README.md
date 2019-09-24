@@ -27,10 +27,20 @@ When `docker-compse up` is done (it will take some time the first time it's run)
 
 ![alt tag](images/prestashop/After_installation.png)
 
-## Run the GraphWalker test
+## Run the GraphWalker test with selenium
 
 ```shell script
 git clone https://github.com/GraphWalker/graphwalker-example.git
 cd graphwalker-example/java-prestashop
 mvn compile exec:java -Dexec.cleanupDaemonThreads=false -Dexec.mainClass="com.prestashop.runners.SeleniumRunner"
+```
+
+## Run the GraphWalker test with eye
+
+You need to install eye2.jar in order for the below to work
+
+```shell script
+mvn install:install-file -Dfile=<PATH TO JAR>/eye2.jar -DgroupId=eye -DartifactId=Eye -Dversion=2 -Dpackaging=jar
+
+mvn -Peye compile exec:java -Dexec.cleanupDaemonThreads=false -Dexec.mainClass="com.prestashop.runners.EyeRunner"
 ```
