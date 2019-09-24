@@ -13,6 +13,39 @@
     <artifactId>java-prestashop</artifactId>
     <name>GraphWalker PrestaShop Example</name>
 
+    <profiles>
+        <profile>
+            <id>selenium</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-compiler-plugin</artifactId>
+                        <configuration>
+                            <excludes>
+                                <exclude>**/com/prestashop/modelimplementation/EyeImpl.java</exclude>
+                                <exclude>**/com/prestashop/runners/EyeRunner.java</exclude>
+                            </excludes>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>eye</id>
+            <dependencies>
+                <dependency>
+                    <groupId>eye</groupId>
+                    <artifactId>Eye</artifactId>
+                    <version>2</version>
+                </dependency>
+            </dependencies>
+        </profile>
+    </profiles>
+
     <build>
         <plugins>
             <plugin>
@@ -31,6 +64,15 @@
                 </executions>
             </plugin>
         </plugins>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>3.8.0</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
     </build>
 
     <dependencies>
@@ -68,11 +110,6 @@
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>4.13-beta-3</version>
-        </dependency>
-        <dependency>
-            <groupId>eye</groupId>
-            <artifactId>Eye</artifactId>
-            <version>2</version>
         </dependency>
     </dependencies>
 </project>
