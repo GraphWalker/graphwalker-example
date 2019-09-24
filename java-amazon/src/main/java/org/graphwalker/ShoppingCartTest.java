@@ -36,7 +36,7 @@ import java.util.regex.Pattern;
  * running: mvn graphwalker:generate-sources
  * also: mvn graphwalker:test
  */
-@GraphWalker(value = "random(edge_coverage(100))", start = "e_StartBrowser")
+@GraphWalker(value = "random(reached_vertex(v_ShoppingCart))", start = "e_StartBrowser")
 public class ShoppingCartTest extends ExecutionContext implements ShoppingCart {
 
     private static final Logger logger = LoggerFactory.getLogger(ShoppingCartTest.class);
