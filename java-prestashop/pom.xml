@@ -28,6 +28,8 @@
                             <excludes>
                                 <exclude>**/com/prestashop/modelimplementation/EyeImpl.java</exclude>
                                 <exclude>**/com/prestashop/runners/EyeRunner.java</exclude>
+                                <exclude>**/com/prestashop/modelimplementation/SikuliImpl.java</exclude>
+                                <exclude>**/com/prestashop/runners/SikuliRunner.java</exclude>
                             </excludes>
                         </configuration>
                     </plugin>
@@ -36,6 +38,20 @@
         </profile>
         <profile>
             <id>eye</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-compiler-plugin</artifactId>
+                        <configuration>
+                            <excludes>
+                                <exclude>**/com/prestashop/modelimplementation/SikuliImpl.java</exclude>
+                                <exclude>**/com/prestashop/runners/SikuliRunner.java</exclude>
+                            </excludes>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
             <dependencies>
                 <dependency>
                     <groupId>eye</groupId>
@@ -43,6 +59,36 @@
                     <version>2</version>
                 </dependency>
             </dependencies>
+        </profile>
+        <profile>
+            <id>sikuli</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-compiler-plugin</artifactId>
+                        <configuration>
+                            <excludes>
+                                <exclude>**/com/prestashop/modelimplementation/EyeImpl.java</exclude>
+                                <exclude>**/com/prestashop/runners/EyeRunner.java</exclude>
+                            </excludes>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+            <dependencies>
+                <dependency>
+                    <groupId>com.sikulix</groupId>
+                    <artifactId>sikulixapi</artifactId>
+                    <version>1.1.4-SNAPSHOT</version>
+                </dependency>
+            </dependencies>
+            <repositories>
+                <repository>
+                    <id>my-alternate-repository</id>
+                    <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+                </repository>
+            </repositories>
         </profile>
     </profiles>
 
