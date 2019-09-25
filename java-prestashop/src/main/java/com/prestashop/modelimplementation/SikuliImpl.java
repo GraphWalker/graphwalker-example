@@ -21,7 +21,7 @@ public class SikuliImpl extends ExecutionContext implements PrestaShop {
     @BeforeExecution
     public void setup() {
         screen = new Screen();
-        ImagePath.add("/home/krikar/dev/graphwalker/graphwalker-example/java-prestashop/src/main/resources/images");
+        ImagePath.add("src/main/resources/images");
         Helper.setup();
     }
 
