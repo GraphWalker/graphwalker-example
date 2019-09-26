@@ -6,17 +6,12 @@ import org.graphwalker.core.machine.ExecutionContext;
 import org.graphwalker.java.annotation.AfterExecution;
 import org.graphwalker.java.annotation.BeforeExecution;
 import org.junit.Assert;
-import org.sikuli.script.FindFailed;
-import org.sikuli.script.ImagePath;
-import org.sikuli.script.Screen;
-
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
+import org.sikuli.script.*;
 
 public class SikuliImpl extends ExecutionContext implements PrestaShop {
 
     Screen screen;
+    Region region;
 
     @BeforeExecution
     public void setup() {
@@ -38,7 +33,7 @@ public class SikuliImpl extends ExecutionContext implements PrestaShop {
     @Override
     public void v_ConfirmOrder() {
         try {
-            screen.wait("personalInformation.png");
+            region.wait("personalInformation.png");
         } catch (FindFailed findFailed) {
             findFailed.printStackTrace();
             Assert.fail();
@@ -48,7 +43,7 @@ public class SikuliImpl extends ExecutionContext implements PrestaShop {
     @Override
     public void e_Checkout() {
         try {
-            screen.click("proceedToCheckout.png");
+            region.click("proceedToCheckout.png");
         } catch (FindFailed findFailed) {
             findFailed.printStackTrace();
             Assert.fail();
@@ -58,7 +53,7 @@ public class SikuliImpl extends ExecutionContext implements PrestaShop {
     @Override
     public void v_Product() {
         try {
-            screen.wait("productPage.png");
+            region.wait("productPage.png");
         } catch (FindFailed findFailed) {
             findFailed.printStackTrace();
             Assert.fail();
@@ -68,7 +63,7 @@ public class SikuliImpl extends ExecutionContext implements PrestaShop {
     @Override
     public void e_Select_Product() {
         try {
-            screen.click("product.png");
+            region.click("product.png");
         } catch (FindFailed findFailed) {
             findFailed.printStackTrace();
             Assert.fail();
@@ -78,7 +73,8 @@ public class SikuliImpl extends ExecutionContext implements PrestaShop {
     @Override
     public void v_HomePage() {
         try {
-            screen.wait("homePage.png");
+            region = App.focusedWindow();
+            region.wait("homePage.png");
         } catch (FindFailed findFailed) {
             findFailed.printStackTrace();
             Assert.fail();
@@ -88,7 +84,7 @@ public class SikuliImpl extends ExecutionContext implements PrestaShop {
     @Override
     public void e_Cart() {
         try {
-            screen.click("cartButton.png");
+            region.click("cartButton.png");
         } catch (FindFailed findFailed) {
             findFailed.printStackTrace();
             Assert.fail();
@@ -98,7 +94,7 @@ public class SikuliImpl extends ExecutionContext implements PrestaShop {
     @Override
     public void v_Cart() {
         try {
-            screen.wait("shoppingCart.png");
+            region.wait("shoppingCart.png");
         } catch (FindFailed findFailed) {
             findFailed.printStackTrace();
             Assert.fail();
@@ -108,8 +104,9 @@ public class SikuliImpl extends ExecutionContext implements PrestaShop {
     @Override
     public void e_AddProductToCart() {
         try {
-            screen.click("addToCart.png");
-            screen.click("continueShopping.png");
+            region.click("addToCart.png");
+            region.wait("continueShopping.png");
+            region.click("continueShopping.png");
         } catch (FindFailed findFailed) {
             findFailed.printStackTrace();
             Assert.fail();
