@@ -43,6 +43,8 @@ They are also created during the `compile` lifecycle of maven.
 
 ### Run the GraphWalker test with [Selenium](https://www.seleniumhq.org/)
 
+The model implementation using [selenium](https://github.com/GraphWalker/graphwalker-example/blob/master/java-prestashop/src/main/java/com/prestashop/modelimplementation/SeleniumImpl.java).
+
 ```shell script
 git clone https://github.com/GraphWalker/graphwalker-example.git
 cd graphwalker-example/java-prestashop
@@ -50,6 +52,8 @@ mvn -Pselenium compile exec:java -Dexec.cleanupDaemonThreads=false -Dexec.mainCl
 ```
 
 ### Run the GraphWalker test with [Eye](https://eyeautomate.com/eye/)
+
+The model implementation using [eye](https://github.com/GraphWalker/graphwalker-example/blob/master/java-prestashop/src/main/java/com/prestashop/modelimplementation/EyeImpl.java).
 
 You need to install eye2.jar in order for the below to work
 
@@ -60,6 +64,8 @@ mvn -Peye compile exec:java -Dexec.cleanupDaemonThreads=false -Dexec.mainClass="
 ```
 
 ### Run the GraphWalker test with [SikuliX](http://sikulix.com/)
+
+The model implementation using [sikuli](https://github.com/GraphWalker/graphwalker-example/blob/master/java-prestashop/src/main/java/com/prestashop/modelimplementation/SikuliImpl.java).
 
 ```shell script
 mvn -Psikuli compile exec:java -Dexec.cleanupDaemonThreads=false -Dexec.mainClass="com.prestashop.runners.SikuliRunner"
