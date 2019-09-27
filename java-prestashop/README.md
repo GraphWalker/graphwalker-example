@@ -26,15 +26,30 @@ The `docker-compose up` command will launch 2 services, one database and one web
 
 ![alt tag](images/prestashop/After_installation.png)
 
-## Run the GraphWalker test with selenium
+
+## GraphWalker running tests using different test tools
+
+Extending the same interface `PrestaShop`, different implementations can be used to run th same tests. The interface is created from models in the folder<br>
+ `src/main/resources/com/prestashop`<br>
+and will end up in this folder<br>
+ `target/generated-sources/graphwalker/com/prestashop`.
+
+Interfaces are created by graphwalker by running:<br>
+```shell script
+mvn graphwalker:generate-sources
+```
+They are also created during the `compile` lifecycle of maven. 
+
+
+### Run the GraphWalker test with [Selenium](https://www.seleniumhq.org/)
 
 ```shell script
 git clone https://github.com/GraphWalker/graphwalker-example.git
 cd graphwalker-example/java-prestashop
-mvn compile exec:java -Dexec.cleanupDaemonThreads=false -Dexec.mainClass="com.prestashop.runners.SeleniumRunner"
+mvn -Pselenium compile exec:java -Dexec.cleanupDaemonThreads=false -Dexec.mainClass="com.prestashop.runners.SeleniumRunner"
 ```
 
-## Run the GraphWalker test with eye
+### Run the GraphWalker test with [Eye](https://eyeautomate.com/eye/)
 
 You need to install eye2.jar in order for the below to work
 
@@ -42,4 +57,10 @@ You need to install eye2.jar in order for the below to work
 mvn install:install-file -Dfile=<PATH TO JAR>/eye2.jar -DgroupId=eye -DartifactId=Eye -Dversion=2 -Dpackaging=jar
 
 mvn -Peye compile exec:java -Dexec.cleanupDaemonThreads=false -Dexec.mainClass="com.prestashop.runners.EyeRunner"
+```
+
+### Run the GraphWalker test with [SikuliX](http://sikulix.com/)
+
+```shell script
+mvn -Psikuli compile exec:java -Dexec.cleanupDaemonThreads=false -Dexec.mainClass="com.prestashop.runners.SikuliRunner"
 ```
