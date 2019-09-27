@@ -22,8 +22,7 @@ docker-compose up
 If you encounter any problems with the `docker` command, please google your problems. This example can not provide any
 help in that regards.
 
-When `docker-compse up` is done (it will take some time the first time it's run), PrestaShop needs to be configured.
- * Goto http://localhost:8001
+The `docker-compose up` command will launch 2 services, one database and one web. It will take a while until all is up running, When done, goto http://localhost:8001 to see PrestaShop.
 
 ![alt tag](images/prestashop/After_installation.png)
 
