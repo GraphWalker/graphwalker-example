@@ -15,7 +15,7 @@ Before running the example, make sure following requirements are met/installed o
 ```shell script
 git clone https://github.com/PrestaShop/PrestaShop
 cd PrestaShop
-sudo chown -R www-data:www-data *
+sudo chown -hR www-data:www-data *
 docker-compose up
 ```
 
