@@ -12,7 +12,7 @@ Before running the example, make sure following requirements are met/installed o
 
 ## Get the PrestaShop demo running
 
-**NOTE: Due to a bug(?), PrestaShop on docker is not working as expected. Keep an eye on: https://github.com/PrestaShop/PrestaShop/issues/15747**
+**NOTE: Due to a bug, PrestaShop on docker is not working as expected. Keep an eye on: https://github.com/PrestaShop/PrestaShop/issues/15747**
  
 ```shell script
 git clone https://github.com/PrestaShop/PrestaShop
