@@ -2,12 +2,13 @@ package com.company.modelimplementations;
 
 
 import com.company.FindOwnersSharedState;
-import com.company.helper.Helper;
 import org.graphwalker.core.machine.ExecutionContext;
 import org.graphwalker.java.annotation.GraphWalker;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
+
+import static com.codeborne.selenide.Condition.text;
+import static com.codeborne.selenide.Condition.visible;
+import static com.codeborne.selenide.Selenide.*;
 
 /**
  * Implements the model (and interface) FindOwnersSharedState
@@ -19,35 +20,34 @@ public class FindOwners extends ExecutionContext implements FindOwnersSharedStat
 
     @Override
     public void v_Owners() {
-        Helper.getWaiter().until(ExpectedConditions.textToBe(By.tagName("h2"), "Owners"));
-        WebElement table = Helper.getWaiter().until(ExpectedConditions.visibilityOfElementLocated(By.id("owners")));
-        org.junit.Assert.assertTrue(table.findElements(By.xpath("id('owners')/tbody/tr")).size() >= 10);
+        $(By.tagName("h2")).shouldHave(text("Owners"));
+        org.junit.Assert.assertTrue($$x("id('owners')/tbody/tr").size() >= 10);
     }
 
     @Override
     public void e_AddOwner() {
-        Helper.getWaiter().until(ExpectedConditions.elementToBeClickable(By.linkText("Add Owner"))).click();
+        $(By.linkText("Add Owner")).click();
     }
 
     @Override
     public void v_FindOwners() {
-        Helper.getWaiter().until(ExpectedConditions.textToBe(By.tagName("h2"), "Find Owners"));
-        Helper.getWaiter().until(ExpectedConditions.visibilityOfElementLocated(By.xpath("/html/body/div/table/tbody/tr/td[2]/img")));
+        $(By.tagName("h2")).shouldHave(text("Find Owners"));
+        $x("/html/body/div/table/tbody/tr/td[2]/img").shouldBe(visible);
     }
 
     @Override
     public void e_Search() {
-        Helper.getWaiter().until(ExpectedConditions.elementToBeClickable(By.cssSelector("button[type=\"submit\"]"))).click();
+        $("button[type=\"submit\"]").click();
     }
 
     @Override
     public void e_FindOwners() {
-        Helper.getWaiter().until(ExpectedConditions.elementToBeClickable(By.className("icon-search"))).click();
+        $(By.className("icon-search")).click();
     }
 
     @Override
     public void v_NewOwner() {
-        Helper.getWaiter().until(ExpectedConditions.textToBe(By.tagName("h2"), "New Owner"));
-        Helper.getWaiter().until(ExpectedConditions.visibilityOfElementLocated(By.xpath("/html/body/table/tbody/tr/td[2]/img")));
+        $(By.tagName("h2")).shouldHave(text("New Owner"));
+        $x("/html/body/table/tbody/tr/td[2]/img").shouldBe(visible);
     }
 }

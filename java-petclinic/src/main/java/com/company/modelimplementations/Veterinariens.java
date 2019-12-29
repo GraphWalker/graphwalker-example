@@ -2,12 +2,15 @@ package com.company.modelimplementations;
 
 
 import com.company.VeterinariensSharedState;
-import com.company.helper.Helper;
 import org.graphwalker.core.machine.ExecutionContext;
 import org.graphwalker.java.annotation.GraphWalker;
+import org.junit.Assert;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
+
+import static com.codeborne.selenide.Condition.text;
+import static com.codeborne.selenide.Condition.visible;
+import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.$x;
 
 /**
  * Implements the model (and interface) VeterinariensSharedState
@@ -19,20 +22,19 @@ public class Veterinariens extends ExecutionContext implements VeterinariensShar
 
     @Override
     public void e_Search() {
-        Helper.getWaiter().until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("input[type=\"search\"]"))).clear();
-        Helper.getWaiter().until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("input[type=\"search\"]"))).sendKeys("helen");
+        $("input[type=\"search\"]").clear();
+        $("input[type=\"search\"]").sendKeys("helen");
     }
 
     @Override
     public void v_SearchResult() {
-        Helper.getWaiter().until(ExpectedConditions.textToBe(By.xpath("//table[@id='vets']/tbody/tr/td"), "Helen Leary"));
-        Helper.getWaiter().until(ExpectedConditions.visibilityOfElementLocated(By.xpath("/html/body/div/table[last()]/tbody/tr/td[2]/img")));
+        $x("//table[@id='vets']/tbody/tr/td").shouldHave(text("Helen Leary"));
+        $x("/html/body/div/table[last()]/tbody/tr/td[2]/img").shouldBe(visible);
     }
 
     @Override
     public void v_Veterinarians() {
-        Helper.getWaiter().until(ExpectedConditions.textToBe(By.tagName("h2"), "Veterinarians"));
-        WebElement table = Helper.getWaiter().until(ExpectedConditions.visibilityOfElementLocated(By.id("vets")));
-        org.junit.Assert.assertTrue(table.findElements(By.xpath("id('vets')/tbody/tr")).size() >= 1);
+        $(By.tagName("h2")).shouldHave(text("Veterinarians"));
+        Assert.assertTrue($(By.id("vets")).$$x("id('vets')/tbody/tr").size() >= 1);
     }
 }
