@@ -3,15 +3,13 @@ package com.company.runners;
 import com.company.modelimplementations.*;
 import com.company.observers.GraphStreamObserver;
 import org.graphstream.graph.Graph;
-import org.graphstream.graph.implementations.SingleGraph;
+import org.graphstream.graph.implementations.MultiGraph;
 import org.graphwalker.core.event.Observer;
 import org.graphwalker.java.test.Executor;
 import org.graphwalker.java.test.Result;
 import org.graphwalker.java.test.TestExecutor;
 
 import java.io.IOException;
-import java.util.Iterator;
-import java.util.Map;
 
 /**
  * @author Nils Olsson
@@ -21,7 +19,7 @@ public class GraphStreamApplication {
     public static void main(String[] args) throws IOException {
         System.setProperty("org.graphstream.ui.renderer",
                 "org.graphstream.ui.j2dviewer.J2DGraphRenderer");
-        Graph graph = new SingleGraph("GraphWalker MeetUp");
+        Graph graph = new MultiGraph("GraphWalker MeetUp");
         graph.display(true);
         Executor executor = new TestExecutor(PetClinic.class,
                 FindOwners.class,
