@@ -2,8 +2,6 @@ package com.company.runners;
 
 import com.company.modelimplementations.*;
 import com.company.observers.GraphStreamObserver;
-import org.graphstream.graph.Graph;
-import org.graphstream.graph.implementations.MultiGraph;
 import org.graphwalker.core.event.Observer;
 import org.graphwalker.java.test.Executor;
 import org.graphwalker.java.test.Result;
@@ -17,16 +15,12 @@ import java.io.IOException;
 public class GraphStreamApplication {
 
     public static void main(String[] args) throws IOException {
-        System.setProperty("org.graphstream.ui.renderer",
-                "org.graphstream.ui.j2dviewer.J2DGraphRenderer");
-        Graph graph = new MultiGraph("GraphWalker MeetUp");
-        graph.display(true);
         Executor executor = new TestExecutor(PetClinic.class,
                 FindOwners.class,
                 NewOwner.class,
                 OwnerInformation.class,
                 Veterinariens.class);
-        Observer observer = new GraphStreamObserver(graph);
+        Observer observer = new GraphStreamObserver(executor.getMachine().getContexts());
         executor.getMachine().addObserver(observer);
 
         Result result = executor.execute(true);
