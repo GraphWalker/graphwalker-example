@@ -7,3 +7,4 @@ Run the test using maven:
 mvn graphwalker:test
 ```
 
+Documentation is here: https://github.com/GraphWalker/graphwalker-project/wiki/Amazon-Shopping-Cart
