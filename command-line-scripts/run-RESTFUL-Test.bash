@@ -31,16 +31,16 @@ trap control_c SIGINT
 
 
 # Get the latest graphwalker jar
-GW3_JAR=graphwalker-cli-4.1.0.jar
+GW3_JAR=graphwalker-cli-4.2.0.jar
 if [ ! -f $GW3_JAR ]
 then
-  wget http://graphwalker.org/archive/graphwalker-cli-4.1.0.jar
+  wget http://graphwalker.org/archive/graphwalker-cli-4.2.0.jar
 fi
 
 
 
 # Launch graphwalker, and redirect stderr and stdout to gw3.log
-java -jar graphwalker-cli-4.1.0.jar -d all online --service RESTFUL > gw3.log 2>&1 &
+java -jar graphwalker-cli-4.2.0.jar -d all online --service RESTFUL > gw3.log 2>&1 &
 PID=$!
 
 # Wait until graphwalker has started
