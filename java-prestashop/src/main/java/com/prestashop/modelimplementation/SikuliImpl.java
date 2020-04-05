@@ -27,7 +27,7 @@ public class SikuliImpl extends ExecutionContext implements PrestaShop {
 
     @Override
     public void e_Start() {
-        Helper.getInstance().get("http://localhost:8001");
+        Helper.getInstance().get("http://localhost");
     }
 
     @Override

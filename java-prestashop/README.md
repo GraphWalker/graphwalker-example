@@ -5,26 +5,34 @@ To get the the SUT installed locally the presentation uses the docker version of
 page](https://github.com/PrestaShop/PrestaShop) and follow the instructions there.  
 
 Before running the example, make sure following requirements are met/installed on your machine:
-* Java JDK >= 8
+* Java JDK 8
 * Maven >= 3.5
 * Docker >= 18 
 * Firefox latest version
 
 ## Get the PrestaShop demo running
 
-**NOTE: Due to a bug, PrestaShop on docker is not working as expected. Keep an eye on: https://github.com/PrestaShop/PrestaShop/issues/15747**
- 
+The instructions are from: https://hub.docker.com/r/bitnami/prestashop/
+
 ```shell script
-git clone https://github.com/PrestaShop/PrestaShop
-cd PrestaShop
-sudo chown -hR www-data:www-data *
-docker-compose up
+mkdir PrestaShop && cd PrestaShop
+curl -sSL https://raw.githubusercontent.com/bitnami/bitnami-docker-prestashop/master/docker-compose.yml > docker-compose.yml
+docker-compose up -d
 ```
 
-If you encounter any problems with the `docker` command, please google your problems. This example can not provide any
-help in that regards.
+To shut it down:
 
-The `docker-compose up` command will launch 2 services, one database and one web. It will take a while until all is up running. When done, goto http://localhost:8001 to see PrestaShop.
+```shell script
+docker-compose down
+```
+
+The `docker-compose up` command will launch 2 services, one database and the PrestaShop web app. It will take a while until all is up running.
+
+Goto http://localhost, and the last install phase of Prestashop will start.
+
+![alt tag](images/prestashop/bitnami_installing.png)
+
+When done, you will be forwarded to:
 
 ![alt tag](images/prestashop/After_installation.png)
 
