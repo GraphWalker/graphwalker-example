@@ -1,7 +1,7 @@
 package com.company.modelimplementations;
 
 
-import com.company.VeterinariensSharedState;
+import com.company.Veterinarians;
 import org.graphwalker.core.machine.ExecutionContext;
 import org.graphwalker.java.annotation.GraphWalker;
 import org.junit.Assert;
@@ -18,7 +18,7 @@ import static com.codeborne.selenide.Selenide.$x;
  * Stop condition is 100% coverage of all edges.
  */
 @GraphWalker(value = "random(edge_coverage(100))")
-public class Veterinariens extends ExecutionContext implements VeterinariensSharedState {
+public class VeterinariansTest extends ExecutionContext implements Veterinarians {
 
     @Override
     public void e_Search() {

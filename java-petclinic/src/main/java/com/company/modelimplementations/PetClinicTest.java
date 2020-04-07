@@ -1,7 +1,7 @@
 package com.company.modelimplementations;
 
 
-import com.company.PetClinicSharedState;
+import com.company.PetClinic;
 import org.graphwalker.core.machine.ExecutionContext;
 import org.graphwalker.java.annotation.*;
 import org.openqa.selenium.By;
@@ -18,7 +18,7 @@ import static com.codeborne.selenide.Selenide.*;
  * The start element in the model is e_StartBrowser.
  */
 @GraphWalker(value = "random(edge_coverage(100))", start = "e_StartBrowser")
-public class PetClinic extends ExecutionContext implements PetClinicSharedState {
+public class PetClinicTest extends ExecutionContext implements PetClinic {
 
     @Override
     public void v_FindOwners() {

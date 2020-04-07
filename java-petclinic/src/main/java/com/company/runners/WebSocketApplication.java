@@ -15,11 +15,11 @@ import java.io.IOException;
 public class WebSocketApplication {
 
     public static void main(String[] args) throws IOException {
-        Executor executor = new TestExecutor(PetClinic.class,
-                FindOwners.class,
-                NewOwner.class,
-                OwnerInformation.class,
-                Veterinariens.class);
+        Executor executor = new TestExecutor(PetClinicTest.class,
+                FindOwnersTest.class,
+                NewOwnerTest.class,
+                OwnerInformationTest.class,
+                VeterinariansTest.class);
 
         WebSocketServer server = new WebSocketServer(8887, executor.getMachine());
         server.start();

@@ -1,7 +1,7 @@
 package com.company.modelimplementations;
 
 
-import com.company.NewOwnerSharedState;
+import com.company.NewOwner;
 import com.github.javafaker.Faker;
 import org.graphwalker.core.machine.ExecutionContext;
 import org.graphwalker.java.annotation.GraphWalker;
@@ -18,7 +18,7 @@ import static com.codeborne.selenide.Selenide.$x;
  * Stop condition is 100% coverage of all edges.
  */
 @GraphWalker(value = "random(edge_coverage(100))")
-public class NewOwner extends ExecutionContext implements NewOwnerSharedState {
+public class NewOwnerTest extends ExecutionContext implements NewOwner {
 
     @Override
     public void v_OwnerInformation() {

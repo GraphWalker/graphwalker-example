@@ -1,7 +1,7 @@
 package com.company.modelimplementations;
 
 
-import com.company.FindOwnersSharedState;
+import com.company.FindOwners;
 import org.graphwalker.core.machine.ExecutionContext;
 import org.graphwalker.java.annotation.GraphWalker;
 import org.openqa.selenium.By;
@@ -16,7 +16,7 @@ import static com.codeborne.selenide.Selenide.*;
  * Stop condition is 100% coverage of all edges.
  */
 @GraphWalker(value = "random(edge_coverage(100))")
-public class FindOwners extends ExecutionContext implements FindOwnersSharedState {
+public class FindOwnersTest extends ExecutionContext implements FindOwners {
 
     @Override
     public void v_Owners() {

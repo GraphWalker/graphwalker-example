@@ -21,11 +21,11 @@ public class GraphStreamApplication {
                 "org.graphstream.ui.j2dviewer.J2DGraphRenderer");
         Graph graph = new MultiGraph("GraphWalker MeetUp");
         graph.display(true);
-        Executor executor = new TestExecutor(PetClinic.class,
-                FindOwners.class,
-                NewOwner.class,
-                OwnerInformation.class,
-                Veterinariens.class);
+        Executor executor = new TestExecutor(PetClinicTest.class,
+                FindOwnersTest.class,
+                NewOwnerTest.class,
+                OwnerInformationTest.class,
+                VeterinariansTest.class);
         Observer observer = new GraphStreamObserver(graph);
         executor.getMachine().addObserver(observer);
 

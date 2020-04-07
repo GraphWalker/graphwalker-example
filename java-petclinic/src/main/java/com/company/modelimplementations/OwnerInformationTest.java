@@ -1,7 +1,7 @@
 package com.company.modelimplementations;
 
 
-import com.company.OwnerInformationSharedState;
+import com.company.OwnerInformation;
 import com.github.javafaker.Faker;
 import org.graphwalker.core.machine.ExecutionContext;
 import org.graphwalker.java.annotation.GraphWalker;
@@ -19,9 +19,9 @@ import static com.codeborne.selenide.Selenide.*;
  * Stop condition is 100% coverage of all edges.
  */
 @GraphWalker(value = "random(edge_coverage(100))")
-public class OwnerInformation extends ExecutionContext implements OwnerInformationSharedState {
+public class OwnerInformationTest extends ExecutionContext implements OwnerInformation {
 
-    private static final Logger log = LoggerFactory.getLogger(OwnerInformation.class);
+    private static final Logger log = LoggerFactory.getLogger(OwnerInformationTest.class);
 
     /**
      * This method does not only implement the verification of the vertex, it also
