@@ -1,12 +1,14 @@
 package com.prestashop.modelimplementation;
 
 import com.prestashop.PrestaShop;
-import com.prestashop.helper.Helper;
 import org.graphwalker.core.machine.ExecutionContext;
 import org.graphwalker.java.annotation.AfterExecution;
 import org.graphwalker.java.annotation.BeforeExecution;
 import org.junit.Assert;
 import org.sikuli.script.*;
+
+import static com.codeborne.selenide.Configuration.browser;
+import static com.codeborne.selenide.Selenide.open;
 
 public class SikuliImpl extends ExecutionContext implements PrestaShop {
 
@@ -17,17 +19,13 @@ public class SikuliImpl extends ExecutionContext implements PrestaShop {
     public void setup() {
         screen = new Screen();
         ImagePath.add("src/main/resources/images");
-        Helper.setup();
     }
 
-    @AfterExecution
-    public void cleanup() {
-        Helper.tearDown();
-    }
 
     @Override
     public void e_Start() {
-        Helper.getInstance().get("http://localhost");
+        browser = "firefox";
+        open("http://localhost");
     }
 
     @Override

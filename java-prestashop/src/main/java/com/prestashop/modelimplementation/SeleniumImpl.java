@@ -2,76 +2,71 @@ package com.prestashop.modelimplementation;
 
 
 import com.prestashop.PrestaShop;
-import com.prestashop.helper.Helper;
 import org.graphwalker.core.machine.ExecutionContext;
-import org.graphwalker.java.annotation.AfterExecution;
-import org.graphwalker.java.annotation.BeforeExecution;
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
+
+import static com.codeborne.selenide.CollectionCondition.size;
+import static com.codeborne.selenide.Condition.*;
+import static com.codeborne.selenide.Configuration.browser;
+import static com.codeborne.selenide.Selenide.*;
+
 
 public class SeleniumImpl extends ExecutionContext implements PrestaShop {
 
-    @BeforeExecution
-    public void setup() {
-        Helper.setup();
-    }
-
-    @AfterExecution
-    public void cleanup() {
-        Helper.tearDown();
-    }
-
     @Override
     public void v_ConfirmOrder() {
-        Helper.getWaiter().until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h1[contains(.,'Personal Information')]")));
+        $$(".step-title").shouldHave(size(4));
+        $(".step-title").shouldHave(text("1 PERSONAL INFORMATION"));
+
+        Integer itemsInCart = ((Double)getAttribute("itemsInCart")).intValue();
+        String str = itemsInCart.toString() + " item";
+        if (itemsInCart > 1) {
+            str += "s";
+        }
+        $(".cart-summary-products p").shouldHave(matchText(str));
     }
 
     @Override
     public void e_Checkout() {
-        Helper.getWaiter().until(ExpectedConditions.elementToBeClickable(By.xpath("//a[contains(.,'Proceed to checkout')]"))).click();
+        $(".checkout .btn-primary").click();
     }
 
     @Override
     public void v_Product() {
-        Helper.getWaiter().until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h1[@class='h1'][contains(.,'Hummingbird printed t-shirt')]")));
-        Helper.getWaiter().until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h1[@class='h1'][contains(.,'Hummingbird printed t-shirt')]")));
+        $(".breadcrumb").shouldHave(text("Home  Clothes  Men  Hummingbird printed t-shirt"));
+        $("#product-description-short-1").shouldHave(text("Regular fit, round neckline, short sleeves. Made of extra long staple pima cotton."));
     }
 
     @Override
     public void e_Select_Product() {
-        WebElement myelement = Helper.getInstance().findElement(By.xpath("//img[@alt='Hummingbird printed t-shirt']"));
-        JavascriptExecutor jse2 = (JavascriptExecutor)Helper.getInstance();
-        jse2.executeScript("arguments[0].scrollIntoView()", myelement);
-        Helper.getWaiter().until(ExpectedConditions.elementToBeClickable(By.xpath("//img[@alt='Hummingbird printed t-shirt']"))).click();
+        $("[data-id-product='1']").scrollTo().click();
     }
 
     @Override
     public void v_HomePage() {
-        Helper.getWaiter().until(ExpectedConditions.titleIs("PrestaShop"));
-        Helper.getWaiter().until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//img[@alt='Hummingbird printed t-shirt']")));
+        $(".products-section-title").shouldHave(text("POPULAR PRODUCTS"));
     }
 
     @Override
     public void e_Cart() {
-        Helper.getWaiter().until(ExpectedConditions.elementToBeClickable(By.xpath("//span[contains(.,'Cart')]"))).click();
+        $("#_desktop_cart").click();
     }
 
     @Override
     public void v_Cart() {
-        Helper.getWaiter().until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h1[@class='h1'][contains(.,'Shopping Cart')]")));
+        $(".card.cart-container .h1").shouldHave(text("SHOPPING CART"));
+        $("[data-id_customization='0']").shouldHave(text("Hummingbird printed t-shirt"));
     }
 
-    @java.lang.Override
+    @Override
     public void e_AddProductToCart() {
-        Helper.getWaiter().until(ExpectedConditions.elementToBeClickable(By.xpath("//button[contains(.,'Add to cart')]"))).click();
-        Helper.getWaiter().until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h4[contains(.,'Product successfully added to your shopping cart')]")));
-        Helper.getWaiter().until(ExpectedConditions.elementToBeClickable(By.xpath("//button[contains(.,'Continue shopping')]"))).click();
+        $("[data-button-action='add-to-cart']").click();
+        $(".modal-header").shouldHave(text("Product successfully added to your shopping cart"));
+        $(".btn[data-dismiss='modal']").click();
     }
 
     @Override
     public void e_Start() {
-        Helper.getInstance().get("http://localhost");
+        browser = "firefox";
+        open("http://localhost");
     }
 }

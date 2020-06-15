@@ -1,7 +1,6 @@
 package com.prestashop.modelimplementation;
 
 import com.prestashop.PrestaShop;
-import com.prestashop.helper.Helper;
 import org.graphwalker.core.machine.ExecutionContext;
 
 import eye.Eye;
@@ -14,6 +13,9 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
+import static com.codeborne.selenide.Configuration.browser;
+import static com.codeborne.selenide.Selenide.open;
+
 public class EyeImpl extends ExecutionContext implements PrestaShop {
 
     private Eye eye;
@@ -21,17 +23,11 @@ public class EyeImpl extends ExecutionContext implements PrestaShop {
     @BeforeExecution
     public void setup() {
         eye = new Eye();
-        Helper.setup();
     }
-
-    @AfterExecution
-    public void cleanup() {
-        Helper.tearDown();
-    }
-
     @Override
     public void e_Start() {
-        Helper.getInstance().get("http://localhost");
+        browser = "firefox";
+        open("http://localhost");
     }
 
     @Override
