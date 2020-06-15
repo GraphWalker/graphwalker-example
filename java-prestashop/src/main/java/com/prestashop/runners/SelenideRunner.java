@@ -1,6 +1,6 @@
 package com.prestashop.runners;
 
-import com.prestashop.modelimplementation.SeleniumImpl;
+import com.prestashop.modelimplementation.SelenideImpl;
 import org.graphwalker.core.statistics.Execution;
 import org.graphwalker.java.test.Result;
 import org.graphwalker.java.test.TestExecutor;
@@ -9,12 +9,12 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 
-public class SeleniumRunner {
-    private static Logger logger = LoggerFactory.getLogger(SeleniumRunner.class);
+public class SelenideRunner {
+    private static Logger logger = LoggerFactory.getLogger(SelenideRunner.class);
 
     public static void main(String[] args) throws IOException {
         TestExecutor executor = new TestExecutor(
-                SeleniumImpl.class
+                SelenideImpl.class
         );
 
         Result result = executor.execute(true);

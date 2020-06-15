@@ -10,7 +10,7 @@ import static com.codeborne.selenide.Configuration.browser;
 import static com.codeborne.selenide.Selenide.*;
 
 
-public class SeleniumImpl extends ExecutionContext implements PrestaShop {
+public class SelenideImpl extends ExecutionContext implements PrestaShop {
 
     @Override
     public void v_ConfirmOrder() {

@@ -51,14 +51,14 @@ mvn graphwalker:generate-sources
 They are also created during the `compile` lifecycle of maven. 
 
 
-### Run the GraphWalker test with [Selenium](https://www.seleniumhq.org/)
+### Run the GraphWalker test with [Selenide](https://selenide.org/)
 
-The model implementation using [selenium](https://github.com/GraphWalker/graphwalker-example/blob/master/java-prestashop/src/main/java/com/prestashop/modelimplementation/SeleniumImpl.java).
+The model implementation using [selenide](https://github.com/GraphWalker/graphwalker-example/blob/master/java-prestashop/src/main/java/com/prestashop/modelimplementation/SelenideImpl.java).
 
 ```shell script
 git clone https://github.com/GraphWalker/graphwalker-example.git
 cd graphwalker-example/java-prestashop
-mvn -Pselenium compile exec:java -Dexec.cleanupDaemonThreads=false -Dexec.mainClass="com.prestashop.runners.SeleniumRunner"
+mvn -Pselenide compile exec:java -Dexec.cleanupDaemonThreads=false -Dexec.mainClass="com.prestashop.runners.SelenideRunner"
 ```
 
 ### Run the GraphWalker test with [Eye](https://eyeautomate.com/eye/)

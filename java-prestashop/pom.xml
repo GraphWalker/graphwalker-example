@@ -15,7 +15,7 @@
 
     <profiles>
         <profile>
-            <id>selenium</id>
+            <id>selenide</id>
             <activation>
                 <activeByDefault>true</activeByDefault>
             </activation>
