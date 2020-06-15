@@ -26,7 +26,11 @@ public class SelenideRunner {
         logger.info("Done: [" + result.getResults().toString(2) + "]");
         int step = 1;
         for (Execution execution : executor.getMachine().getProfiler().getExecutionPath()) {
-            logger.info("Step {}: {}", step++, execution.getElement().getName());
+            logger.info(
+                    "Step {}: Visited count {}: {}",
+                    step++,
+                    executor.getMachine().getProfiler().getVisitCount(execution.getContext(),execution.getElement()),
+                    execution.getElement().getName());
         }
     }
 }
