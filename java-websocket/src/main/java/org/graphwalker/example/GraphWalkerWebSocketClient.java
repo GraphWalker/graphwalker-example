@@ -2,9 +2,8 @@ package org.graphwalker.example;
 
 
 import org.graphwalker.io.common.ResourceUtils;
-import org.java_websocket.WebSocketImpl;
 import org.java_websocket.client.WebSocketClient;
-import org.java_websocket.drafts.Draft_10;
+import org.java_websocket.drafts.Draft_6455;
 import org.java_websocket.handshake.ServerHandshake;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -88,7 +87,7 @@ public class GraphWalkerWebSocketClient {
 
     private void connect() {
         try {
-            wsc = new WebSocketClient(new URI("ws://" + host + ":" + port), new Draft_10()) {
+            wsc = new WebSocketClient(new URI("ws://" + host + ":" + port)) {
 
                 @Override
                 public void onMessage(String message) {

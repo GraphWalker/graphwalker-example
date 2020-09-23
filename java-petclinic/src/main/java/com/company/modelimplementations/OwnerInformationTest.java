@@ -3,6 +3,7 @@ package com.company.modelimplementations;
 
 import com.company.OwnerInformation;
 import com.github.javafaker.Faker;
+import org.graalvm.polyglot.Value;
 import org.graphwalker.core.machine.ExecutionContext;
 import org.graphwalker.java.annotation.GraphWalker;
 import org.openqa.selenium.By;
@@ -37,7 +38,7 @@ public class OwnerInformationTest extends ExecutionContext implements OwnerInfor
     @Override
     public void v_OwnerInformation() {
         $(By.tagName("h2")).shouldHave(text("Owner Information"));
-        setAttribute("numOfPets", $$x("//table/tbody/tr/td//dl").size());
+        setAttribute("numOfPets", Value.asValue($$x("//table/tbody/tr/td//dl").size()));
         log.info("Number of pets: " + getAttribute("numOfPets"));
         $x("/html/body/div/table[last()]/tbody/tr/td[2]/img").shouldBe(visible);
     }

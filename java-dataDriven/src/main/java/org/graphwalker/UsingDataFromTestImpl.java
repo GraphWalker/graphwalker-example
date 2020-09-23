@@ -1,5 +1,6 @@
   package org.graphwalker;
 
+  import org.graalvm.polyglot.Value;
   import org.graphwalker.core.machine.ExecutionContext;
   import org.graphwalker.java.annotation.GraphWalker;
 
@@ -52,7 +53,7 @@ public class UsingDataFromTestImpl extends ExecutionContext implements UsingData
   public void v_B() {
     System.out.println("Running: v_B");
     if ( userNames.peek()  == null ) {
-      setAttribute("isDone", true);
+      setAttribute("isDone", Value.asValue(true));
       System.out.println("  no more names to test");
       return;
     }
