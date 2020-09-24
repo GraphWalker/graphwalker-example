@@ -143,7 +143,7 @@ public class ShoppingCartTest extends ExecutionContext implements ShoppingCart {
     public void e_SearchBook() {
         waiter.until(ExpectedConditions.visibilityOfElementLocated(By.id("twotabsearchtextbox")));
         waiter.until(ExpectedConditions.visibilityOfElementLocated(By.id("twotabsearchtextbox"))).clear();
-        waiter.until(ExpectedConditions.visibilityOfElementLocated(By.id("twotabsearchtextbox"))).sendKeys("Model-based testing" + Keys.ENTER);
+        waiter.until(ExpectedConditions.visibilityOfElementLocated(By.id("twotabsearchtextbox"))).sendKeys("'Practical Model-Based Testing: A Tools Approach'" + Keys.ENTER);
     }
 
     public void e_ShoppingCart() {
