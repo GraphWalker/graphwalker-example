@@ -27,6 +27,7 @@ package org.graphwalker.example;
  */
 
 
+import org.graalvm.polyglot.Value;
 import org.graphwalker.core.machine.ExecutionContext;
 import org.graphwalker.core.model.Edge;
 import org.graphwalker.core.model.Model;
@@ -150,12 +151,7 @@ public class CreateModelTest extends ExecutionContext implements CreateModel {
 
     private int get(String name) {
         if (null != getAttribute(name)) {
-            Object object = getAttribute(name);
-            if (object instanceof Double) {
-                return ((Double)object).intValue();
-            } else if (object instanceof String) {
-                return Integer.parseInt((String)object);
-            }
+            return getAttribute(name).asInt();
         }
         return 0;
     }

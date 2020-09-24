@@ -2,7 +2,6 @@ package com.prestashop.modelimplementation;
 
 
 import com.prestashop.PrestaShop;
-import org.graalvm.polyglot.Value;
 import org.graphwalker.core.machine.ExecutionContext;
 
 import static com.codeborne.selenide.CollectionCondition.size;
@@ -18,7 +17,7 @@ public class SelenideImpl extends ExecutionContext implements PrestaShop {
         $$(".step-title").shouldHave(size(4));
         $(".step-title").shouldHave(text("1 PERSONAL INFORMATION"));
 
-        Integer itemsInCart = ((Value)getAttribute("itemsInCart")).asInt();
+        Integer itemsInCart = getAttribute("itemsInCart").asInt();
         String str = itemsInCart.toString() + " item";
         if (itemsInCart > 1) {
             str += "s";

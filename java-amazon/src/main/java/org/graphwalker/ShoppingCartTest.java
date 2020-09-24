@@ -1,7 +1,6 @@
 package org.graphwalker;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
-import org.graalvm.polyglot.Value;
 import org.graphwalker.core.machine.ExecutionContext;
 import org.graphwalker.java.annotation.AfterExecution;
 import org.graphwalker.java.annotation.BeforeExecution;
@@ -104,7 +103,7 @@ public class ShoppingCartTest extends ExecutionContext implements ShoppingCart {
     public void v_ShoppingCart() {
         waiter.until(ExpectedConditions.titleContains("Amazon.com"));
         waiter.until(ExpectedConditions.visibilityOfElementLocated(By.className("navFooterVerticalColumn")));
-        Integer expected_num_of_books_by_graphwalker = ((Value) getAttribute("num_of_books")).asInt();
+        Integer expected_num_of_books_by_graphwalker = getAttribute("num_of_books").asInt();
 
         // The number of books should be equal both in the model, and in this program
         Assert.assertEquals(expected_num_of_books_by_graphwalker, numberOfAddedBooksByProgam);
