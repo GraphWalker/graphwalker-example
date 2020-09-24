@@ -14,6 +14,7 @@
 
 
 # Check if dependecy command exists
+command -v curl >/dev/null 2>&1 || { echo >&2 "Script requires curl but it's not installed.  Aborting."; exit 1; }
 command -v java >/dev/null 2>&1 || { echo >&2 "Script requires java but it's not installed.  Aborting."; exit 1; }
 command -v wget >/dev/null 2>&1 || { echo >&2 "Script requires wget but it's not installed.  Aborting."; exit 1; }
 command -v jq >/dev/null 2>&1 || { echo >&2 "Script requires jq but it's not installed.  Aborting."; exit 1; }
