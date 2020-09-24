@@ -14,7 +14,9 @@
 
 
 # Check if dependecy command exists
-command -v jq >/dev/null 2>&1 || { echo >&2 "I require jq but it's not installed.  Aborting."; exit 1; }
+command -v java >/dev/null 2>&1 || { echo >&2 "Script requires java but it's not installed.  Aborting."; exit 1; }
+command -v wget >/dev/null 2>&1 || { echo >&2 "Script requires wget but it's not installed.  Aborting."; exit 1; }
+command -v jq >/dev/null 2>&1 || { echo >&2 "Script requires jq but it's not installed.  Aborting."; exit 1; }
 
 
 
@@ -31,31 +33,32 @@ trap control_c SIGINT
 
 
 # Get the latest graphwalker jar
-GW3_JAR=graphwalker-cli-4.2.0.jar
-if [ ! -f $GW3_JAR ]
+VERSION=4.3.0
+GW_JAR=graphwalker-cli-$VERSION.jar
+if [ ! -f $GW_JAR ]
 then
-  wget http://graphwalker.org/archive/graphwalker-cli-4.2.0.jar
+  wget https://github.com/GraphWalker/graphwalker-project/releases/download/$VERSION/$GW_JAR
 fi
 
 
 
-# Launch graphwalker, and redirect stderr and stdout to gw3.log
-java -jar graphwalker-cli-4.2.0.jar -d all online --service RESTFUL > gw3.log 2>&1 &
+# Launch graphwalker, and redirect stderr and stdout to gw.log
+java -jar $GW_JAR -d all online --service RESTFUL > gw.log 2>&1 &
 PID=$!
 
 # Wait until graphwalker has started
-sh -c 'tail -n +0 --pid=$$ -f gw3.log | { sed "/Press Control/ q" && kill $$ ;}'
+sh -c 'tail -n +0 --pid=$$ -f gw.log | { sed "/Press Control/ q" && kill $$ ;}'
 echo "GraphWalker REST started"
 
 # Get the model file
-GW3_FILE=petClinic.gw3
-if [ ! -f $GW3_FILE ]
+GW_MODEL=PetClinic.json
+if [ ! -f $GW_MODEL ]
 then
-  wget https://raw.githubusercontent.com/GraphWalker/graphwalker-project/master/graphwalker-io/src/test/resources/gw3/petClinic.gw3
+  wget https://raw.githubusercontent.com/GraphWalker/graphwalker-example/master/java-petclinic/src/main/resources/com/company/$GW_MODEL
 fi
 
 # Upload model file to service
-RESULT=$(curl -s -H "Content-Type: text/plain;charset=UTF-8" -X POST -d @$GW3_FILE http://localhost:8887/graphwalker/load | jq -r .result)
+RESULT=$(curl -s -H "Content-Type: text/plain;charset=UTF-8" -X POST -d @$GW_MODEL http://localhost:8887/graphwalker/load | jq -r .result)
 
 # Check result
 if [[ $RESULT != "ok" ]]
