@@ -46,7 +46,7 @@
         </dependency>
         <dependency>
             <groupId>org.graphwalker</groupId>
-            <artifactId>graphwalker-studio</artifactId>
+            <artifactId>graphwalker-websocket</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
