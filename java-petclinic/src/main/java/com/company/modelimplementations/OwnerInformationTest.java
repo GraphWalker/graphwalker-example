@@ -11,6 +11,13 @@ import org.openqa.selenium.Keys;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Random;
+import java.util.concurrent.TimeUnit;
+
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.*;
 
@@ -40,7 +47,6 @@ public class OwnerInformationTest extends ExecutionContext implements OwnerInfor
         $(By.tagName("h2")).shouldHave(text("Owner Information"));
         setAttribute("numOfPets", Value.asValue($$x("//table/tbody/tr/td//dl").size()));
         log.info("Number of pets: " + getAttribute("numOfPets"));
-        $x("/html/body/div/table[last()]/tbody/tr/td[2]/img").shouldBe(visible);
     }
 
     @Override
@@ -51,7 +57,7 @@ public class OwnerInformationTest extends ExecutionContext implements OwnerInfor
     @Override
     public void v_FindOwners() {
         $(By.tagName("h2")).shouldHave(text("Find Owners"));
-        $x("//table/tbody/tr/td[2]/img").shouldBe(visible);
+        $(By.tagName("h2")).shouldBe(visible);
     }
 
     @Override
@@ -71,24 +77,29 @@ public class OwnerInformationTest extends ExecutionContext implements OwnerInfor
 
     @Override
     public void e_FindOwners() {
-        $(By.className("icon-search")).click();
+        $("[title='find owners']").click();
     }
 
     @Override
     public void e_AddPetSuccessfully() {
+        Date date = new Faker().date().past( 365 * 20, TimeUnit.DAYS);
+        SimpleDateFormat sdf;
+        sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String birthData = sdf.format(date);
         $(By.id("birthDate")).clear();
-        $(By.id("birthDate")).sendKeys("2015/02/05" + Keys.ENTER);
+        $(By.id("birthDate")).sendKeys(birthData + Keys.ENTER);
+
         $(By.id("name")).clear();
         $(By.id("name")).sendKeys(new Faker().name().fullName());
-        $(By.id("ui-datepicker-div")).shouldBe(not(visible));
-        $(By.id("type")).selectOption("dog");
+
+        $(By.id("type")).selectOption(new Faker().number().numberBetween(0,5));
         $(By.cssSelector("button[type=\"submit\"]")).click();
     }
 
     @Override
     public void v_NewPet() {
         $(By.tagName("h2")).shouldHave(text("New Pet"));
-        $x("/html/body/div[1]/table/tbody/tr/td[2]/img").shouldBe(visible);
+        $(".has-feedback").shouldBe(visible);
     }
 
     @Override
@@ -101,7 +112,6 @@ public class OwnerInformationTest extends ExecutionContext implements OwnerInfor
     @Override
     public void v_NewVisit() {
         $(By.tagName("h2")).shouldHave(text("New Visit"));
-        $(By.id("visit")).shouldBe(visible);
     }
 
     @Override

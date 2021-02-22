@@ -22,40 +22,37 @@ public class PetClinicTest extends ExecutionContext implements PetClinic {
 
     @Override
     public void v_FindOwners() {
-        $(By.tagName("h2")).shouldHave(text("Find Owners"));
-        $x("/html/body/div/table/tbody/tr/td[2]/img").shouldBe(visible);
     }
 
     @Override
     public void e_HomePage() {
-        $(By.className("icon-home")).click();
+        $("[title='home page']").click();
     }
 
     @Override
     public void e_Veterinarians() {
-        $(By.className("icon-th-list")).click();
+        $("[title='veterinarians']").click();
     }
 
     @Override
     public void v_Veterinarians() {
-        $(By.tagName("h2")).shouldHave(text("Veterinarians"));
-        $x("/html/body/div/table[last()]/tbody/tr/td[2]/img").shouldBe(visible);
     }
 
     @Override
     public void e_FindOwners() {
-        $(By.className("icon-search")).click();
+        $("[title='find owners']").click();
     }
 
     @Override
     public void v_HomePage() {
-        $(By.tagName("h2")).shouldHave(text("Welcome"));
-        $x("/html/body/div/table/tbody/tr/td[2]/img").shouldBe(visible);
+        $("h2").shouldHave(text("Welcome"));
+        $("h2").shouldBe(visible);
+        $("img.img-responsive").shouldBe(visible);
     }
 
     @Override
     public void e_StartBrowser() {
-        open("http://localhost:9966/petclinic/");
+        open("http://localhost:8080");
     }
 
     @BeforeExecution
@@ -63,7 +60,7 @@ public class PetClinicTest extends ExecutionContext implements PetClinic {
         System.out.println("PetClinic: Any setup steps happens here. " +
                            "The annotation @BeforeExecution makes sure that before any elements in the " +
                            "model is called, this method is called first");
-        browser = "firefox";
+        browser = "chrome";
     }
 
     @AfterExecution
