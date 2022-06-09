@@ -2,7 +2,7 @@ package com.mycompany.lib;
 
 import org.graphwalker.core.model.Edge;
 import org.graphwalker.core.model.Vertex;
-
+import org.graphwalker.core.condition.EdgeCoverage;
 import org.graphwalker.core.condition.StopCondition;
 import org.graphwalker.core.generator.NoPathFoundException;
 import org.graphwalker.core.generator.PathGeneratorBase;
@@ -23,9 +23,10 @@ public class PredefinedPathGenerator extends PathGeneratorBase<StopCondition> {
 
     private static final Logger LOG = LoggerFactory.getLogger(PredefinedPathGenerator.class);
     private List<String> predefinedPath;
+    private final String pathToModels=System.getProperty("user.dir");
     private int currentPathIndex = 0;
 
-    private void Setfile(String path) {
+    private void SetPredefinedPath(String path) {
         JSONParser parser = new JSONParser();
         try {
             Object obj = parser.parse(new FileReader(path));
@@ -41,7 +42,9 @@ public class PredefinedPathGenerator extends PathGeneratorBase<StopCondition> {
 
     public PredefinedPathGenerator(StopCondition stopCondition) {
         setStopCondition(stopCondition);
-        Setfile("C:\\app\\inputs\\SimpleModel.json");
+        String filePath=pathToModels+"\\"+stopCondition.getValue()+".json";
+        System.out.println(filePath);
+        SetPredefinedPath(filePath);
     }
 
     @Override
