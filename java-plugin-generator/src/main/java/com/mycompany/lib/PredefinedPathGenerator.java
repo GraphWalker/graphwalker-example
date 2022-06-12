@@ -3,6 +3,7 @@ package com.mycompany.lib;
 import org.graphwalker.core.model.Edge;
 import org.graphwalker.core.model.Vertex;
 import org.graphwalker.core.condition.EdgeCoverage;
+import org.graphwalker.core.condition.ReachedEdge;
 import org.graphwalker.core.condition.StopCondition;
 import org.graphwalker.core.generator.NoPathFoundException;
 import org.graphwalker.core.generator.PathGeneratorBase;
@@ -26,25 +27,12 @@ public class PredefinedPathGenerator extends PathGeneratorBase<StopCondition> {
     private final String pathToModels=System.getProperty("user.dir");
     private int currentPathIndex = 0;
 
-    private void SetPredefinedPath(String path) {
-        JSONParser parser = new JSONParser();
-        try {
-            Object obj = parser.parse(new FileReader(path));
-            JSONObject fullFile = (JSONObject) obj;
-            Gson gson = new Gson();
-            Models models = gson.fromJson(fullFile.toJSONString(), Models.class);
-            predefinedPath = models.getModels().get(0).getPredefinedPath();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
     public PredefinedPathGenerator(StopCondition stopCondition) {
-        setStopCondition(stopCondition);
+      
         String filePath=pathToModels+"\\"+stopCondition.getValue()+".json";
         System.out.println(filePath);
-        SetPredefinedPath(filePath);
+        setPredefinedPath(filePath);
+        setStopCondition(new EdgeCoverage(100));
     }
 
     @Override
@@ -72,6 +60,11 @@ public class PredefinedPathGenerator extends PathGeneratorBase<StopCondition> {
         return context;
     }
 
+    @Override
+    public boolean hasNextStep() {
+        return (currentPathIndex < predefinedPath.size());
+    }
+
     private Element getNextElementFromEdge(Context context, List<Element> reachableElements,
             Edge.RuntimeEdge currentElement) {
         if (reachableElements.size() != 1) {
@@ -95,9 +88,17 @@ public class PredefinedPathGenerator extends PathGeneratorBase<StopCondition> {
         throw new NoPathFoundException(currentElement);
     }
 
-    @Override
-    public boolean hasNextStep() {
-        return (currentPathIndex < predefinedPath.size());
-    }
+    private void setPredefinedPath(String path) {
+        JSONParser parser = new JSONParser();
+        try {
+            Object obj = parser.parse(new FileReader(path));
+            JSONObject fullFile = (JSONObject) obj;
+            Gson gson = new Gson();
+            Models models = gson.fromJson(fullFile.toJSONString(), Models.class);
+            predefinedPath = models.getModels().get(0).getPredefinedPath();
 
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }
