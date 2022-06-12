@@ -3,6 +3,7 @@ package com.mycompany.lib;
 import org.graphwalker.core.model.Edge;
 import org.graphwalker.core.model.Vertex;
 import org.graphwalker.core.condition.EdgeCoverage;
+import org.graphwalker.core.condition.Never;
 import org.graphwalker.core.condition.ReachedEdge;
 import org.graphwalker.core.condition.StopCondition;
 import org.graphwalker.core.generator.NoPathFoundException;
@@ -32,7 +33,7 @@ public class PredefinedPathGenerator extends PathGeneratorBase<StopCondition> {
         String filePath=pathToModels+"\\"+stopCondition.getValue()+".json";
         System.out.println(filePath);
         setPredefinedPath(filePath);
-        setStopCondition(new EdgeCoverage(100));
+        setStopCondition(new Never());
     }
 
     @Override
