@@ -2,7 +2,6 @@ package com.mycompany.lib;
 
 import org.graphwalker.core.model.Edge;
 import org.graphwalker.core.model.Vertex;
-import org.graphwalker.core.condition.Never;
 import org.graphwalker.core.condition.StopCondition;
 import org.graphwalker.core.generator.NoPathFoundException;
 import org.graphwalker.core.generator.PathGeneratorBase;
@@ -11,23 +10,21 @@ import org.graphwalker.core.model.Element;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
 import java.util.List;
-
 
 public class PredefinedPathGenerator extends PathGeneratorBase<StopCondition> {
 
     private static final Logger LOG = LoggerFactory.getLogger(PredefinedPathGenerator.class);
-    private final String pathToModels=System.getProperty("user.dir");
+    private final String pathToModels = System.getProperty("user.dir");
     private final PredefinedPath predefinedPath;
-    private final PredefinedPathReader reader= new PredefinedPathReader();
+    private final PredefinedPathReader reader = new PredefinedPathReader();
 
     public PredefinedPathGenerator(StopCondition stopCondition) {
-      
-        String filePath=pathToModels+"\\"+stopCondition.getValue()+".json";
+
+        String filePath = pathToModels + "\\" + stopCondition.getValue() + ".json";
         System.out.println(filePath);
-        predefinedPath= reader.Read(filePath);
-        setStopCondition(new Never());
+        predefinedPath = reader.Read(filePath);
+        setStopCondition(new PredefinedPathSoppingCondition(predefinedPath));
     }
 
     @Override
