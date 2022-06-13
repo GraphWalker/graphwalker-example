@@ -2,9 +2,7 @@ package com.mycompany.lib;
 
 import org.graphwalker.core.model.Edge;
 import org.graphwalker.core.model.Vertex;
-import org.graphwalker.core.condition.EdgeCoverage;
 import org.graphwalker.core.condition.Never;
-import org.graphwalker.core.condition.ReachedEdge;
 import org.graphwalker.core.condition.StopCondition;
 import org.graphwalker.core.generator.NoPathFoundException;
 import org.graphwalker.core.generator.PathGeneratorBase;
@@ -13,26 +11,22 @@ import org.graphwalker.core.model.Element;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.google.gson.Gson;
 
 import java.util.List;
 
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import java.io.FileReader;
 
 public class PredefinedPathGenerator extends PathGeneratorBase<StopCondition> {
 
     private static final Logger LOG = LoggerFactory.getLogger(PredefinedPathGenerator.class);
-    private List<String> predefinedPath;
     private final String pathToModels=System.getProperty("user.dir");
-    private int currentPathIndex = 0;
+    private final PredefinedPath predefinedPath;
+    private final PredefinedPathReader reader= new PredefinedPathReader();
 
     public PredefinedPathGenerator(StopCondition stopCondition) {
       
         String filePath=pathToModels+"\\"+stopCondition.getValue()+".json";
         System.out.println(filePath);
-        setPredefinedPath(filePath);
+        predefinedPath= reader.Read(filePath);
         setStopCondition(new Never());
     }
 
@@ -63,43 +57,29 @@ public class PredefinedPathGenerator extends PathGeneratorBase<StopCondition> {
 
     @Override
     public boolean hasNextStep() {
-        return (currentPathIndex < predefinedPath.size());
+        return predefinedPath.HasNextStep();
     }
 
     private Element getNextElementFromEdge(Context context, List<Element> reachableElements,
             Edge.RuntimeEdge currentElement) {
         if (reachableElements.size() != 1) {
-            LOG.error("Next vertex of predefined path is ambiguous (after step " + currentPathIndex
+            LOG.error("Next vertex of predefined path is ambiguous (after step " + predefinedPath.GetCurrentIndex()
                     + ", from edge with id \"" + currentElement.getId() + "\")");
             throw new NoPathFoundException(currentElement);
         }
-        currentPathIndex++;
+        predefinedPath.IncrementCurrent();
         return reachableElements.get(0);
     }
 
     private Element getNextElementFromVertex(Context context, List<Element> reachableElements,
             Vertex.RuntimeVertex currentElement) {
         for (Element elem : reachableElements) {
-            if (elem.getId().equals(predefinedPath.get(currentPathIndex))) {
+            if (elem.getId().equals(predefinedPath.GetCurrentEdge())) {
                 return elem;
             }
         }
-        LOG.error("Next edge with id \"" + predefinedPath.get(currentPathIndex)
+        LOG.error("Next edge with id \"" + predefinedPath.GetCurrentEdge()
                 + "\" from predefined path is unreachable (either the guarding condition was not met or the edge has a different source vertex.");
         throw new NoPathFoundException(currentElement);
-    }
-
-    private void setPredefinedPath(String path) {
-        JSONParser parser = new JSONParser();
-        try {
-            Object obj = parser.parse(new FileReader(path));
-            JSONObject fullFile = (JSONObject) obj;
-            Gson gson = new Gson();
-            Models models = gson.fromJson(fullFile.toJSONString(), Models.class);
-            predefinedPath = models.getModels().get(0).getPredefinedPath();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 }
