@@ -32,7 +32,7 @@
     <parent>
         <artifactId>graphwalker-example</artifactId>
         <groupId>org.graphwalker.example</groupId>
-        <version>4.3.0</version>
+        <version>4.3.1</version>
     </parent>
 
     <artifactId>java-amazon</artifactId>
@@ -52,7 +52,7 @@
         <dependency>
             <groupId>com.codeborne</groupId>
             <artifactId>selenide</artifactId>
-            <version>5.18.1</version>
+            <version>6.7.2</version>
         </dependency>
         <dependency>
             <groupId>junit</groupId>

@@ -7,7 +7,7 @@
     <parent>
         <groupId>org.graphwalker.example</groupId>
         <artifactId>graphwalker-example</artifactId>
-        <version>4.3.0</version>
+        <version>4.3.1</version>
     </parent>
 
     <artifactId>java-websocket</artifactId>
@@ -22,12 +22,12 @@
         <dependency>
             <groupId>org.java-websocket</groupId>
             <artifactId>Java-WebSocket</artifactId>
-            <version>1.5.1</version>
+            <version>1.5.3</version>
         </dependency>
         <dependency>
             <groupId>org.json</groupId>
             <artifactId>json</artifactId>
-            <version>20201115</version>
+            <version>20220320</version>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
