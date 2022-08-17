@@ -26,28 +26,26 @@ public class FindOwnersTest extends ExecutionContext implements FindOwners {
 
     @Override
     public void e_AddOwner() {
-        $(By.linkText("Add Owner")).click();
+        $("[href='/owners/new']").click();
     }
 
     @Override
     public void v_FindOwners() {
-        $(By.tagName("h2")).shouldHave(text("Find Owners"));
-        $x("/html/body/div/table/tbody/tr/td[2]/img").shouldBe(visible);
+        $("h2").shouldHave(text("Find Owners"));
+        $("h2").shouldBe(visible);
     }
 
     @Override
     public void e_Search() {
-        $("button[type=\"submit\"]").click();
+        $("#search-owner-form .btn-default").click();
     }
 
     @Override
     public void e_FindOwners() {
-        $(By.className("icon-search")).click();
+        $("[title='find owners']").click();
     }
 
     @Override
     public void v_NewOwner() {
-        $(By.tagName("h2")).shouldHave(text("New Owner"));
-        $x("/html/body/table/tbody/tr/td[2]/img").shouldBe(visible);
     }
 }

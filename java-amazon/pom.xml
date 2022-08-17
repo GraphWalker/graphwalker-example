@@ -32,7 +32,7 @@
     <parent>
         <artifactId>graphwalker-example</artifactId>
         <groupId>org.graphwalker.example</groupId>
-        <version>4.3.0</version>
+        <version>4.3.1</version>
     </parent>
 
     <artifactId>java-amazon</artifactId>
@@ -46,33 +46,18 @@
         </dependency>
         <dependency>
             <groupId>org.graphwalker</groupId>
-            <artifactId>graphwalker-io</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.graphwalker</groupId>
             <artifactId>graphwalker-java</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.graphwalker</groupId>
-            <artifactId>graphwalker-maven-plugin</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.seleniumhq.selenium</groupId>
-            <artifactId>selenium-java</artifactId>
-            <version>3.5.3</version>
-        </dependency>
-        <dependency>
-            <groupId>io.github.bonigarcia</groupId>
-            <artifactId>webdrivermanager</artifactId>
-            <version>4.2.2</version>
+            <groupId>com.codeborne</groupId>
+            <artifactId>selenide</artifactId>
+            <version>6.7.2</version>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.13</version>
+            <version>4.13.2</version>
         </dependency>
     </dependencies>
 

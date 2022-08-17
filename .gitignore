@@ -11,6 +11,10 @@
 *.iws
 .idea/
 
+# Visual Code stuff #
+#####################
+.vscode/
+
 # Build and unit tests stuff #
 #############################
 logs/
