@@ -7,7 +7,7 @@
     <parent>
         <artifactId>graphwalker-example</artifactId>
         <groupId>org.graphwalker.example</groupId>
-        <version>4.3.1</version>
+        <version>4.3.2</version>
     </parent>
 
     <artifactId>java-algorithm</artifactId>
