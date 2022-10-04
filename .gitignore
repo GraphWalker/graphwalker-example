@@ -29,6 +29,7 @@ amps-standalone/
 *.userprefs
 bin/
 obj/
+*/build/
 
 # eye jar #
 # #########
