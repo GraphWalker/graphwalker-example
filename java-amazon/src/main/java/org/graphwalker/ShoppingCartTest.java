@@ -22,7 +22,7 @@ public class ShoppingCartTest extends ExecutionContext implements ShoppingCart {
     @BeforeExecution
     public void setup() {
         logger.info("Setup happens here");
-        browser = "chrome";
+        browser = "firefox";
     }
 
     @AfterExecution
